@@ -1,0 +1,26 @@
+{
+  "CompHeader": {
+    "description": "Auto imported from components/CompHeader.vue"
+  },
+  "LazyCompHeader": {
+    "description": "Auto imported from components/CompHeader.vue"
+  },
+  "CompHeaderAdmin": {
+    "description": "Auto imported from components/CompHeaderAdmin.vue"
+  },
+  "LazyCompHeaderAdmin": {
+    "description": "Auto imported from components/CompHeaderAdmin.vue"
+  },
+  "CompSidebar": {
+    "description": "Auto imported from components/CompSidebar.vue"
+  },
+  "LazyCompSidebar": {
+    "description": "Auto imported from components/CompSidebar.vue"
+  },
+  "Logo": {
+    "description": "Auto imported from components/Logo.vue"
+  },
+  "LazyLogo": {
+    "description": "Auto imported from components/Logo.vue"
+  }
+}

@@ -1,0 +1,116 @@
+[
+  {
+    "name": "admin",
+    "path": "/admin",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\index.vue",
+    "chunkName": "pages/admin/index"
+  },
+  {
+    "name": "cart",
+    "path": "/cart",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\cart\\\\index.vue",
+    "chunkName": "pages/cart/index"
+  },
+  {
+    "name": "check-out",
+    "path": "/check-out",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\check-out\\\\index.vue",
+    "chunkName": "pages/check-out/index"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\login\\\\index.vue",
+    "chunkName": "pages/login/index"
+  },
+  {
+    "name": "shop",
+    "path": "/shop",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\shop\\\\index.vue",
+    "chunkName": "pages/shop/index"
+  },
+  {
+    "name": "sign-up",
+    "path": "/sign-up",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\sign-up\\\\index.vue",
+    "chunkName": "pages/sign-up/index"
+  },
+  {
+    "name": "admin-categories",
+    "path": "/admin/categories",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\categories\\\\index.vue",
+    "chunkName": "pages/admin/categories/index"
+  },
+  {
+    "name": "admin-customers",
+    "path": "/admin/customers",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\customers\\\\index.vue",
+    "chunkName": "pages/admin/customers/index"
+  },
+  {
+    "name": "admin-orders",
+    "path": "/admin/orders",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\orders\\\\index.vue",
+    "chunkName": "pages/admin/orders/index"
+  },
+  {
+    "name": "admin-products",
+    "path": "/admin/products",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\products\\\\index.vue",
+    "chunkName": "pages/admin/products/index"
+  },
+  {
+    "name": "admin-profile",
+    "path": "/admin/profile",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\profile\\\\index.vue",
+    "chunkName": "pages/admin/profile/index"
+  },
+  {
+    "name": "admin-categories-add",
+    "path": "/admin/categories/add",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\categories\\\\add\\\\index.vue",
+    "chunkName": "pages/admin/categories/add/index"
+  },
+  {
+    "name": "admin-products-add",
+    "path": "/admin/products/add",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\products\\\\add\\\\index.vue",
+    "chunkName": "pages/admin/products/add/index"
+  },
+  {
+    "name": "admin-categories-edit-categoryId",
+    "path": "/admin/categories/edit/:categoryId?",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\categories\\\\edit\\\\_categoryId.vue",
+    "chunkName": "pages/admin/categories/edit/_categoryId"
+  },
+  {
+    "name": "admin-customers-view-customerId",
+    "path": "/admin/customers/view/:customerId?",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\customers\\\\view\\\\_customerId.vue",
+    "chunkName": "pages/admin/customers/view/_customerId"
+  },
+  {
+    "name": "admin-orders-edit-orderId",
+    "path": "/admin/orders/edit/:orderId?",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\orders\\\\edit\\\\_orderId.vue",
+    "chunkName": "pages/admin/orders/edit/_orderId"
+  },
+  {
+    "name": "admin-products-edit-productId",
+    "path": "/admin/products/edit/:productId?",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\admin\\\\products\\\\edit\\\\_productId.vue",
+    "chunkName": "pages/admin/products/edit/_productId"
+  },
+  {
+    "name": "shop-productId",
+    "path": "/shop/:productId",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\shop\\\\_productId.vue",
+    "chunkName": "pages/shop/_productId"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "E:\\\\Firebase\\\\Project Z\\\\project-z\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
+  }
+]
