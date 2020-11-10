@@ -2,7 +2,7 @@
     <div>
         <b-container>
             <b-row>
-                <b-col cols="lg-5" class="mt-5 mx-auto">
+                <b-col cols="lg-5" class="my-5 mx-auto">
                     <b-form
                         id="register-form"
                         ref="form"
@@ -26,6 +26,9 @@
                         <b-button class="btn-primary mr-2" type="submit" form="register-form"
                             @keyup.enter="registerUser"
                         >Sign up</b-button>
+                        <NuxtLink to="/login">
+                            <b-button class="btn-primary">Login</b-button>
+                        </NuxtLink>
                         <b-alert show variant="danger" class="mt-3 py-1 px-3"
                             v-if="getErrorSignUp != ''"
                         >{{ getErrorSignUp }}</b-alert>

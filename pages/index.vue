@@ -1,7 +1,63 @@
 <template>
-    <div>
+    <div class="main">
         <div class="container">
-            <h1>Home Page</h1>
+            <div class="content-responsive">
+                <div class="section">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="banner">
+                                <a href="#">
+                                    <img src="~/assets/images/banner1.jpg"> 
+                                    <span class="txt style1 lineHeight wow fadeIn" data-wow-delay="0.3s">How To</span> 
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="banner">
+                                <a href="#">
+                                    <img src="~/assets/images/banner2.jpg"> 
+                                    <span class="txt style1 lineHeight wow fadeIn" data-wow-delay="0.3s">MENU</span> 
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="banner txt-center style2">
+                                <a href="#">
+                                    <img src="~/assets/images/Pha-Che.jpg">
+                                </a>
+                                <div class="txtLeft ">
+                                    <div class="lineHeight">
+                                        <h6 class="wow slideInLeft" data-wow-delay="0.3s" data-wow-duration="1s"><a href="#">NEWS</a></h6>
+                                        <p class="wow slideInRight" data-wow-delay="0.3s" data-wow-duration="1s">"Work hard, then comes love".</p>
+                                        <p class="wow slideInRight" data-wow-delay="0.3s" data-wow-duration="1s">Have a nice day!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="banner txt-center">
+                                <a href="#">
+                                    <img src="~/assets/images/tuyen-Dung-2.jpg">
+                                </a>
+                                <div class="txtCenter ">
+                                    <div class="lineHeight">
+                                        <h6 class="wow slideInRight" data-wow-delay="0.3s" data-wow-duration="1s"><a href="#">CAREER</a></h6>
+                                        <p class="wow slideInLeft" data-wow-delay="0.3s" data-wow-duration="1s">Become a part of Cong Family. Join us.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -16,35 +72,142 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
-.title {
-    font-family:
-        'Quicksand',
-        'Source Sans Pro',
-        -apple-system,
-        BlinkMacSystemFont,
-        'Segoe UI',
-        Roboto,
-        'Helvetica Neue',
-        Arial,
-        sans-serif;
-    display: block;
-    font-weight: 300;
-    font-size: 100px;
-    color: #35495e;
-    letter-spacing: 1px;
+.main{
+    .section {
+        margin-bottom: 30px;
+    }
+    .banner {
+        position: relative;
+        overflow: hidden;
+        min-height: 55px;
+        max-height: 400px;
+        height: 100%;
+        cursor: pointer;
+        line-height: 0;
+        &.txt-center{
+            .txtLeft{
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                position: absolute;
+                left: 0;
+                width: calc(50% - 15px);
+                top: 0;
+                height: 100%;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                background: rgba(255, 241, 208, 0.9);
+                padding: 0 15px;
+                -webkit-transition: all 0.7s ease;
+                -o-transition: all 0.7s ease;
+                transition: all 0.7s ease;
+                text-align: center;
+            }
+            .txtCenter {
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                background: rgba(255, 241, 208, 0.9);
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                min-width: 50%;
+                padding: 23px 15px;
+                -webkit-transition: all 0.25s ease;
+                -o-transition: all 0.25s ease;
+                transition: all 0.25s ease;
+                text-align: center;
+                &:hover{
+                    -webkit-transform: translate(-50%, calc(-50% - 4px));
+                    -ms-transform: translate(-50%, calc(-50% - 4px));
+                    transform: translate(-50%, calc(-50% - 4px));
+                }
+            }
+        }
+        &.style2:hover{
+            .txtLeft{
+                left: calc(100% - 50% + 15px);
+                right: 0;
+            }
+        }
+        a{
+            height: 100%;
+            width: 100%;
+            display: inline-block;
+            line-height: 0;
+            color: inherit;
+            img{
+                height: 100%;
+                width: 100%;
+            }
+        }
+        h6{
+            font-size: 30px;
+            color: #555555;
+            font-weight: 600;
+            text-transform: uppercase;
+            position: relative;
+            margin-bottom: 20px;
+            &:after{
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -5px;
+                width: 70px;
+                height: 4px;
+                background: #555555;
+                -webkit-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
+            }
+        }
+        p{
+            font-weight: 300;
+            font-size: 16px;
+        }
+        span.txt.style1 {
+            padding: 15px 0;
+            min-width: 60%;
+            background: rgba(255, 241, 208, 0.9);
+            -webkit-transition: all 0.25s ease;
+            -o-transition: all 0.25s ease;
+            transition: all 0.25s ease;
+            &:hover {
+                -webkit-transform: translate(-50%, calc(-50% - 4px));
+                -ms-transform: translate(-50%, calc(-50% - 4px));
+                transform: translate(-50%, calc(-50% - 4px));
+            }
+        }
+        span.txt {
+            line-height: 1;
+            display: inline-block;
+            text-transform: uppercase;
+            color: #555555;
+            font-size: 30px;
+            text-align: center;
+            font-weight: 600;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            z-index: 9;
+        }
+        
+    }
 }
 
-.subtitle {
-    font-weight: 300;
-    font-size: 42px;
-    color: #526488;
-    word-spacing: 5px;
-    padding-bottom: 15px;
-}
-
-.links {
-    padding-top: 15px;
-}
 </style>

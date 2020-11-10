@@ -2,7 +2,7 @@ module.exports = {
     mode: 'universal',
     target: 'server',
     loading: {
-        color: '#00c58e',
+        color: '#3c5e2c',
     },
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
@@ -19,6 +19,7 @@ module.exports = {
 
     // Global CSS (https://go.nuxtjs.dev/config-css)
     css: [
+        '~/assets/css/main.scss'
     ],
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -59,19 +60,5 @@ module.exports = {
     },
     extend(config, ctx) {},
     babel: { compact: true },
-    build: {
-        extractCss: true,
-        // babel: {
-        //   presets: ({ isServer }) => [
-        //         [
-        //             '@nuxt/babel-preset-app',
-        //             {
-        //                 targets: isServer
-        //                     ? { node: '8' }
-        //                     : { browsers: ['defaults'] },
-        //             },
-        //         ],
-        //     ],
-        // },
-    },
+    build: {}
 }

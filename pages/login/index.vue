@@ -2,7 +2,7 @@
     <div>
         <b-container>
             <b-row>
-                <b-col cols="lg-5" class="mt-5 mx-auto">
+                <b-col cols="lg-5" class="my-5 mx-auto">
                     <b-form
                         id="login-form"
                         ref="form"
