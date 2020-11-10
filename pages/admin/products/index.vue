@@ -40,9 +40,6 @@
                 <template #cell(image)="data" >
                     <img :src="data.item.image" v-if="data.item.image" alt="image" class="image-product-table">
                 </template>
-                <template #cell(name)="data" >
-                    <p class="text-overflow">{{ data.item.name }}</p>
-                </template>
                 <template #cell(description)="data" >
                     <p class="text-overflow">{{ data.item.description }}</p>
                 </template>

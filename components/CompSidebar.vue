@@ -45,6 +45,12 @@ export default {
             this.avatar = this.getUser.imageURL
         }
     },
+    watch: {
+        getUser(){
+            this.name = this.getUser.userHandle
+            this.avatar = this.getUser.imageURL
+        }
+    },
     computed: {
         ...mapState({
             getUser: state => state.userCurrent

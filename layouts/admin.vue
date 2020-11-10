@@ -131,13 +131,13 @@ export default {
                 }
                 .page-item.active{
                     .page-link{
-                        background-color:#00c58e;
-                        border-color: #00c58e;
+                        background-color:#3c5e2c;
+                        border-color: #3c5e2c;
                         color: #fff;
                     }
                 } 
                 .page-link{
-                    color:#00c58e;
+                    color:#3c5e2c;
                     &:focus{
                         box-shadow: none;
                     }

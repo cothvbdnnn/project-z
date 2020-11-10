@@ -1,7 +1,7 @@
 <template>
     <div class="shop">
         <div class="container">
-            <h1>Shop</h1>
+            <h1>Menu</h1>
             <div class="row">
                 <div class="col-md-3 col-12">
 
@@ -21,10 +21,10 @@
                                 </nuxt-link>
                                 <div class="content">
                                     <nuxt-link :to="/shop/+ product.name + '?id=' + product.id | fomartLink">
-                                        <h6 class="mt-2">{{ product.name }}</h6>
+                                        <h5 class="mt-2"><strong>{{ product.name }}</strong></h5>
                                     </nuxt-link>
-                                    <!-- <p>{{ product.regularPrice }}</p>
-                                    <p>{{ product.salePrice }}</p> -->
+                                    <h5 v-if="product.salePrice == 0"><strong>{{ product.regularPrice }}</strong></h5>
+                                    <h5 v-if="product.salePrice != 0"><strong>{{ product.salePrice }}</strong></h5>
                                 </div>
                             </div>
                         </div>

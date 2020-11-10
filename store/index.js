@@ -71,14 +71,26 @@ export const actions = {
             context.commit('isLogin', {userCurrent: userCurrent})
         }
     },
-    actEditProfile(context, data){
-        if(data.avatar == null){
+    async actEditProfile(context, data){
+        try {
+            let urlImage = data.avatarOld
+
+            if(data.avatar != null){
+
+                let storageRef = firebase.storage().ref('avatars/' + data.avatar.name)
+
+                let uploadImage = await storageRef.put(data.avatar);
+                
+                urlImage = await uploadImage.ref.getDownloadURL()
+                
+                
+            }
             context.commit('editProfile', {
                 userHandle: data.userHandle,
                 email: data.email,
                 phone: data.phone,
                 address: data.address,
-                imageURL: data.avatarOld,
+                imageURL: urlImage,
                 role: data.role,
                 createAt: data.createAt,
                 userId: data.id,
@@ -89,36 +101,10 @@ export const actions = {
                 email: data.email,
                 phone: data.phone,
                 address: data.address,
-                imageURL: data.avatarOld,
+                imageURL: urlImage,
             })
-        }else{
-            // Upload image to storage
-
-            let storageRef = firebase.storage().ref('avatars/' + data.avatar.name)
-            let uploadImage = storageRef.put(data.avatar);
-            
-            uploadImage.on('state_changed', async () =>{
-                const urlImage = await uploadImage.snapshot.ref.getDownloadURL()
-
-                context.commit('editProfile', {
-                    userHandle: data.userHandle,
-                    email: data.email,
-                    phone: data.phone,
-                    address: data.address,
-                    imageURL: urlImage,
-                    role: data.role,
-                    createAt: data.createAt,
-                    userId: data.id,
-                })
-
-                firebase.firestore().collection('users').doc(data.id).update({
-                    userHandle: data.userHandle,
-                    email: data.email,
-                    phone: data.phone,
-                    address: data.address,
-                    imageURL: urlImage,
-                })
-            })
+        } catch (error) {
+            console.log(error);
         }
     }
 }

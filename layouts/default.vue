@@ -1,7 +1,7 @@
 <template>
     <div>
         <CompHeader/>
-        <div class="my-5">
+        <div class="wrapper">
             <Nuxt/>
         </div>
         <CompFooter/>
@@ -16,6 +16,11 @@ export default {
 
 <style lang="scss">
 
-
+.wrapper{
+    margin: 50px 0;
+    @media screen and ( max-width: 1024px ){
+        margin-top: 100px;
+    }
+}
 
 </style>

@@ -4,7 +4,7 @@
             <div class="content-responsive">
                 <div class="section">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 col-banner-1">
                             <div class="banner">
                                 <a href="#">
                                     <img src="~/assets/images/banner1.jpg"> 
@@ -12,7 +12,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 col-banner-2">
                             <div class="banner">
                                 <a href="#">
                                     <img src="~/assets/images/banner2.jpg"> 
@@ -66,7 +66,7 @@
 export default {
     name: 'Home',
     head: {
-        title: "Home - Project Z"
+        title: "Project Z"
     },
     transition: 'fade',
 }
@@ -75,10 +75,19 @@ export default {
 <style lang="scss">
 
 .main{
+    
     .section {
         margin-bottom: 30px;
     }
+    .col-banner-1{
+        @media screen and ( max-width: 575px ){
+            margin-bottom: 30px;
+        }
+    }
     .banner {
+        @media screen and ( max-width: 575px ){
+            height: 200px;
+        }
         position: relative;
         overflow: hidden;
         min-height: 55px;
@@ -110,6 +119,9 @@ export default {
                 text-align: center;
             }
             .txtCenter {
+                @media screen and ( max-width: 575px ){
+                    min-width: 70%;
+                }
                 -webkit-box-pack: center;
                 -ms-flex-pack: center;
                 justify-content: center;
@@ -151,6 +163,7 @@ export default {
             img{
                 height: 100%;
                 width: 100%;
+                object-fit: cover;
             }
         }
         h6{
@@ -176,6 +189,8 @@ export default {
         p{
             font-weight: 300;
             font-size: 16px;
+            line-height: 1;
+            margin-bottom: 0;
         }
         span.txt.style1 {
             padding: 15px 0;

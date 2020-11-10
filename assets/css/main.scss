@@ -15,6 +15,7 @@ body{
     color: #5a6268;
     font-size: 14px;
     font-family: 'Nitti Normal';
+    
     .header{
         
         .logo{
@@ -26,8 +27,23 @@ body{
     .container{
         max-width: 1000px;
     }
-    .form-control{
+    .custom-select{
+        border-color: #3c5e2c;
         border-radius: 0;
+        box-shadow: none;
+        outline: none;
+        &:focus{
+            border-color: #3c5e2c;
+            box-shadow: none;
+            outline: none;
+        }
+    }
+    .form-control{
+        border-color: #3c5e2c;
+        border-radius: 0;
+        &:focus{
+            border-color: #3c5e2c;
+        }
         &.is-valid {
             &:focus{
                 border-color: #3c5e2c;
@@ -35,8 +51,23 @@ body{
             border-color: #3c5e2c;
             background-image: none;
         }
+        &.is-invalid{
+            background-image: none;
+        }
     }
     
+}
+.alert-primary{
+    border-radius: 0;
+    color: #ffffff;
+    background-color: #3c5e2c;
+    border-color: #3c5e2c;
+}
+.alert-danger{
+    border-radius: 0;
+    color: #ffffff;
+    background-color: #d3b161;
+    border-color: #d3b161;
 }
 
 .quantity{
@@ -152,6 +183,12 @@ input:-webkit-autofill:active  {
     height: 5px;
 }
 
+.btn-secondary.disabled, .btn-secondary:disabled {
+    background-color: #3c5e2c;
+    border-color: #3c5e2c;
+    opacity: 0.7;
+}
+
 ::-webkit-scrollbar-track {
     background: #fff; 
 }
@@ -190,12 +227,12 @@ input:-webkit-autofill:active  {
 }
 .btn-remove{
     color: #fff;
-    // background-color: #f44336c9;
-    // border-color: #f44336c9;
+    background-color: #d3b161;
+    border-color: #d3b161;
 }
 .btn-remove:focus{
-    // background-color: #f44336c9;
-    // border-color: #f44336c9;
+    background-color: #d3b161;
+    border-color: #d3b161;
     box-shadow: none;
 }
 img{

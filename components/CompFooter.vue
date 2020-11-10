@@ -83,6 +83,9 @@ export default {
             }
         }
         .contact-us{
+            @media screen and ( max-width: 575px ){
+                margin-top: 10px;
+            }
             p{
                 margin-top: -9px;
                 color: #232323;

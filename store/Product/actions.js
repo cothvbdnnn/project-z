@@ -110,7 +110,6 @@ export default {
 
     },
     async actEditProduct(context, data){
-        console.log(data);
         let cate = {
             name: 'Uncategory',
             id: null,

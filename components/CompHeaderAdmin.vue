@@ -5,9 +5,7 @@
                 <Logo/>
             </b-col>
             <b-col class="d-flex justify-content-end" cols="10">
-                <b-button class="btn-primary mx-2"
-                    @click="handleLogOut"
-                >Logout</b-button>
+                <a @click="handleLogOut">LOGOUT</a>
             </b-col>
         </b-row>
     </div>
@@ -36,9 +34,36 @@ export default {
 
 <style lang="scss">
 .header-admin{
+    align-items: center;
     border-bottom: 1px solid #ccc;
-    svg{
-        height: 35px;
+    .logo{
+        max-width: 70px;
+    }
+    a{
+        text-transform: uppercase;
+        -webkit-transition: all 0.25s ease;
+        -o-transition: all 0.25s ease;
+        transition: all 0.25s ease;
+        font-size: 18px;
+        display: inline-block;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        &:hover:after{
+            width: 100%;
+        }
+        &:after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            background: #3c5e2c;
+            height: 1px;
+            left: 0;
+            -webkit-transition: all 0.25s ease;
+            -o-transition: all 0.25s ease;
+            transition: all 0.25s ease;
+        }
     }
 }
     

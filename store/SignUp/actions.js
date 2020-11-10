@@ -17,7 +17,7 @@ export default {
                 phone: '',
                 email: '',
                 address: '',
-                imageURL: 'https://firebasestorage.googleapis.com/v0/b/project-z-68d96.appspot.com/o/avatars%2Fnuxt-icon-white.png?alt=media&token=306c5dd7-c3bd-4ab5-bf28-468b383953ed',
+                imageURL: 'https://firebasestorage.googleapis.com/v0/b/project-z-68d96.appspot.com/o/avatars%2Fbanner2.jpg?alt=media&token=a1980039-45c9-47a8-ab9b-a0cc4e3b1784',
             })
 
         } catch (error) {
