@@ -1,7 +1,7 @@
 <template>
     <div class="cart">
         <div class="container" v-if="arrCart.length > 0">
-            <h1>Cart <span>({{ arrCart.length }})</span></h1>
+            <h1>Cart<span>({{ totalQuantity }})</span></h1>
             <div class="row mt-3">
                 <div class="col-md-8 col-12 image-cart">
                     <div class="row mb-3"
@@ -19,7 +19,7 @@
                             <b-input-group class="quantity my-2">
                                 <b-input-group-prepend>
                                     <b-btn size="sm" class="btn-primary"
-                                        @click="minusQuantity(i)"
+                                        @click="handleMinusQuantity(i)"
                                         :disabled="cart.quantity == 1"
                                     >-</b-btn>
                                 </b-input-group-prepend>
@@ -29,14 +29,19 @@
                                 </b-form-input>
                                 <b-input-group-append>
                                     <b-btn size="sm" class="btn-primary" :id="'btn-plus-' + i"
-                                        @click="plusQuantity(i)"
+                                        @click="handlePlusQuantity(i)"
                                         :disabled="cart.quantity == cart.quantityProduct"
                                     >+</b-btn>
                                 </b-input-group-append>
                             </b-input-group>   
-                            <h6>Price: {{ cart.regularPrice * cart.quantity }}</h6>
+                            <h6>Price: 
+                                <span :class="cart.salePrice != 0 ? 'line-through' : null">{{ cart.regularPrice | filterPrice}}</span>
+                                <span v-if="cart.salePrice != 0">{{ cart.salePrice | filterPrice}}</span>
+                            </h6>
+                            <h6 v-if="cart.salePrice == 0">Total price: {{ cart.regularPrice * cart.quantity | filterPrice}}</h6>
+                            <h6 v-if="cart.salePrice != 0">Total price: {{ cart.salePrice * cart.quantity | filterPrice}}</h6>
                             <b-button class="mr-1 btn-remove" size="sm"
-                                @click="removeCart(i)"
+                                @click="handleRemoveCart(i)"
                             >
                                 <b-icon icon="trash"></b-icon>
                             </b-button>
@@ -44,7 +49,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-12">
-                    <h6>Total: {{ totalPrice }}</h6>
+                    <h6>Total: {{ totalPrice | filterPrice}}</h6>
                     <nuxt-link to="/check-out">
                         <b-button class="btn-primary"
                         >Check Out</b-button>
@@ -52,13 +57,12 @@
                 </div>
             </div>
         </div>
-        <div class="container text-center" v-if="arrCart.length == 0">
-            <h1 class="mb-4">Cart</h1>
-            <b-icon icon="cart3" scale="5"></b-icon>
-            <h5 class="mt-5">Your cart is empty</h5>
-            <nuxt-link to="/shop">
+        <div class="container text-center my-5" v-if="arrCart.length == 0">
+            <h1 class="">Cart</h1>
+            <h5 class="mt-0">Your cart is empty</h5>
+            <nuxt-link to="/menu">
                 <b-btn class="btn-primary mt-2">
-                    Return to shop<b-icon class="ml-2" icon="shop-window"></b-icon>
+                    Return to menu
                 </b-btn>
             </nuxt-link>
         </div>
@@ -67,7 +71,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
     name: 'Cart',
@@ -81,22 +85,39 @@ export default {
         }
     },
     created() {
-        if (typeof window !== 'undefined') {
-            this.arrCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (this.getCart) {
+            this.arrCart = this.getCart
         }
     },
-    watch: {
-        arrCart(){
-            localStorage.setItem('cart', JSON.stringify(this.arrCart));
+    filters: {
+        filterPrice(price) {
+            return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
         }
     },
     computed: {
         ...mapState({
             getProducts: state => state.Product.products,
+            getCart: state => state.Cart.cart,
         }),
         totalPrice(){
+
+            let arrPrice = []
+            
+            for(let i in this.arrCart){
+                if(this.arrCart[i].salePrice != 0){
+                    arrPrice.push(this.arrCart[i].salePrice * this.arrCart[i].quantity)
+                }else{
+                    arrPrice.push(this.arrCart[i].regularPrice * this.arrCart[i].quantity)
+                }
+            }
+
+            return arrPrice.reduce((a,b) => {
+                return a + b
+            }, 0)
+        },
+        totalQuantity(){
             let mapCart = this.arrCart.map((a) => {
-                return a.regularPrice * a.quantity
+                return a.quantity
             })
             return mapCart.reduce((a,b) => {
                 return a + b
@@ -104,16 +125,19 @@ export default {
         }
     },
     methods: {
-        removeCart(index){
-            this.arrCart.splice(index, 1)
+        ...mapMutations({
+            'removeCart' : 'Cart/removeCart',
+            'minusQuantity': 'Cart/minusQuantity',
+            'plusQuantity': 'Cart/plusQuantity',
+        }),
+        handleRemoveCart(index){
+            this.removeCart(index)
         },
-        minusQuantity(index){
-            this.arrCart[index].quantity -= 1
-            localStorage.setItem('cart', JSON.stringify(this.arrCart));
+        handleMinusQuantity(index){
+            this.minusQuantity(index)
         },
-        plusQuantity(index){
-            this.arrCart[index].quantity += 1
-            localStorage.setItem('cart', JSON.stringify(this.arrCart))
+        handlePlusQuantity(index){
+            this.plusQuantity(index)
         }
     },
 }

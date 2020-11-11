@@ -1,13 +1,12 @@
 <template>
     <div class="content-admin">
-        <h3>Products</h3>
-        
+        <h3>Slides</h3>
         <div class="mt-2">
             <b-row>
                 <b-col>
-                    <nuxt-link to="/admin/products/add">
+                    <nuxt-link to="/admin/slides/add">
                         <b-button size="sm" class="btn-primary mt-2">
-                            Add new<b-icon class="ml-2" icon="box-seam"></b-icon>
+                            Add new<b-icon class="ml-2" icon="image"></b-icon>
                         </b-button>
                     </nuxt-link>
                 </b-col>
@@ -43,12 +42,6 @@
                 <template #cell(description)="data" >
                     <p class="text-overflow">{{ data.item.description }}</p>
                 </template>
-                <template #cell(regularPrice)="data" >
-                    <p class="mb-0">{{ data.item.regularPrice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND'}}</p>
-                </template>
-                <template #cell(salePrice)="data" >
-                    <p class="mb-0">{{ data.item.salePrice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND'}}</p>
-                </template>
                 <template #cell(createAt)="data" >
                     {{ data.item.createAt | filterDate }}
                 </template>
@@ -59,7 +52,7 @@
                         >
                             <b-icon icon="trash"></b-icon>
                         </b-button>
-                        <nuxt-link :to="'/admin/products/edit/' + data.index">
+                        <nuxt-link :to="'/admin/slides/edit/' + data.index">
                             <b-button size="sm" class="btn-primary">
                                 <b-icon icon="pencil"></b-icon>
                             </b-button>
@@ -98,23 +91,18 @@ import moment from 'moment';
 import { mapState, mapActions } from 'vuex';
 
 export default {
-    name: 'Products',
+    name: 'Slides',
     layout: 'admin',
     head: {
-        title: "Products - Project Z"
+        title: "Slides - Project Z"
     },
     transition: 'fade',
     data() {
         return {
             fields: [
-                { key: 'id', label: 'ID', thClass: 'id-col' },
                 { key: 'image', label: 'Image', thClass: 'image-col' },
-                { key: 'name', label: 'Name', thClass: 'name-col' },
-                { key: 'regularPrice', label: 'Regular Price', thClass: 'regular-price-col' },
-                { key: 'salePrice', label: 'Sale Price', thClass: 'sale-price-col' },
-                { key: 'quantity', label: 'Quantity', thClass: 'quantity-col' },
-                // { key: 'description', label: 'Description', thClass: 'description-col' },
-                { key: 'categoryName', label: 'Category', thClass: 'category-col' },
+                { key: 'title', label: 'Title', thClass: 'title-col' },
+                { key: 'description', label: 'Description', thClass: 'description-col' },
                 { key: 'createAt', label: 'Create At', thClass: 'create-at-col' },
                 { key: 'actions', label: 'Actions', thClass: 'actions-col' },
             ],
@@ -127,25 +115,25 @@ export default {
             confirm: '',
         }
     },
-    filters: {
-        filterPrice(price) {
-            return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
-        }
-    },
     mounted() {
         this.totalRows = this.items.length
     },
+    filters: {
+        filterDate: function (date) {
+            return moment(date).format('l');
+        }
+    },
     computed: {
         ...mapState({
-            getProducts: state => state.Product.products,
+            getSlides: state => state.Slide.slides,
         }),
         items(){
-            return this.getProducts        
+            return this.getSlides        
         }
     },
     methods: {
         ...mapActions({
-            'actRemoveProduct' : 'Product/actRemoveProduct'
+            'actRemoveSlide' : 'Slide/actRemoveSlide'
         }),
         showConfirm(data) {
             this.confirm = ''
@@ -163,7 +151,7 @@ export default {
             .then(value => {
                 this.confirm = value
                 if(this.confirm){
-                    this.actRemoveProduct({index: data.index,id: data.item.id})
+                    this.actRemoveSlide({index: data.index,id: data.item.id})
                 }
             })
             .catch(err => {

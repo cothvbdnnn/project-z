@@ -9,22 +9,24 @@
                 <div class="col-md-9 col-12">
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-12 item-product"
-                            v-for="(product,i) in getProduct"
+                            v-for="(product,i) in getProducts"
                             :key="i"
                         >   
                             <div class="container-item">
-                                <nuxt-link :to="/shop/+ product.name + '?id=' + product.id | fomartLink">
+                                <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
                                     <b-img
                                         :src="product.image"
                                     >
                                     </b-img>
                                 </nuxt-link>
                                 <div class="content">
-                                    <nuxt-link :to="/shop/+ product.name + '?id=' + product.id | fomartLink">
+                                    <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
                                         <h5 class="mt-2"><strong>{{ product.name }}</strong></h5>
                                     </nuxt-link>
-                                    <h5 v-if="product.salePrice == 0"><strong>{{ product.regularPrice }}</strong></h5>
-                                    <h5 v-if="product.salePrice != 0"><strong>{{ product.salePrice }}</strong></h5>
+                                    <h5>
+                                        <span :class="product.salePrice != 0 ? 'line-through' : null"><strong>{{ product.regularPrice | filterPrice }}</strong></span>
+                                        <span v-if="product.salePrice != 0"><strong>{{ product.salePrice | filterPrice}}</strong></span>
+                                    </h5>
                                 </div>
                             </div>
                         </div>
@@ -40,9 +42,9 @@
 import { mapState } from 'vuex'
 
 export default {
-    name: 'Shop',
+    name: 'Menu',
     head: {
-        title: "Shop - Project Z"
+        title: "Menu - Project Z"
     },
     transition: 'fade',
     data() {
@@ -51,13 +53,16 @@ export default {
         }
     },
     filters: {
-        fomartLink: function (text) {
+        fomartLink(text) {
             return text.split(' ').join('-').toLowerCase()
+        },
+        filterPrice(price) {
+            return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
         }
     },
     computed: {
         ...mapState({
-            getProduct: state => state.Product.products,
+            getProducts: state => state.Product.products,
         }),
     },
 }
@@ -68,17 +73,20 @@ export default {
         .item-product{
             margin-bottom: 30px;
             .container-item{
-                border-radius: 10px;
                 overflow: hidden;
                 border: 1px solid #dadada;
                 height: 100%;
                 img{
-                    height: 250px;
+                    height: 200px;
                     width: 100%;
                     object-fit: cover;
                 }
                 .content{
                     padding: 5px 15px 15px;
+                    h5{
+                        margin-bottom: 0;
+                        font-size: 16px;
+                    }
                 }
             }   
         }

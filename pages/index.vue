@@ -1,5 +1,22 @@
 <template>
     <div class="main">
+        <div class="slider">
+            <div>
+                <VueSlickCarousel v-bind="settings">
+                    <div v-for="(slide,i) in getSlides" :key="i" class="container-slide">
+                        <b-img :src="slide.image"></b-img>
+                        <div class="txtSlide">
+                            <div class="container">
+                                <div class="text-center">
+                                    <h6>{{ slide.title }}</h6>
+                                    <p>{{ slide.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </VueSlickCarousel>
+            </div>
+        </div>
         <div class="container">
             <div class="content-responsive">
                 <div class="section">
@@ -8,7 +25,7 @@
                             <div class="banner">
                                 <a href="#">
                                     <img src="~/assets/images/banner1.jpg"> 
-                                    <span class="txt style1 lineHeight wow fadeIn" data-wow-delay="0.3s">How To</span> 
+                                    <span class="txt style1 lineHeight">How To</span> 
                                 </a>
                             </div>
                         </div>
@@ -16,7 +33,7 @@
                             <div class="banner">
                                 <a href="#">
                                     <img src="~/assets/images/banner2.jpg"> 
-                                    <span class="txt style1 lineHeight wow fadeIn" data-wow-delay="0.3s">MENU</span> 
+                                    <span class="txt style1 lineHeight">MENU</span> 
                                 </a>
                             </div>
                         </div>
@@ -31,9 +48,9 @@
                                 </a>
                                 <div class="txtLeft ">
                                     <div class="lineHeight">
-                                        <h6 class="wow slideInLeft" data-wow-delay="0.3s" data-wow-duration="1s"><a href="#">NEWS</a></h6>
-                                        <p class="wow slideInRight" data-wow-delay="0.3s" data-wow-duration="1s">"Work hard, then comes love".</p>
-                                        <p class="wow slideInRight" data-wow-delay="0.3s" data-wow-duration="1s">Have a nice day!</p>
+                                        <h6><a href="#">NEWS</a></h6>
+                                        <p>"Work hard, then comes love".</p>
+                                        <p>Have a nice day!</p>
                                     </div>
                                 </div>
                             </div>
@@ -49,8 +66,8 @@
                                 </a>
                                 <div class="txtCenter ">
                                     <div class="lineHeight">
-                                        <h6 class="wow slideInRight" data-wow-delay="0.3s" data-wow-duration="1s"><a href="#">CAREER</a></h6>
-                                        <p class="wow slideInLeft" data-wow-delay="0.3s" data-wow-duration="1s">Become a part of Cong Family. Join us.</p>
+                                        <h6><a href="#">CAREER</a></h6>
+                                        <p>Become a part of Cong Family. Join us.</p>
                                     </div>
                                 </div>
                             </div>
@@ -63,19 +80,129 @@
 </template>
 
 <script>
+
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import { mapState } from 'vuex'
+
 export default {
     name: 'Home',
     head: {
         title: "Project Z"
     },
     transition: 'fade',
+    data() {
+        return {
+            settings: {
+                arrows: true,
+                dots: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+            },
+        }
+    },
+    computed: {
+        ...mapState({
+            getSlides: state => state.Slide.slides,
+        }),
+    },
+    components: { 
+        VueSlickCarousel,
+    },
 }
 </script>
 
 <style lang="scss">
-
+.wrapper{
+    margin-top: 0;
+    @media screen and ( max-width: 1024px ){
+        margin-top: 72px;
+    }
+}
 .main{
-    
+    .slider{
+        margin-bottom: 30px;
+        .container-slide{
+            position: relative;
+            img{
+                width: 100%;
+                cursor: pointer;
+                height: 500px;
+                object-fit: cover;
+                @media screen and ( max-width: 767px ){
+                    height: 300px;
+                }
+            }
+            .txtSlide {
+                background: rgba(255, 241, 208, 0.9);
+                padding: 30px 0;
+                position: absolute;
+                bottom: 0px;
+                left: 0;
+                width: 100%;
+                z-index: 9;
+                h6 {
+                    font-size: 20px;
+                    color: #555555;
+                    text-transform: uppercase;
+                    margin-bottom: 10px;
+                    font-weight: 600;
+                    @media screen and ( max-width: 767px ){
+                        font-size: 14px;
+                    }
+                }
+                p{
+                    margin-bottom: 0;
+                    @media screen and ( max-width: 767px ){
+                        display: none;
+                    }
+                }
+            }
+        }
+        
+        .slick-arrow{
+            top: 35%;
+            background: url('~assets/images/arrow.png');
+            text-indent: -999px;
+            width: 50px;
+            height: 50px;
+            background-size: 100% 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            cursor: pointer;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            @media screen and ( max-width: 767px ){
+                width: 25px;
+                height: 25px;
+            }
+            &:before{
+                display: none;
+            }
+            &.slick-next{
+                @media screen and ( max-width: 767px ){
+                    right: 15px;
+                }
+                right: 30px;
+                z-index: 1;
+                -webkit-transform: translateY(-50%) rotate(180deg);
+                -ms-transform: translateY(-50%) rotate(180deg);
+                transform: translateY(-50%) rotate(180deg);
+            }
+            &.slick-prev{
+                @media screen and ( max-width: 767px ){
+                    left: 15px;
+                }
+                left: 30px;
+                z-index: 1;
+            }
+        }
+    }
     .section {
         margin-bottom: 30px;
     }
@@ -173,6 +300,9 @@ export default {
             text-transform: uppercase;
             position: relative;
             margin-bottom: 20px;
+            @media screen and ( max-width: 767px ){
+                font-size: 20px;
+            }
             &:after{
                 content: '';
                 position: absolute;
@@ -220,6 +350,9 @@ export default {
             -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
             z-index: 9;
+            @media screen and ( max-width: 767px ){
+                font-size: 20px;
+            }
         }
         
     }

@@ -90,7 +90,7 @@
                                     <nuxt-link to="/sign-up">SIGN UP</nuxt-link>
                                 </li>
                                 <li v-if="isUserLogin != null">
-                                    <nuxt-link to="/cart">CART</nuxt-link>
+                                    <nuxt-link to="/cart">CART({{totalQuantity}})</nuxt-link>
                                 </li>
                                 <li v-if="isUserLogin != null">
                                     <nuxt-link to="/admin">ADMIN</nuxt-link>
@@ -124,19 +124,28 @@ export default {
                     {subtitle: "HERE & THERE", sublink: "/"},
                     {subtitle: "BREW GUIDES", sublink: "/"}
                 ]},
-                {title: "MENU", link: "/shop", submenu: [
-                    {subtitle: "DRINKS MENU", sublink: "/"},
-                    {subtitle: "GROCERIES", sublink: "/"}
+                {title: "MENU", link: "/menu", submenu: [
+                    {subtitle: "DRINKS MENU", sublink: "/menu"},
                 ]},
                 {title: "CARRERS", link: "/", submenu: []},
                 {title: "CONTACT", link: "/", submenu: []},
             ],
+            arrCart: [],
         }
     },
     computed: {
         ...mapState({
             isUserLogin: state => state.userCurrent,
-        })
+            getCart: state => state.Cart.cart,
+        }),
+        totalQuantity(){
+            let mapCart = this.getCart.map((a) => {
+                return a.quantity
+            })
+            return mapCart.reduce((a,b) => {
+                return a + b
+            }, 0)
+        }
     },
     methods: {
         ...mapActions({
@@ -333,9 +342,6 @@ export default {
                         display: inline-block;
                         outline: none;
                         position: relative;
-                        &:hover:after{
-                            width: 100%;
-                        }
                         &:after{
                             content: '';
                             position: absolute;

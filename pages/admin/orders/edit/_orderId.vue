@@ -19,7 +19,7 @@
                     </b-form-select>
                 </div>
                 <div v-if="total" class="col-md-8 col-12">
-                    <h6 class="mb-0">Total: <span>{{total}}</span></h6>
+                    <h6 class="mb-0">Total: <span>{{total | filterPrice}}</span></h6>
                 </div>
             </div>
             <div class="row">
@@ -65,11 +65,18 @@
                         :src="data.item.imageProduct"
                     ></b-img>
                 </template>
+                <template #cell(regularPrice)="data" >
+                    {{ data.item.regularPrice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND'}}
+                </template>
+                <template #cell(salePrice)="data" >
+                    {{ data.item.salePrice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND'}}
+                </template>
                 <template #cell(createAt)="data" >
                     {{ data.item.createAt | filterDate }}
                 </template>
                 <template #cell(total)="data" >
-                    {{ data.item.quantity * data.item.regularPrice }}
+                    <span v-if="data.item.salePrice == 0">{{ (data.item.quantity * data.item.regularPrice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND' }}</span>
+                    <span v-if="data.item.salePrice != 0">{{ (data.item.quantity * data.item.salePrice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND' }}</span>
                 </template>
                 <template #cell(actions)="data" >
                     <div class="row-actions">
@@ -133,6 +140,7 @@ export default {
                 { key: 'imageProduct', label: 'Image', thClass: 'image-col' },
                 { key: 'nameProduct', label: 'Name', thClass: 'name-col' },
                 { key: 'regularPrice', label: 'Regular Price', thClass: 'price-col' },
+                { key: 'salePrice', label: 'Sale Price', thClass: 'price-col' },
                 { key: 'quantity', label: 'Quantity', thClass: 'quantity-col' },
                 { key: 'categoryName', label: 'Category', thClass: 'category-col' },
                 { key: 'createAt', label: 'Create At', thClass: 'create-at-col' },
@@ -156,6 +164,9 @@ export default {
     filters: {
         filterDate: function (date) {
             return moment(date).format('l');
+        },
+        filterPrice(price) {
+            return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
         }
     },
     watch: {

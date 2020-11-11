@@ -39,6 +39,9 @@
                         <span>{{order.quantity}} x </span>{{ order.nameProduct }}
                     </p>
                 </template>
+                <template #cell(total)="data" >
+                    <p class="mb-0">{{ data.item.total.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND'}}</p>
+                </template>
                 <template #cell(createAt)="data" >
                     {{ data.item.createAt | filterDate }}
                 </template>

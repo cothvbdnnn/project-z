@@ -38,6 +38,11 @@ export default {
     border-bottom: 1px solid #ccc;
     .logo{
         max-width: 70px;
+        a{
+            &:after{
+                display: none;
+            }
+        }
     }
     a{
         text-transform: uppercase;

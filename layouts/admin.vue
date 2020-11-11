@@ -97,7 +97,7 @@ export default {
                         }
                     }
                     td{
-                        vertical-align: unset;
+                        vertical-align: middle;
                         padding: 10px 20px;
                         border: 1px solid #ccc;
                         .row-actions{

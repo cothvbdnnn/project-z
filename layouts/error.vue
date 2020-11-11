@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="error-page">
         <b-container>
             <b-row>
-                <b-col cols="lg-5" class="mt-5 mx-auto text-center">
+                <b-col cols="lg-5" class="mx-auto text-center">
                     <Logo/>
                     <h1 class="mt-2" v-if="error.statusCode === 404">404 Error</h1>
                     <h1 v-else>An error occurred</h1>
@@ -23,6 +23,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+.error-page{
+    .logo{
+        max-width: 200px;
+        margin: auto;
+    }
+}
 
 </style>

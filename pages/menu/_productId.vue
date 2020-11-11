@@ -9,12 +9,15 @@
                     </b-img>
                 </div>
                 <div class="col-md-6 col-12">  
-                    <h1>{{ nameProduct }}</h1>     
-                    <h5>SKU: {{ this.$route.fullPath.split('?id=')[1] }}</h5>    
+                    <h1>{{ nameProduct }}</h1>        
                     <h5>Category: {{ categoryName }}</h5>   
                     <h5 v-if="quantity > 0">Quantity: {{ quantity }}</h5>
                     <h5 v-if="quantity == 0">Out of stock</h5> 
-                    <h3>Price: {{ regularPrice }}</h3>
+                    <h3>Price: 
+                        <span :class="salePrice != 0 ? 'line-through' : null">{{ regularPrice | filterPrice }}</span>
+                        <span v-if="salePrice != 0">{{ salePrice | filterPrice }}</span>
+                    </h3>
+                    
                     <p>{{ description }}</p>
                     <b-button size="lg" class="btn-primary"
                         @click="addToCart"
@@ -22,7 +25,7 @@
                     >Add to cart</b-button>
                     <b-alert show variant="danger" class="mt-3 py-1 px-3"
                         v-if="fail == true"
-                    >Your cart is full!</b-alert>
+                    >Excess quantity!</b-alert>
                     <b-alert show variant="primary" class="mt-3 py-1 px-3"
                         v-if="success == true"
                     >Success</b-alert>
@@ -34,7 +37,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
     name: 'Product',
@@ -59,8 +62,8 @@ export default {
         }
     },
     created() {
-        if (typeof window !== 'undefined') {
-            this.arrCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (this.getCart) {
+            this.arrCart = this.getCart
         }
         if (this.productCurrent) {
             this.nameProduct = this.productCurrent.name
@@ -75,9 +78,6 @@ export default {
         }
     },
     watch: {
-        arrCart(){
-            localStorage.setItem('cart', JSON.stringify(this.arrCart));
-        },
         success(){
             setTimeout(() => {
                 this.success = false
@@ -89,9 +89,15 @@ export default {
             }, 2000);
         }
     },
+    filters: {
+        filterPrice(price) {
+            return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
+        }
+    },
     computed: {
         ...mapState({
             getProducts: state => state.Product.products,
+            getCart: state => state.Cart.cart,
         }),
         productCurrent(){
             return this.getProducts.find( x => {
@@ -100,14 +106,17 @@ export default {
         },
     },
     methods: {
+        ...mapMutations({
+            'addCart' : 'Cart/addCart',
+            'addQuantityCart' : 'Cart/addQuantityCart'
+        }),
         addToCart(){
-            
             let mapIdCart = this.arrCart.map(x => {
                 return x.id
             })
             
             if(!mapIdCart.includes(this.id)){
-                this.arrCart.push({
+                this.addCart({
                     nameProduct: this.nameProduct,
                     regularPrice: this.regularPrice,
                     salePrice: this.salePrice,
@@ -123,8 +132,7 @@ export default {
                 for(let i in this.arrCart){
                     if(this.arrCart[i].id == this.id){
                         if(this.arrCart[i].quantity < this.quantity){
-                            this.arrCart[i].quantity += 1
-                            localStorage.setItem('cart', JSON.stringify(this.arrCart));
+                            this.addQuantityCart(i)
                             this.success = true
                         }else{
                             this.fail = true

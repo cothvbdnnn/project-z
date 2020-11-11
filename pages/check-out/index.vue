@@ -86,11 +86,11 @@
                             <h6><span>{{cart.quantity}} x </span>{{ cart.nameProduct }}</h6>
                         </div>
                         <div class="col-md-4 col-12 text-right">  
-                                     
-                            <h6>Price: {{ cart.regularPrice * cart.quantity }}</h6>
+                            <h6 v-if="cart.salePrice == 0">{{ cart.regularPrice * cart.quantity | filterPrice}}</h6>
+                            <h6 v-if="cart.salePrice != 0">{{ cart.salePrice * cart.quantity | filterPrice}}</h6>
                         </div>
                     </div>
-                    <h6>Total: {{ totalPrice }}</h6>
+                    <h6>Total: {{ totalPrice | filterPrice}}</h6>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
 
 <script>
 
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 
 export default {
     name: 'Checkout',
@@ -120,8 +120,8 @@ export default {
         }
     },
     created() {
-        if (typeof window !== 'undefined') {
-            this.arrCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (this.getCart) {
+            this.arrCart = this.getCart
         }
         if(this.getUser){
             this.name = this.getUser.userHandle
@@ -142,13 +142,16 @@ export default {
                 this.fail = false
             }, 2000);
         },
-        arrCart(){
-            localStorage.setItem('cart', JSON.stringify(this.arrCart));
+    },
+    filters: {
+        filterPrice(price) {
+            return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
         }
     },
     computed: {
         ...mapState({
-            getUser: state => state.userCurrent
+            getUser: state => state.userCurrent,
+            getCart: state => state.Cart.cart,
         }),
         nameState() {
             return this.name.length > 0 ? true : false
@@ -160,17 +163,28 @@ export default {
             return this.address.length > 30 ? true : false
         },
         totalPrice(){
-            let mapCart = this.arrCart.map((a) => {
-                return a.regularPrice * a.quantity
-            })
-            return mapCart.reduce((a,b) => {
+
+            let arrPrice = []
+            
+            for(let i in this.arrCart){
+                if(this.arrCart[i].salePrice != 0){
+                    arrPrice.push(this.arrCart[i].salePrice * this.arrCart[i].quantity)
+                }else{
+                    arrPrice.push(this.arrCart[i].regularPrice * this.arrCart[i].quantity)
+                }
+            }
+
+            return arrPrice.reduce((a,b) => {
                 return a + b
             }, 0)
-        }
+        },
     },
     methods: {
         ...mapActions({
             'actAddOrder': 'Order/actAddOrder'
+        }),
+        ...mapMutations({
+            'clearCart' : 'Cart/clearCart',
         }),
         order(){
             if(this.nameState && this.phoneState && this.addressState){
@@ -183,7 +197,7 @@ export default {
                     order: this.arrCart,
                     total: this.totalPrice,
                 })
-                this.arrCart = []
+                this.clearCart()
                 this.success = true
             }
         }

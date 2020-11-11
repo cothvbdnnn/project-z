@@ -28,7 +28,7 @@ export default {
             avatar: null,
             listsSidebar: [
                 { link: '/admin', title: 'DASHBOARD', icon: 'columns-gap' },
-                { link: '/admin', title: 'SLIDES', icon: 'image' },
+                { link: '/admin/slides', title: 'SLIDES', icon: 'image' },
                 { link: '/admin', title: 'COMMENTS', icon: 'chat-square-text' },
                 { link: '/admin/profile', title: 'PROFILE', icon: 'file-earmark-person-fill' },
                 { link: '/admin/products', title: 'PRODUCTS', icon: 'box-seam' },

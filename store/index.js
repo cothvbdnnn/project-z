@@ -24,8 +24,10 @@ export const actions = {
             })
             context.dispatch('Category/actRealTimeCategory')
             context.dispatch('Product/actRealTimeProduct')
+            context.dispatch('Slide/actRealTimeSlide')
             context.dispatch('Customer/actRealTimeCustomer')
             context.dispatch('Order/actRealTimeOrder')
+            context.commit('Cart/getCart')
         } catch (error) {
             console.log(error);
         }   
@@ -41,6 +43,7 @@ export const actions = {
             return Promise.all([
                 context.dispatch('actGetUserCurrent', token),
                 context.dispatch('Product/actGetProducts'),
+                context.dispatch('Slide/actGetSlides'),
                 context.dispatch('Category/actGetCategories'),
                 context.dispatch('Customer/actGetCustomers'),
                 context.dispatch('Order/actGetOrders'),
@@ -106,7 +109,8 @@ export const actions = {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+    
 }
 
 export const getters = {
