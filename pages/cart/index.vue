@@ -43,7 +43,7 @@
                             <b-button class="mr-1 btn-remove" size="sm"
                                 @click="handleRemoveCart(i)"
                             >
-                                <b-icon icon="trash"></b-icon>
+                                <b-icon icon="x-square-fill"></b-icon>
                             </b-button>
                         </div>
                     </div>

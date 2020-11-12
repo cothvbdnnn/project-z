@@ -9,7 +9,7 @@
                             <div class="container">
                                 <div class="text-center">
                                     <h6>{{ slide.title }}</h6>
-                                    <p>{{ slide.description }}</p>
+                                    <div v-html="slide.description"></div>
                                 </div>
                             </div>
                         </div>
@@ -25,13 +25,13 @@
                             <div class="banner">
                                 <a href="#">
                                     <img src="~/assets/images/banner1.jpg"> 
-                                    <span class="txt style1 lineHeight">How To</span> 
+                                    <span class="txt style1 lineHeight">VINTAGE</span> 
                                 </a>
                             </div>
                         </div>
                         <div class="col-sm-6 col-banner-2">
                             <div class="banner">
-                                <a href="#">
+                                <a href="/menu">
                                     <img src="~/assets/images/banner2.jpg"> 
                                     <span class="txt style1 lineHeight">MENU</span> 
                                 </a>
@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="banner txt-center style2">
-                                <a href="#">
+                                <a href="/blog">
                                     <img src="~/assets/images/Pha-Che.jpg">
                                 </a>
                                 <div class="txtLeft ">
@@ -117,13 +117,11 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper{
+body .main{
     margin-top: 0;
     @media screen and ( max-width: 1024px ){
         margin-top: 72px;
     }
-}
-.main{
     .slider{
         margin-bottom: 30px;
         .container-slide{

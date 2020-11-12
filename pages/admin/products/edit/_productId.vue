@@ -72,17 +72,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-9 col-12">
-                    <h6>Description</h6>
-                    <b-form-textarea class="mb-3" v-model="description"
-                        placeholder="Description"
-                        rows="3"
-                        max-rows="6"
-                    ></b-form-textarea>
-                </div>
-                <div class="col-md-3 col-12">
+                <div class="col-md-12 col-12">
                     <h6>Category</h6>
-                    <b-form-select class="mb-2" size="sm"
+                    <b-form-select class="mb-2"
                         v-model="selectCat" 
                     >
                         <b-form-select-option :value="null">Please select a category</b-form-select-option>
@@ -92,6 +84,16 @@
                             {{ cat.name }}
                         </b-form-select-option>
                     </b-form-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-12">
+                    <h6>Description</h6>
+                    <client-only>
+                        <vue-editor class="mb-3"
+                            v-model="description"
+                        ></vue-editor>
+                    </client-only>
                 </div>
             </div>
             <b-button class="btn-primary mr-1" type="submit" form="edit-product-form"

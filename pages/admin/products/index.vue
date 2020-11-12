@@ -57,7 +57,7 @@
                         <b-button size="sm" class="mr-1 btn-remove"
                             @click="showConfirm(data)"
                         >
-                            <b-icon icon="trash"></b-icon>
+                            <b-icon icon="x-square-fill"></b-icon>
                         </b-button>
                         <nuxt-link :to="'/admin/products/edit/' + data.index">
                             <b-button size="sm" class="btn-primary">
@@ -130,6 +130,9 @@ export default {
     filters: {
         filterPrice(price) {
             return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
+        },
+        filterDate: function (date) {
+            return moment(date).format('l');
         }
     },
     mounted() {

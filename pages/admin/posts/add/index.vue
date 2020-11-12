@@ -1,23 +1,23 @@
 <template>
     <div class="content-admin">
-        <h3>Add new slide</h3>
+        <h3>Add new post</h3>
          <b-form
-            id="add-slide-form"
+            id="add-post-form"
             ref="form"
-            @submit.prevent="addSlide"
+            @submit.prevent="addPost"
         >   
             <div class="row my-3">
                 <div class="col-12">
                     <b-button class="btn-primary "
                         @click="handleChangeImage"
-                    >Image<b-icon class="ml-2" icon="card-image"></b-icon>
+                    >Featured Image<b-icon class="ml-2" icon="card-image"></b-icon>
                     </b-button>
-                    <div class="required-feedback" v-if="!imageSlide">
+                    <div class="required-feedback" v-if="!imagePost">
                         Required
                     </div>
                 </div>
             </div>
-            <div class="row mb-3" v-if="imageSlide">
+            <div class="row mb-3" v-if="imagePost">
                 <div class="col-12">
                     <img class="image-preview" alt="image"
                         :src="imagePreview"
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <b-form-file
-                v-model="imageSlide"
+                v-model="imagePost"
                 @change="onFileChange"
                 class="d-none"
                 type="file"
@@ -34,22 +34,44 @@
             ></b-form-file>
             <div class="row">
                 <div class="col-md-12 col-12 mb-2">
-                    <h6>Title</h6>
+                    <h6>Titlte</h6>
                     <b-form-input class="" placeholder="Title"
                         v-model="title"
+                        :state="titleState"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="input-live-feedback">
+                        Required
+                    </b-form-invalid-feedback>
                 </div>
             </div>
-            <h6>Description</h6>
+            <h6>Excerpt</h6>
+                <b-form-textarea class="mb-3" v-model="excerpt">
+
+                </b-form-textarea>
+            <h6>Content</h6>
             <client-only>
                 <vue-editor class="mb-3"
-                    v-model="description"
+                    v-model="content"
                 ></vue-editor>
             </client-only>
-            <b-button class="btn-primary mr-1" type="submit" form="add-slide-form"
-                @keyup.enter="addSlide"
-            >Add<b-icon class="ml-2" icon="image"></b-icon></b-button>
-            <nuxt-link to="/admin/slides">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <b-form-checkbox-group
+                        class="btn-checkbox"
+                        v-model="selectTags"
+                        name="buttons-1"
+                        buttons
+                    >
+                        <b-form-checkbox v-for="(tag,i) in getTags" :key="i" 
+                            :value="tag.name"
+                        >{{tag.name}}</b-form-checkbox>
+                    </b-form-checkbox-group>
+                </div>
+            </div>
+            <b-button class="btn-primary mr-1" type="submit" form="add-post-form"
+                @keyup.enter="addPost"
+            >Add<b-icon class="ml-2" icon="brush"></b-icon></b-button>
+            <nuxt-link to="/admin/posts">
                 <b-button class="btn-primary"
                 >Back</b-button>
             </nuxt-link>
@@ -68,21 +90,22 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-    name: 'AddSlide',
+    name: 'AddPost',
     layout: 'admin',
     head: {
-        title: "Add Slide - Project Z"
+        title: "Add Post - Project Z"
     },
     transition: 'fade',
     data() {
         return {
-            content: '<h1>Some initial content</h1>',
             title: '',
-            description: '',
+            content: '',
+            excerpt: '',
+            imagePost: null,
+            imagePreview: null,
+            selectTags: [],
             success: false,
             fail: false,
-            imageSlide: null,
-            imagePreview: null,
         }
     },
     watch: {
@@ -97,9 +120,18 @@ export default {
             }, 2000);
         }
     },
+    computed: {
+        ...mapState({
+            getTags: state => state.Tag.tags,
+            getUserCurrent: state => state.userCurrent,
+        }),
+        titleState() {
+            return this.title.length > 0 ? true : false
+        },
+    },
     methods: {
         ...mapActions({
-            'actAddSlide' : 'Slide/actAddSlide'
+            'actAddPost' : 'Post/actAddPost'
         }),
         onFileChange(e){
             if(e != null){
@@ -109,20 +141,25 @@ export default {
         handleChangeImage(){
             this.$refs.changeImage.$el.querySelector('input[type=file]').click()
         },
-        addSlide(){
-
-            if(this.imageSlide != null){
-                this.actAddSlide({
+        addPost(){
+            
+            if(this.title && this.imagePost != null){
+                this.actAddPost({
                     title: this.title, 
-                    description: this.description,
-                    image: this.imageSlide,
+                    content: this.content,
+                    image: this.imagePost,
+                    tags: this.selectTags,
+                    excerpt: this.excerpt,
+                    authorId: this.getUserCurrent.userId,
+                    authorName: this.getUserCurrent.userHandle,
+                    authorImage: this.getUserCurrent.imageURL, 
                 })
                 this.$refs.form.reset()
                 this.success = true
             }
             
         }
-    },
+    }
 }
 </script>
 

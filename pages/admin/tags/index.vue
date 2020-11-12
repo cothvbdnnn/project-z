@@ -1,12 +1,13 @@
 <template>
     <div class="content-admin">
-        <h3>Slides</h3>
+        <h3>Tags</h3>
+        
         <div class="mt-2">
             <b-row>
                 <b-col>
-                    <nuxt-link to="/admin/slides/add">
+                    <nuxt-link to="/admin/tags/add">
                         <b-button size="sm" class="btn-primary mt-2">
-                            Add new<b-icon class="ml-2" icon="image"></b-icon>
+                            Add new<b-icon class="ml-2" icon="tags-fill"></b-icon>
                         </b-button>
                     </nuxt-link>
                 </b-col>
@@ -35,13 +36,7 @@
                 :filter="filter"
                 :current-page="currentPage"
                 :per-page="perPage"
-            >   
-                <template #cell(image)="data" >
-                    <img :src="data.item.image" v-if="data.item.image" alt="image" class="image-product-table">
-                </template>
-                <template #cell(description)="data" >
-                    <p class="text-overflow" v-html="data.item.description"></p>
-                </template>
+            >
                 <template #cell(createAt)="data" >
                     {{ data.item.createAt | filterDate }}
                 </template>
@@ -52,13 +47,12 @@
                         >
                             <b-icon icon="x-square-fill"></b-icon>
                         </b-button>
-                        <nuxt-link :to="'/admin/slides/edit/' + data.index">
+                        <nuxt-link :to="'/admin/tags/edit/' + data.index">
                             <b-button size="sm" class="btn-primary">
                                 <b-icon icon="pencil"></b-icon>
                             </b-button>
                         </nuxt-link>
                     </div>
-                    
                 </template>
             </b-table>
             <b-row class="justify-content-between pagination-table">
@@ -91,18 +85,17 @@ import moment from 'moment';
 import { mapState, mapActions } from 'vuex';
 
 export default {
-    name: 'Slides',
+    name: 'Tags',
     layout: 'admin',
     head: {
-        title: "Slides - Project Z"
+        title: "Tags - Project Z"
     },
     transition: 'fade',
     data() {
         return {
             fields: [
-                { key: 'image', label: 'Image', thClass: 'image-col' },
-                { key: 'title', label: 'Title', thClass: 'title-col' },
-                { key: 'description', label: 'Description', thClass: 'description-col' },
+                { key: 'id', label: 'ID', thClass: 'id-col' },
+                { key: 'name', label: 'Name', thClass: 'name-col' },
                 { key: 'createAt', label: 'Create At', thClass: 'create-at-col' },
                 { key: 'actions', label: 'Actions', thClass: 'actions-col' },
             ],
@@ -125,15 +118,15 @@ export default {
     },
     computed: {
         ...mapState({
-            getSlides: state => state.Slide.slides,
+            getTags: state => state.Tag.tags,
         }),
         items(){
-            return this.getSlides        
+            return this.getTags        
         }
     },
     methods: {
         ...mapActions({
-            'actRemoveSlide' : 'Slide/actRemoveSlide'
+            'actRemoveTag' : 'Tag/actRemoveTag'
         }),
         showConfirm(data) {
             this.confirm = ''
@@ -151,7 +144,11 @@ export default {
             .then(value => {
                 this.confirm = value
                 if(this.confirm){
-                    this.actRemoveSlide({index: data.index,id: data.item.id})
+                    this.actRemoveTag({
+                        index: data.index,
+                        id: data.item.id,
+                        tagOld: data.item.name
+                    })
                 }
             })
             .catch(err => {
@@ -167,7 +164,6 @@ export default {
         },
     }
 }
-
 </script>
 
 <style>

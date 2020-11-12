@@ -1,16 +1,16 @@
 <template>
     <div class="content-admin">
-        <h3>Edit slide</h3>
+        <h3>Edit post</h3>
          <b-form
-            id="edit-slide-form"
+            id="edit-post-form"
             ref="form"
-            @submit.prevent="editSlide"
+            @submit.prevent="editPost"
         >
             <div class="row my-3">
                 <div class="col-12">
                     <b-button class="btn-primary "
                         @click="handleChangeImage"
-                    >Image<b-icon class="ml-2" icon="card-image"></b-icon>
+                    >Featured Image<b-icon class="ml-2" icon="card-image"></b-icon>
                     </b-button>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <b-form-file
-                v-model="imageSlide"
+                v-model="imagePost"
                 @change="onFileChange"
                 class="d-none"
                 type="file"
@@ -34,23 +34,43 @@
                     <h6>Title</h6>
                     <b-form-input class="" placeholder="Title"
                         v-model="title"
+                        :state="titleState"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="input-live-feedback">
+                        Required
+                    </b-form-invalid-feedback>
                 </div>
             </div>
+            <h6>Excerpt</h6>
+            <b-form-textarea class="mb-3" v-model="excerpt"></b-form-textarea>
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h6>Description</h6>
+                    <h6>Content</h6>
                     <client-only>
                         <vue-editor class="mb-3"
-                            v-model="description"
+                            v-model="content"
                         ></vue-editor>
                     </client-only>
                 </div>
             </div>
-            <b-button class="btn-primary mr-1" type="submit" form="edit-slide-form"
-                @keyup.enter="editSlide"
+            <div class="row mb-3">
+                <div class="col-12">
+                    <b-form-checkbox-group
+                        class="btn-checkbox"
+                        v-model="selectTags"
+                        name="buttons-1"
+                        buttons
+                    >
+                        <b-form-checkbox v-for="(tag,i) in getTags" :key="i" 
+                            :value="tag.name"
+                        >{{tag.name}}</b-form-checkbox>
+                    </b-form-checkbox-group>
+                </div>
+            </div>
+            <b-button class="btn-primary mr-1" type="submit" form="edit-post-form"
+                @keyup.enter="editPost"
             >Edit<b-icon class="ml-2" icon="pencil"></b-icon></b-button>
-            <nuxt-link to="/admin/slides">
+            <nuxt-link to="/admin/posts">
                 <b-button class="btn-primary"
                 >Back</b-button>
             </nuxt-link>
@@ -69,28 +89,29 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-    name: 'EditSlide',
+    name: 'EditPost',
     layout: 'admin',
     head: {
-        title: "Edit Slide - Project Z"
+        title: "Edit Post - Project Z"
     },
     transition: 'fade',
     validate(context){
-        if(!/^\d+$/.test(context.params.slideId)){
-            context.redirect('/admin/slides')
+        if(!/^\d+$/.test(context.params.postId)){
+            context.redirect('/admin/posts')
         }
         return true
     },
     data() {
         return {
             title: '',
-            description: '',
-            selectCat: null,
-            success: false,
-            fail: false,
-            imageSlide: null,
+            content: '',
+            excerpt: '',
+            selectTags: null,
+            imagePost: null,
             imagePreview: null,
             imageOld: null,
+            success: false,
+            fail: false,
         }
     },
     watch: {
@@ -106,24 +127,30 @@ export default {
         }
     },
     created() {
-        if (this.slideCurrent) {
-            this.title = this.slideCurrent.title
-            this.description = this.slideCurrent.description
-            this.imagePreview = this.slideCurrent.image
-            this.imageOld = this.slideCurrent.image
+        if (this.postCurrent) {
+            this.title = this.postCurrent.title
+            this.excerpt = this.postCurrent.excerpt
+            this.content = this.postCurrent.content
+            this.selectTags = this.postCurrent.tags
+            this.imagePreview = this.postCurrent.image
+            this.imageOld = this.postCurrent.image
         }
     },
     computed: {
         ...mapState({
-            getSlides: state => state.Slide.slides,
+            getPosts: state => state.Post.posts,
+            getTags: state => state.Tag.tags,
         }),
-        slideCurrent(){
-            return this.getSlides[this.$route.params.slideId]
+        postCurrent(){
+            return this.getPosts[this.$route.params.postId]
+        },
+        titleState() {
+            return this.title.length > 0 ? true : false
         },
     },
     methods: {
         ...mapActions({
-            'actEditSlide' : 'Slide/actEditSlide'
+            'actEditPost' : 'Post/actEditPost'
         }),
         onFileChange(e){
             if(e != null){
@@ -133,17 +160,24 @@ export default {
         handleChangeImage(){
             this.$refs.changeImage.$el.querySelector('input[type=file]').click()
         },
-        editSlide(){
+        editPost(){
 
-            this.actEditSlide({
-                title: this.title, 
-                description: this.description,
-                image: this.imageSlide,
-                imageOld: this.imageOld,
-                id: this.slideCurrent.id,
-                index: this.$route.params.slideId
-            })
-            this.success = true
+            if(this.title ){
+
+                this.actEditPost({
+                    title: this.title, 
+                    excerpt: this.excerpt,
+                    content: this.content,
+                    image: this.imagePost,
+                    imageOld: this.imageOld,
+                    tags: this.selectTags,
+                    id: this.postCurrent.id,
+                    index: this.$route.params.postId
+                })
+                this.success = true
+                    
+            }
+            
         }
     }
 }

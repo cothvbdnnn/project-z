@@ -87,9 +87,11 @@
                 </b-form-select-option>
             </b-form-select>
             <h6>Description</h6>
-            <b-form-textarea class="mb-3" v-model="description"
-                placeholder="Description"
-            ></b-form-textarea>
+            <client-only>
+                <vue-editor class="mb-3"
+                    v-model="description"
+                ></vue-editor>
+            </client-only>
             <b-button class="btn-primary mr-1" type="submit" form="add-product-form"
                 @keyup.enter="addProduct"
             >Add<b-icon class="ml-2" icon="box-seam"></b-icon></b-button>

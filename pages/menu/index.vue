@@ -1,10 +1,11 @@
 <template>
     <div class="shop">
         <div class="container">
-            <h1>Menu</h1>
             <div class="row">
-                <div class="col-md-3 col-12">
-
+                <div class="col-md-3 col-12 col-cat">
+                    <div v-for="(cat,i) in getCaregories" :key="i">
+                        <h6><a class="catItem">{{ cat.name }}</a></h6>
+                    </div>
                 </div>
                 <div class="col-md-9 col-12">
                     <div class="row">
@@ -63,6 +64,7 @@ export default {
     computed: {
         ...mapState({
             getProducts: state => state.Product.products,
+            getCaregories: state => state.Category.categories,
         }),
     },
 }
@@ -70,6 +72,24 @@ export default {
 
 <style lang="scss">
     .shop{
+        .col-cat{
+            .catItem{
+                font-size: 20px;
+                font-weight: 600;
+                position: relative;
+                &:hover:before{
+                    content: '';
+                    height: 2px;
+                    width: 15px;
+                    background: #3c5e2c;
+                    position: absolute;
+                    top: 50%;
+                    left: -25px;
+                    transform: translateY(-50%);
+                    opacity: 1;
+                }
+            }
+        }
         .item-product{
             margin-bottom: 30px;
             .container-item{

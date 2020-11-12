@@ -27,6 +27,8 @@ export const actions = {
             context.dispatch('Slide/actRealTimeSlide')
             context.dispatch('Customer/actRealTimeCustomer')
             context.dispatch('Order/actRealTimeOrder')
+            context.dispatch('Post/actRealTimePost')
+            context.dispatch('Tag/actRealTimeTag')
             context.commit('Cart/getCart')
         } catch (error) {
             console.log(error);
@@ -37,7 +39,10 @@ export const actions = {
             let token = null
             if(req){
                 if(req.headers.cookie != undefined){
-                    token = req.headers.cookie.split(';').find( c => c.trim().startsWith('token=')).split('=')[1]
+                    token = req.headers.cookie.split(';').find( c => c.trim().startsWith('token='))
+                    if(token){
+                        token = token.split('=')[1]
+                    }
                 }
             }
             return Promise.all([
@@ -47,6 +52,8 @@ export const actions = {
                 context.dispatch('Category/actGetCategories'),
                 context.dispatch('Customer/actGetCustomers'),
                 context.dispatch('Order/actGetOrders'),
+                context.dispatch('Post/actGetPosts'),
+                context.dispatch('Tag/actGetTags'),
             ]);
         } catch (error) {
             console.log(error);

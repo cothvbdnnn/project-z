@@ -30,11 +30,13 @@ export default {
                 { link: '/admin', title: 'DASHBOARD', icon: 'columns-gap' },
                 { link: '/admin/slides', title: 'SLIDES', icon: 'image' },
                 { link: '/admin', title: 'COMMENTS', icon: 'chat-square-text' },
-                { link: '/admin/profile', title: 'PROFILE', icon: 'file-earmark-person-fill' },
+                { link: '/admin/profile', title: 'PROFILE', icon: 'file-earmark-person' },
                 { link: '/admin/products', title: 'PRODUCTS', icon: 'box-seam' },
                 { link: '/admin/categories', title: 'CATEGORIES', icon: 'folder2-open' },
-                { link: '/admin/orders', title: 'ORDERS', icon: 'cart-check' },
-                { link: '/admin/customers', title: 'CUSTOMERS', icon: 'person-lines-fill' },
+                { link: '/admin/orders', title: 'ORDERS', icon: 'cart-check' }, 
+                { link: '/admin/posts', title: 'POSTS', icon: 'brush' },
+                { link: '/admin/tags', title: 'TAGS', icon: 'tags' },
+                { link: '/admin/customers', title: 'CUSTOMERS', icon: 'people' },
                 { link: '/admin', title: 'NEWSLETTER', icon: 'envelope-open' },
             ]
         }

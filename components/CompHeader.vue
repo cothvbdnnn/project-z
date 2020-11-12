@@ -118,17 +118,17 @@ export default {
     data() {
         return {
             menus: [
-                {title: "OUR STORY", link: "/", submenu: []},
-                {title: "NEWSLETTER", link: "/", submenu: [
-                    {subtitle: "CONG CAPHE", sublink: "/"},
-                    {subtitle: "HERE & THERE", sublink: "/"},
-                    {subtitle: "BREW GUIDES", sublink: "/"}
+                {title: "OUR STORY", link: "/our-story", submenu: []},
+                {title: "NEWSLETTER", link: "/blog", submenu: [
+                    {subtitle: "CONG CAPHE", sublink: "/blog"},
+                    {subtitle: "HERE & THERE", sublink: "/blog"},
+                    {subtitle: "BREW GUIDES", sublink: "/blog"}
                 ]},
                 {title: "MENU", link: "/menu", submenu: [
                     {subtitle: "DRINKS MENU", sublink: "/menu"},
                 ]},
                 {title: "CARRERS", link: "/", submenu: []},
-                {title: "CONTACT", link: "/", submenu: []},
+                {title: "CONTACT", link: "/contact", submenu: []},
             ],
             arrCart: [],
         }

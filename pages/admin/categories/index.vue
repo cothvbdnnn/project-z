@@ -45,7 +45,7 @@
                         <b-button size="sm" class="mr-1 btn-remove"
                             @click="showConfirm(data)"
                         >
-                            <b-icon icon="trash"></b-icon>
+                            <b-icon icon="x-square-fill"></b-icon>
                         </b-button>
                         <nuxt-link :to="'/admin/categories/edit/' + data.index">
                             <b-button size="sm" class="btn-primary">

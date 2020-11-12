@@ -26,7 +26,68 @@
 body{
     color: #5a6268;
     font-size: 14px;
+    letter-spacing: -1px;
     font-family: 'Nitti Normal';
+    h1{
+        font-weight: 600;
+    }
+    span.tags{
+        &:after{
+            content: ", ";
+        }
+        &:last-child{
+            &:after{
+                content: "";
+            }
+        }
+    }
+    .btn-checkbox label{
+        &.btn-secondary{
+            border-radius: 0;
+            margin: 0 10px;
+            background-color: #fff;
+            color: #3c5e2c;
+            border-color: #3c5e2c;
+            box-shadow: none;
+            outline: none;
+            &:not(:disabled):not(.disabled).active{
+                background-color: #3c5e2c;
+                border-color: #3c5e2c;
+                box-shadow: none;
+                outline: none;
+            }
+            &:first-child{
+                margin-left: 0;
+            }
+            &:last-child{
+                margin-right: 0;
+            }
+            &:focus{
+                border: 1px solid #3c5e2c;
+                background-color: #3c5e2c;
+                box-shadow: none;
+                outline: none;
+            }
+            &:hover{
+                color: #3c5e2c;
+                background-color: transparent;
+            }
+        }
+    }
+    option:not(:checked) {
+        background-color: #3c5e2c;
+        color: #fff;
+    }
+    .ql-toolbar.ql-snow{
+        border: 1px solid #3c5e2c;
+    }
+    .ql-container{
+        letter-spacing: -1px;
+        font-family: 'Nitti Normal';
+        &.ql-snow{
+            border: 1px solid #3c5e2c;
+        }
+    }
     .line-through{
         text-decoration: line-through;
     }

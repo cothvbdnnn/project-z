@@ -18,7 +18,7 @@
                         <span v-if="salePrice != 0">{{ salePrice | filterPrice }}</span>
                     </h3>
                     
-                    <p>{{ description }}</p>
+                    <div v-html="description"></div>
                     <b-button size="lg" class="btn-primary"
                         @click="addToCart"
                         :disabled="quantity == 0"

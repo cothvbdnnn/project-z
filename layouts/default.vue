@@ -17,9 +17,11 @@ export default {
 <style lang="scss">
 
 .wrapper{
-    margin: 50px 0;
-    @media screen and ( max-width: 1024px ){
-        margin-top: 100px;
+    & > div{
+        margin: 50px 0;
+        @media screen and ( max-width: 1024px ){
+            margin-top: 100px;
+        }
     }
 }
 

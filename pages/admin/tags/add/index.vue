@@ -1,25 +1,25 @@
 <template>
     <div class="content-admin">
-        <h3>Add new category</h3>
+        <h3>Add new tag</h3>
          <b-form
-            id="add-category-form"
+            id="add-tag-form"
             ref="form"
-            @submit.prevent="addCategory"
+            @submit.prevent="addTag"
         >
             <h6>Name</h6>
             <b-form-input class="mb-2" placeholder="Name"
-                v-model="nameCat"
+                v-model="nameTag"
             ></b-form-input>
-            <b-button class="btn-primary mr-1" type="submit" form="add-category-form"
-                @keyup.enter="addCategory"
+            <b-button class="btn-primary mr-1" type="submit" form="add-tag-form"
+                @keyup.enter="addTag"
             >Add<b-icon class="ml-2" icon="folder-plus"></b-icon></b-button>
-            <nuxt-link to="/admin/categories">
+            <nuxt-link to="/admin/tags">
                 <b-button class="btn-primary"
                 >Back</b-button>
             </nuxt-link>
             <b-alert show variant="danger" class="mt-3 py-1 px-3"
                 v-if="fail == true"
-            >Category already exist!</b-alert>
+            >Tag already exist!</b-alert>
             <b-alert show variant="primary" class="mt-3 py-1 px-3"
                 v-if="success == true"
             >Success</b-alert>
@@ -32,15 +32,15 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-    name: 'AddCategory',
+    name: 'AddTag',
     layout: 'admin',
     head: {
-        title: "Add Category - Project Z"
+        title: "Add Tag - Project Z"
     },
     transition: 'fade',
     data() {
         return {
-            nameCat: '',
+            nameTag: '',
             success: false,
             fail: false,
         }
@@ -59,26 +59,26 @@ export default {
     },
     computed: {
         ...mapState({
-            getCategories: state => state.Category.categories,
+            getTags: state => state.Tag.tags,
         })
     },
     methods: {
         ...mapActions({
-            'actAddCategory' : 'Category/actAddCategory',
+            'actAddTag' : 'Tag/actAddTag',
         }),
-        addCategory(){
+        addTag(){
 
             // Map array
 
-            let findCat = this.getCategories.map(x => {
+            let findTag = this.getTags.map(x => {
                 return x.name.toLowerCase()
             })
 
-            // Check category has esixt
+            // Check tag has esixt
 
-            if(this.nameCat != ""){
-                if (!findCat.includes(this.nameCat.toLowerCase())) {
-                    this.actAddCategory(this.nameCat)
+            if(this.nameTag != ""){
+                if (!findTag.includes(this.nameTag.toLowerCase())) {
+                    this.actAddTag(this.nameTag)
                     this.$refs.form.reset()
                     this.success = true
                 }else{
