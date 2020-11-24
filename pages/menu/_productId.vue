@@ -9,7 +9,7 @@
                     </b-img>
                 </div>
                 <div class="col-md-6 col-12">  
-                    <h1>{{ nameProduct }}</h1>        
+                    <h1 class="text-primary">{{ nameProduct }}</h1>        
                     <h5>Category: {{ categoryName }}</h5>   
                     <h5 v-if="quantity > 0">Quantity: {{ quantity }}</h5>
                     <h5 v-if="quantity == 0">Out of stock</h5> 
@@ -30,13 +30,24 @@
                         v-if="success == true"
                     >Success</b-alert>
                 </div>
+                <div class="col-12">
+                    <CompComments
+                        :idPost="id"
+                        :namePost="nameProduct"
+                        :imagePost="imageProduct"
+                        :userId="getUserCurrent.userId"
+                        :userName="getUserCurrent.userHandle"
+                        :userImage="getUserCurrent.imageURL"
+                        :postType="'product'"
+                    />
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-
+import moment from 'moment';
 import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
@@ -92,12 +103,13 @@ export default {
     filters: {
         filterPrice(price) {
             return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
-        }
+        },
     },
     computed: {
         ...mapState({
             getProducts: state => state.Product.products,
             getCart: state => state.Cart.cart,
+            getUserCurrent: state => state.userCurrent,
         }),
         productCurrent(){
             return this.getProducts.find( x => {

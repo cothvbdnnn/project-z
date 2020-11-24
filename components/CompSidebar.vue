@@ -29,7 +29,7 @@ export default {
             listsSidebar: [
                 { link: '/admin', title: 'DASHBOARD', icon: 'columns-gap' },
                 { link: '/admin/slides', title: 'SLIDES', icon: 'image' },
-                { link: '/admin', title: 'COMMENTS', icon: 'chat-square-text' },
+                { link: '/admin/comments', title: 'COMMENTS', icon: 'chat-square-text' },
                 { link: '/admin/profile', title: 'PROFILE', icon: 'file-earmark-person' },
                 { link: '/admin/products', title: 'PRODUCTS', icon: 'box-seam' },
                 { link: '/admin/categories', title: 'CATEGORIES', icon: 'folder2-open' },

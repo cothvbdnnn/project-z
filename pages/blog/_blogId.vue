@@ -10,6 +10,17 @@
                         <span v-for="(tag, i) in postCurrent.tags" :key="i" class="tags">{{tag}}</span>
                     </h6>
                 </div>
+                <div class="col-12">
+                    <CompComments
+                        :idPost="postCurrent.id"
+                        :namePost="postCurrent.title"
+                        :imagePost="postCurrent.image"
+                        :userId="getUserCurrent.userId"
+                        :userName="getUserCurrent.userHandle"
+                        :userImage="getUserCurrent.imageURL"
+                        :postType="'blog'"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -39,6 +50,7 @@ export default {
     computed: {
         ...mapState({
             getPosts: state => state.Post.posts,
+            getUserCurrent: state => state.userCurrent,
         }),
         postCurrent(){
             return this.getPosts.find( x => {

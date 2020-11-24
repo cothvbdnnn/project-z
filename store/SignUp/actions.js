@@ -17,7 +17,7 @@ export default {
                 phone: '',
                 email: '',
                 address: '',
-                imageURL: 'https://firebasestorage.googleapis.com/v0/b/project-z-68d96.appspot.com/o/avatars%2Fbanner2.jpg?alt=media&token=a1980039-45c9-47a8-ab9b-a0cc4e3b1784',
+                imageURL: 'https://firebasestorage.googleapis.com/v0/b/project-z-68d96.appspot.com/o/avatars%2Ffavicon.png?alt=media&token=ccf0e43e-ce84-464d-b3a0-1e65fdbdf1ec',
             })
 
         } catch (error) {

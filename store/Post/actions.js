@@ -95,9 +95,15 @@ export default {
         })
         
     },
-    actRemovePost(context, data){
+    async actRemovePost(context, data){
 
         firebase.firestore().collection('posts').doc(data.id).delete()
+
+        const getComment = firebase.firestore().collection('comments').where("postId","==",data.id).get()
+        const awaitComment = await getComment
+        awaitComment.forEach(response => {
+            firebase.firestore().collection('comments').doc(response.id).delete()
+        })
 
     },
     async actEditPost(context, data){
@@ -119,6 +125,15 @@ export default {
             excerpt: data.excerpt,
             content: data.content,
             tags: data.tags
+        })
+
+        const getComment = firebase.firestore().collection('comments').where("postId","==",data.id).get()
+        const awaitComment = await getComment
+        awaitComment.forEach(response => {
+            firebase.firestore().collection('comments').doc(response.id).update({
+                postImage: urlImage,
+                postName: data.title
+            })
         })
         
     },

@@ -10,6 +10,19 @@
                         <span></span>
                         <span></span>
                         <ul id="menu">
+                            <li class="item hasChild search">
+                                <nuxt-link to="">SEARCH</nuxt-link>
+                                <div class="wrapDrop">
+                                    <b-input-group>
+                                        <b-form-input type="text"></b-form-input>
+                                        <b-input-group-append>
+                                            <b-button size="sm" class="btn-primary">
+                                                <b-icon icon="search" />
+                                            </b-button>
+                                        </b-input-group-append>
+                                    </b-input-group>
+                                </div>
+                            </li>
                             <li v-for="(menu,i) in menus" :key="i" class="item"
                                 :class="menu.submenu.length > 0 ? 'hasChild' : null"
                             >
@@ -79,6 +92,19 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="item hasChild search">
+                        <nuxt-link to="">SEARCH</nuxt-link>
+                        <div class="wrapDrop">
+                            <b-input-group>
+                                <b-form-input type="text"></b-form-input>
+                                <b-input-group-append>
+                                    <b-button class="btn-primary">
+                                        <b-icon icon="search" />
+                                    </b-button>
+                                </b-input-group-append>
+                            </b-input-group>
+                        </div>
+                    </div>
                     <div class="item hasChild">
                         <nuxt-link to="">ACCOUNT</nuxt-link>
                         <div class="wrapDrop">
@@ -92,8 +118,11 @@
                                 <li v-if="isUserLogin != null">
                                     <nuxt-link to="/cart">CART({{totalQuantity}})</nuxt-link>
                                 </li>
-                                <li v-if="isUserLogin != null">
+                                <li v-if="isUserLogin != null && isUserLogin.role == 'admin'">
                                     <nuxt-link to="/admin">ADMIN</nuxt-link>
+                                </li>
+                                <li v-if="isUserLogin != null && isUserLogin.role == 'user'">
+                                    <nuxt-link to="/profile">PROFILE</nuxt-link>
                                 </li>
                                 <li v-if="isUserLogin != null">
                                     <a @click="handleLogOut">
@@ -120,14 +149,13 @@ export default {
             menus: [
                 {title: "OUR STORY", link: "/our-story", submenu: []},
                 {title: "NEWSLETTER", link: "/blog", submenu: [
-                    {subtitle: "CONG CAPHE", sublink: "/blog"},
-                    {subtitle: "HERE & THERE", sublink: "/blog"},
-                    {subtitle: "BREW GUIDES", sublink: "/blog"}
+                    {subtitle: "COFFEE", sublink: "/blog"},
+                    {subtitle: "TRAVEL", sublink: "/blog"},
+                    {subtitle: "LIFE", sublink: "/blog"}
                 ]},
                 {title: "MENU", link: "/menu", submenu: [
                     {subtitle: "DRINKS MENU", sublink: "/menu"},
                 ]},
-                {title: "CARRERS", link: "/", submenu: []},
                 {title: "CONTACT", link: "/contact", submenu: []},
             ],
             arrCart: [],
@@ -196,6 +224,15 @@ export default {
             .item{
                 padding: 0 30px;
                 position: relative;
+                &.search{
+                    .wrapDrop{
+                        width: 300px;
+                        left: -50%;
+                        .input-group-append{
+                            height: 35px;
+                        }
+                    }
+                }
                 &:first-child{
                     padding-left: 0;
                 }
@@ -222,6 +259,7 @@ export default {
                     transition: all 0.3s ease;
                     opacity: 0;
                     visibility: hidden;
+                    
                     ul{
                         padding: 0;
                         margin: 0;
@@ -295,8 +333,7 @@ export default {
                 border-radius: 3px;
                 z-index: 1;
                 transform-origin: 4px 0px;
-                transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-                background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
                 opacity 0.55s ease;
                 &:first-child{
                     transform-origin: 0% 0%;
@@ -333,6 +370,20 @@ export default {
                 li{
                     padding: 3px 0;
                     font-size: 22px;
+                    &.search{
+                        .input-group{
+                            flex-wrap: nowrap;
+                            margin-top: 10px;
+                            input.form-control{
+                                top: 0;
+                                width: 100%;
+                                position: relative;
+                                cursor: default;
+                                opacity: 1;
+                                left: 0;
+                            }
+                        }
+                    }
                     a{
                         text-transform: uppercase;
                         -webkit-transition: all 0.25s ease;

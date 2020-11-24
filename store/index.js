@@ -29,6 +29,7 @@ export const actions = {
             context.dispatch('Order/actRealTimeOrder')
             context.dispatch('Post/actRealTimePost')
             context.dispatch('Tag/actRealTimeTag')
+            context.dispatch('Comment/actRealTimeComment')
             context.commit('Cart/getCart')
         } catch (error) {
             console.log(error);
@@ -41,7 +42,7 @@ export const actions = {
                 if(req.headers.cookie != undefined){
                     token = req.headers.cookie.split(';').find( c => c.trim().startsWith('token='))
                     if(token){
-                        token = token.split('=')[1]
+                        token = token.split('=')[1].split('?')[0]
                     }
                 }
             }
@@ -54,6 +55,7 @@ export const actions = {
                 context.dispatch('Order/actGetOrders'),
                 context.dispatch('Post/actGetPosts'),
                 context.dispatch('Tag/actGetTags'),
+                context.dispatch('Comment/actGetComments'),
             ]);
         } catch (error) {
             console.log(error);
@@ -64,9 +66,9 @@ export const actions = {
         let userCurrent = null
 
         if(data.idUser){
-            token = data.idUser.uid
             const user = firebase.firestore().collection('users').doc(data.idUser.uid).get()
             const getUser = await user
+            token = data.idUser.uid + "?" + getUser.data().role
             userCurrent = getUser.data()
         }
         
@@ -95,6 +97,9 @@ export const actions = {
                 
                 
             }
+
+            // Update profile frontend
+
             context.commit('editProfile', {
                 userHandle: data.userHandle,
                 email: data.email,
@@ -106,6 +111,8 @@ export const actions = {
                 userId: data.id,
             })
 
+            // Update collection users
+
             firebase.firestore().collection('users').doc(data.id).update({
                 userHandle: data.userHandle,
                 email: data.email,
@@ -113,6 +120,31 @@ export const actions = {
                 address: data.address,
                 imageURL: urlImage,
             })
+
+            // Update collection comments
+
+            const getComment = firebase.firestore().collection('comments').where("userId","==",data.id).get()
+            const awaitComment = await getComment
+            awaitComment.forEach(response => {
+                firebase.firestore().collection('comments').doc(response.id).update({
+                    userName: data.userHandle,
+                    userImage: urlImage
+                })
+            })
+
+            if(data.role == 'admin'){
+                // Update collection posts
+
+                const getPost = firebase.firestore().collection('posts').where("authorId","==",data.id).get()
+                const awaitPost = await getPost
+                awaitPost.forEach(response => {
+                    firebase.firestore().collection('posts').doc(response.id).update({
+                        authorName: data.userHandle,
+                        authorImage: urlImage
+                    })
+                })
+            }
+            
         } catch (error) {
             console.log(error);
         }

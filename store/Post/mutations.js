@@ -36,6 +36,8 @@ export default {
         if(data){
             for(let i in state.posts){
                 if(state.posts[i].id == data.id){
+                    state.posts[i].authorImage = data.authorImage
+                    state.posts[i].authorName = data.authorName
                     state.posts[i].title = data.title
                     state.posts[i].image = data.image
                     state.posts[i].excerpt = data.excerpt

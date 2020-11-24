@@ -24,7 +24,11 @@
 
 <script>
 export default {
-
+    name: 'Contact',
+    head: {
+        title: "Contact - Project Z"
+    },
+    transition: 'fade',
 }
 </script>
 

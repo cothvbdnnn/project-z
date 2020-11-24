@@ -104,9 +104,15 @@ export default {
         })
         
     },
-    actRemoveProduct(context, data){
+    async actRemoveProduct(context, data){
 
         firebase.firestore().collection('products').doc(data.id).delete()
+
+        const getComment = firebase.firestore().collection('comments').where("postId","==",data.id).get()
+        const awaitComment = await getComment
+        awaitComment.forEach(response => {
+            firebase.firestore().collection('comments').doc(response.id).delete()
+        })
 
     },
     async actEditProduct(context, data){
@@ -139,6 +145,17 @@ export default {
             description: data.description,
             categoryName: cate.name,
             categoryId: cate.id,
+        })
+
+        // Update comments in product
+
+        const getComment = firebase.firestore().collection('comments').where("postId","==",data.id).get()
+        const awaitComment = await getComment
+        awaitComment.forEach(response => {
+            firebase.firestore().collection('comments').doc(response.id).update({
+                postImage: urlImage,
+                postName: data.name
+            })
         })
         
     },
