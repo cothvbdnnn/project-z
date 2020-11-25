@@ -145,7 +145,7 @@ export default {
             
             if(this.title && this.imagePost != null){
                 this.actAddPost({
-                    title: this.title, 
+                    title: this.title.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
                     content: this.content,
                     image: this.imagePost,
                     tags: this.selectTags,

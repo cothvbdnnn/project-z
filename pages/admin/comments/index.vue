@@ -42,7 +42,12 @@
                         >
                             <b-icon icon="x-square-fill"></b-icon>
                         </b-button>
-                        <nuxt-link :to="'/admin/comments'">
+                        <nuxt-link v-if=" data.item.postType == 'product'" target="_blank" :to="/menu/+ data.item.postName + '?id=' + data.item.postId | fomartLink">
+                            <b-button size="sm" class="btn-primary">
+                                <b-icon icon="eye"></b-icon>
+                            </b-button>
+                        </nuxt-link>
+                        <nuxt-link v-if=" data.item.postType == 'blog'" target="_blank" :to="/blog/+ data.item.postName + '?id=' + data.item.postId | fomartLink">
                             <b-button size="sm" class="btn-primary">
                                 <b-icon icon="eye"></b-icon>
                             </b-button>
@@ -92,7 +97,7 @@ export default {
                 { key: 'userName', label: 'User', thClass: 'user-col' },
                 { key: 'content', label: 'Comment', thClass: 'content-col' },
                 { key: 'postName', label: 'Post', thClass: 'post-col' },
-                { key: 'postType', label: 'Post Type', thClass: 'post-type-col' },
+                { key: 'postType', label: 'Post Type', thClass: 'post-type-col', tdClass: 'post-type-col' },
                 { key: 'createAt', label: 'Create At', thClass: 'create-at-col' },
                 { key: 'actions', label: 'Actions', thClass: 'actions-col' },
             ],
@@ -111,7 +116,10 @@ export default {
     filters: {
         filterDate: function (date) {
             return moment(date).format('l');
-        }
+        },
+        fomartLink(text) {
+            return text.split(' ').join('-').toLowerCase()
+        },
     },
     computed: {
         ...mapState({
@@ -123,7 +131,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            'actRemoveCategory' : 'Category/actRemoveCategory'
+            'actRemoveComment' : 'Comment/actRemoveComment'
         }),
         showConfirm(data) {
             this.confirm = ''
@@ -141,7 +149,7 @@ export default {
             .then(value => {
                 this.confirm = value
                 if(this.confirm){
-                    this.actRemoveCategory({index: data.index,id: data.item.id})
+                    this.actRemoveComment({index: data.index,id: data.item.id})
                 }
             })
             .catch(err => {

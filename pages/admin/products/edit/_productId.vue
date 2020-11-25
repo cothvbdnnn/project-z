@@ -99,6 +99,11 @@
             <b-button class="btn-primary mr-1" type="submit" form="edit-product-form"
                 @keyup.enter="editProduct"
             >Edit<b-icon class="ml-2" icon="pencil"></b-icon></b-button>
+            <nuxt-link class="mr-1" target="_blank" :to="/menu/+ nameProduct + '?id=' + idProduct | fomartLink">
+                <b-button class="btn-primary">
+                    View <b-icon icon="eye"></b-icon>
+                </b-button>
+            </nuxt-link>
             <nuxt-link to="/admin/products">
                 <b-button class="btn-primary"
                 >Back</b-button>
@@ -132,6 +137,7 @@ export default {
     },
     data() {
         return {
+            idProduct: '',
             nameProduct: '',
             regularPrice: 0,
             salePrice: 0,
@@ -144,6 +150,11 @@ export default {
             imagePreview: null,
             imageOld: null,
         }
+    },
+    filters: {
+        fomartLink(text) {
+            return text.split(' ').join('-').toLowerCase()
+        },
     },
     watch: {
         success(){
@@ -159,6 +170,7 @@ export default {
     },
     created() {
         if (this.productCurrent) {
+            this.idProduct = this.productCurrent.id
             this.nameProduct = this.productCurrent.name
             this.regularPrice = this.productCurrent.regularPrice
             this.salePrice = this.productCurrent.salePrice
@@ -213,7 +225,7 @@ export default {
                 if(this.nameProduct != this.productCurrent.name){
                     if (!findProduct.includes(this.nameProduct.toLowerCase())) {
                         this.actEditProduct({
-                            name: this.nameProduct, 
+                            name: this.nameProduct.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
                             regularPrice: this.regularPrice,
                             salePrice: this.salePrice,
                             quantity: this.quantity,
@@ -230,7 +242,7 @@ export default {
                     }
                 }else{
                     this.actEditProduct({
-                        name: this.nameProduct, 
+                        name: this.nameProduct.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
                         regularPrice: this.regularPrice,
                         salePrice: this.salePrice,
                         quantity: this.quantity,

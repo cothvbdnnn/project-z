@@ -64,6 +64,8 @@ body{
                     }
                     .dropdown-menu{
                         min-width: auto;
+                        border-radius: 0;
+                        border-color: #3c5e2c;
                     }
                 }
                 .content-comment{
@@ -73,6 +75,7 @@ body{
                     color: #3c5e2c;
                     font-weight: 600;
                     font-size: 16px;
+                    background-color: #fff !important;
                 }
             }
         }
@@ -358,6 +361,13 @@ input:-webkit-autofill:active  {
     color: #fff;
     background-color: #d3b161;
     border-color: #d3b161;
+    border-radius: 0;
+}
+.btn-remove:hover{
+    background-color: #d3b161;
+    border-color: #d3b161;
+    -webkit-filter: brightness(110%);
+    filter: brightness(110%);
 }
 .btn-remove:focus{
     background-color: #d3b161;

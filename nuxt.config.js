@@ -27,6 +27,7 @@ module.exports = {
         '~/plugins/firebase.js',
         '~/plugins/nuxt-client-init.client.js',
         {src:'~/plugins/vue-editor.js', ssr: false },
+        { src: '~/plugins/vue-fb-customer-chat.js', ssr: false },
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)

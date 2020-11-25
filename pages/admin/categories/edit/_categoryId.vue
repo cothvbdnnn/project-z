@@ -90,7 +90,11 @@ export default {
             // Check category esixt
             if(this.nameCat != ""){
                 if (!findCat.includes(this.nameCat.toLowerCase())) {
-                    this.actEditCategory({catUpdate: this.nameCat, id: this.categoryCurrent.id, index: this.$route.params.categoryId})
+                    this.actEditCategory({
+                        catUpdate: this.nameCat.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
+                        id: this.categoryCurrent.id, 
+                        index: this.$route.params.categoryId
+                    })
                     this.success = true
                 }else{
                     this.fail = true

@@ -78,7 +78,7 @@ export default {
 
             if(this.nameTag != ""){
                 if (!findTag.includes(this.nameTag.toLowerCase())) {
-                    this.actAddTag(this.nameTag)
+                    this.actAddTag(this.nameTag.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '))
                     this.$refs.form.reset()
                     this.success = true
                 }else{

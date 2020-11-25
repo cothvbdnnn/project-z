@@ -92,7 +92,7 @@ export default {
             if(this.nameTag != ""){
                 if (!findTag.includes(this.nameTag.toLowerCase())) {
                     this.actEditTag({
-                        tagUpdate: this.nameTag, 
+                        tagUpdate: this.nameTag.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
                         id: this.tagCurrent.id, 
                         index: this.$route.params.tagId,
                         tagOld: this.tagCurrent.name

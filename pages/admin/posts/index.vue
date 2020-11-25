@@ -53,6 +53,11 @@
                         >
                             <b-icon icon="x-square-fill"></b-icon>
                         </b-button>
+                        <nuxt-link class="mr-1" target="_blank" :to="/blog/+ data.item.title + '?id=' + data.item.id | fomartLink">
+                            <b-button size="sm" class="btn-primary">
+                                <b-icon icon="eye"></b-icon>
+                            </b-button>
+                        </nuxt-link>
                         <nuxt-link :to="'/admin/posts/edit/' + data.index">
                             <b-button size="sm" class="btn-primary">
                                 <b-icon icon="pencil"></b-icon>
@@ -123,7 +128,10 @@ export default {
         },
         filterDate: function (date) {
             return moment(date).format('l');
-        }
+        },
+        fomartLink(text) {
+            return text.split(' ').join('-').toLowerCase()
+        },
     },
     mounted() {
         this.totalRows = this.items.length

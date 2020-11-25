@@ -3,11 +3,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-12">  
-                    <h1>{{ postCurrent.title }}</h1>
+                    <h1 class="text-primary">{{ postCurrent.title }}</h1>
                     <h5>Author: {{postCurrent.authorName}} - {{ postCurrent.createAt | filterDate}}</h5>    
                     <div class="content-blog" v-html="postCurrent.content"></div>
                     <h6>Tag<span v-if="postCurrent.tags.length > 1">s</span>: 
-                        <span v-for="(tag, i) in postCurrent.tags" :key="i" class="tags">{{tag}}</span>
+                        <span v-for="(tag, i) in postCurrent.tags" :key="i" class="tags">
+                            <nuxt-link :to="'/tag/' + tag | fomartLink">{{tag}}</nuxt-link>
+                        </span>
                     </h6>
                 </div>
                 <div class="col-12">
@@ -37,6 +39,14 @@ export default {
         title: "Blog - Project Z"
     },
     transition: 'fade',
+    async validate(context) {
+        const posts = await context.store.state.Post.posts
+        for(let i in posts){
+           if(posts[i].id == context.query.id){
+                return true
+           }
+        }
+    },
     data() {
         return {
             userId: '',
@@ -47,7 +57,10 @@ export default {
     filters: {
         filterDate: function (date) {
             return moment(date).format('l');
-        }
+        },
+        fomartLink(text) {
+            return text.split(' ').join('-').toLowerCase()
+        },
     },
     created() {
         if(this.getUserCurrent){

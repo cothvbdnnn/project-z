@@ -36,7 +36,7 @@
                 <div class="col-md-6 col-12 mb-2">
                     <h6>Name</h6>
                     <b-form-input class="" placeholder="Name"
-                        v-model="nameProduct"
+                        v-model.trim="nameProduct"
                         :state="nameState"
                     ></b-form-input>
                     <b-form-invalid-feedback id="input-live-feedback">
@@ -183,7 +183,7 @@ export default {
             if(this.nameState && this.priceState && this.imageProduct != null){
                 if (!findProduct.includes(this.nameProduct.toLowerCase())) {
                     this.actAddProduct({
-                        name: this.nameProduct, 
+                        name: this.nameProduct.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
                         regularPrice: this.regularPrice,
                         salePrice: this.salePrice,
                         quantity: this.quantity,

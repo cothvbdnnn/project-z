@@ -3,9 +3,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-12">
-                    <div class="row">
+                    <h1 class="text-primary">Tag:<span class="text-capitalize">{{tagCurrent}}</span></h1>
+                    <div class="row mt-4">
                         <div class="col-md-12 col-sm-12 col-12 item-blog"
-                            v-for="(post,i) in getPosts"
+                            v-for="(post,i) in filterPosts"
                             :key="i"
                         >   
                             <div class="container-item">
@@ -41,13 +42,22 @@
 <script>
 
 import { mapState } from 'vuex'
+import firebase from "firebase";
 
 export default {
-    name: 'Blog',
+    name: 'Tag',
     head: {
-        title: "Blog - Project Z"
+        title: "Tag - Project Z"
     },
     transition: 'fade',
+    async validate(context) {
+        const tags = await context.store.state.Tag.tags
+        for(let i in tags){
+           if(tags[i].name.toLowerCase() == context.params.tagName.split('-').join(' ')){
+               return true
+           }
+        }
+    },
     data() {
         return {
             
@@ -62,6 +72,14 @@ export default {
         ...mapState({
             getPosts: state => state.Post.posts,
         }),
+        tagCurrent(){
+            return this.$route.params.tagName.split('-').join(' ')
+        },
+        filterPosts(){
+            return this.getPosts.filter( x => {
+                return x.tags.toString().toLowerCase().includes(this.tagCurrent)
+            })
+        }
     },
 }
 </script>

@@ -70,6 +70,11 @@
             <b-button class="btn-primary mr-1" type="submit" form="edit-post-form"
                 @keyup.enter="editPost"
             >Edit<b-icon class="ml-2" icon="pencil"></b-icon></b-button>
+            <nuxt-link class="mr-1" target="_blank" :to="/blog/+ title + '?id=' + id | fomartLink">
+                <b-button class="btn-primary">
+                    View <b-icon icon="eye"></b-icon>
+                </b-button>
+            </nuxt-link>
             <nuxt-link to="/admin/posts">
                 <b-button class="btn-primary"
                 >Back</b-button>
@@ -103,6 +108,7 @@ export default {
     },
     data() {
         return {
+            id: '',
             title: '',
             content: '',
             excerpt: '',
@@ -113,6 +119,11 @@ export default {
             success: false,
             fail: false,
         }
+    },
+    filters: {
+        fomartLink(text) {
+            return text.split(' ').join('-').toLowerCase()
+        },
     },
     watch: {
         success(){
@@ -128,6 +139,7 @@ export default {
     },
     created() {
         if (this.postCurrent) {
+            this.id = this.postCurrent.id
             this.title = this.postCurrent.title
             this.excerpt = this.postCurrent.excerpt
             this.content = this.postCurrent.content
@@ -165,7 +177,7 @@ export default {
             if(this.title ){
 
                 this.actEditPost({
-                    title: this.title, 
+                    title: this.title.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
                     excerpt: this.excerpt,
                     content: this.content,
                     image: this.imagePost,

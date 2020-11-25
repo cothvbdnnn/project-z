@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-6 col-12">  
                     <h1 class="text-primary">{{ nameProduct }}</h1>        
-                    <h5>Category: {{ categoryName }}</h5>   
+                    <h5>Category: <nuxt-link :to="'/category/' + categoryName | fomartLink">{{ categoryName }}</nuxt-link></h5>   
                     <h5 v-if="quantity > 0">Quantity: {{ quantity }}</h5>
                     <h5 v-if="quantity == 0">Out of stock</h5> 
                     <h3>Price: 
@@ -56,6 +56,14 @@ export default {
         title: "Product - Project Z"
     },
     transition: 'fade',
+    async validate(context) {
+        const products = await context.store.state.Product.products
+        for(let i in products){
+           if(products[i].id == context.query.id){
+                return true
+           }
+        }
+    },
     data() {
         return {
             id: '',
@@ -111,6 +119,9 @@ export default {
     filters: {
         filterPrice(price) {
             return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
+        },
+        fomartLink(text) {
+            return text.split(' ').join('-').toLowerCase()
         },
     },
     computed: {

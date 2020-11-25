@@ -119,6 +119,9 @@ export default {
                                 }
                             }
                         }
+                        &.post-type-col{
+                            text-transform: capitalize;
+                        }
                     }
                 }
             }

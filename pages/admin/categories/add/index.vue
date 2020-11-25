@@ -78,7 +78,7 @@ export default {
 
             if(this.nameCat != ""){
                 if (!findCat.includes(this.nameCat.toLowerCase())) {
-                    this.actAddCategory(this.nameCat)
+                    this.actAddCategory(this.nameCat.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '))
                     this.$refs.form.reset()
                     this.success = true
                 }else{
