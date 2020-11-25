@@ -35,9 +35,9 @@
                         :idPost="id"
                         :namePost="nameProduct"
                         :imagePost="imageProduct"
-                        :userId="getUserCurrent.userId"
-                        :userName="getUserCurrent.userHandle"
-                        :userImage="getUserCurrent.imageURL"
+                        :userId="userId"
+                        :userName="userName"
+                        :userImage="userImage"
                         :postType="'product'"
                     />
                 </div>
@@ -68,6 +68,9 @@ export default {
             categoryName: '',
             categoryId: '',
             arrCart: [],
+            userId: '',
+            userName: '',
+            userImage: '',
             success: false,
             fail: false,
         }
@@ -86,6 +89,11 @@ export default {
             this.categoryName = this.productCurrent.categoryName
             this.imageProduct = this.productCurrent.image
             this.id = this.productCurrent.id
+        }
+        if(this.getUserCurrent){
+            this.userId = this.getUserCurrent.userId
+            this.userName = this.getUserCurrent.userHandle
+            this.userImage = this.getUserCurrent.imageURL
         }
     },
     watch: {

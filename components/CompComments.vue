@@ -2,14 +2,17 @@
     <div class="row comments mt-5">
         <div class="col-12">
             <h2 class="text-primary">Comment<span v-if="filterComment.length > 1">s</span>({{filterComment.length}})</h2>
-            <b-form-textarea class="mt-4 mb-3" placeholder="Enter your comment"
-                v-model="comment"
-            ></b-form-textarea>
-            <b-button class="btn-primary"
-                @click="handleComment"
-            >Comment</b-button>
+            <div v-if="userId">
+                <b-form-textarea class="mt-4 mb-3" placeholder="Enter your comment"
+                    v-model="comment"
+                ></b-form-textarea>
+                <b-button class="btn-primary mb-3"
+                    @click="handleComment"
+                >Comment</b-button>
+            </div>
+            <h4 class="text-primary" v-if="!userId">Please login to comment</h4>
             
-            <div class="container-comment mt-5">
+            <div class="container-comment mt-4">
                 <div v-for="(comment,i) in filterComment.filter(x => x.reply == null)" :key="i" class="row item-comment">
                     <div class="col-md-2 col-12 col-image">
                         <b-img :src="comment.userImage"></b-img>
@@ -27,7 +30,7 @@
                         <div v-if="comment.isEdit == false">
                             <p class="content-comment">{{ comment.content }}</p>
                             <p><span>
-                                <a class="mr-3" v-b-toggle="'collapse-' + i" href="javascript:void(0)" @click="commentReply = ''">Reply</a>
+                                <a v-if="userId" class="mr-3" v-b-toggle="'collapse-' + i" href="javascript:void(0)" @click="commentReply = ''">Reply</a>
                                 </span>{{ comment.createAt | filterDate}}
                             </p>
                         </div>
@@ -58,7 +61,7 @@
                                 <div v-if="commentReply.isEdit == false">
                                     <p class="content-comment">{{ commentReply.content }}</p>
                                     <p><span>
-                                        <a class="mr-3" v-b-toggle="'collapse-' + i" href="javascript:void(0)" @click="commentReply = ''">Reply</a>
+                                        <a v-if="userId" class="mr-3" v-b-toggle="'collapse-' + i" href="javascript:void(0)" @click="commentReply = ''">Reply</a>
                                         </span>{{ comment.createAt | filterDate}}
                                     </p>
                                 </div>

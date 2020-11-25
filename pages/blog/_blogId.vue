@@ -15,9 +15,9 @@
                         :idPost="postCurrent.id"
                         :namePost="postCurrent.title"
                         :imagePost="postCurrent.image"
-                        :userId="getUserCurrent.userId"
-                        :userName="getUserCurrent.userHandle"
-                        :userImage="getUserCurrent.imageURL"
+                        :userId="userId"
+                        :userName="userName"
+                        :userImage="userImage"
                         :postType="'blog'"
                     />
                 </div>
@@ -39,12 +39,21 @@ export default {
     transition: 'fade',
     data() {
         return {
-            
+            userId: '',
+            userName: '',
+            userImage: '',
         }
     },
     filters: {
         filterDate: function (date) {
             return moment(date).format('l');
+        }
+    },
+    created() {
+        if(this.getUserCurrent){
+            this.userId = this.getUserCurrent.userId
+            this.userName = this.getUserCurrent.userHandle
+            this.userImage = this.getUserCurrent.imageURL
         }
     },
     computed: {
