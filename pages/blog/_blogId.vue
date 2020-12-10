@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12 col-12">  
                     <h1 class="text-primary">{{ postCurrent.title }}</h1>
-                    <h5>Author: {{postCurrent.authorName}} - {{ postCurrent.createAt | filterDate}}</h5>    
+                    <h5>Author: <span><nuxt-link :to="'/author/' + postCurrent.authorName | fomartLink">{{postCurrent.authorName}}</nuxt-link></span> - {{ postCurrent.createAt | filterDate}}</h5>    
                     <div class="content-blog" v-html="postCurrent.content"></div>
                     <h6>Tag<span v-if="postCurrent.tags.length > 1">s</span>: 
                         <span v-for="(tag, i) in postCurrent.tags" :key="i" class="tags">

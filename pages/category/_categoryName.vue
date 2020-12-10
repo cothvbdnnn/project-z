@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-cat">
-                    <h1 class="text-primary text-capitalize">{{categoryCurent}}</h1>
+                    <h1 class="text-primary">Category:<span class="text-capitalize">{{categoryCurent}}</span></h1>
                 </div>
                 <div class="col-12 mt-4">
                     <div class="row">

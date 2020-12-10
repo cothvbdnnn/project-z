@@ -10,6 +10,7 @@ export default {
             state.comments.unshift({
                 id: value.id,
                 isEdit: false,
+                read: false,
                 createAt: value.createAt,
                 content: value.content,
                 userId: value.userId,

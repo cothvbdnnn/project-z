@@ -1,16 +1,60 @@
 <template>
     <div>
-        <h1>Admin</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus saepe maxime repellat laboriosam deleniti. Harum alias earum vel, ut eius corrupti mollitia animi vitae dolor officiis accusantium labore quam. Magnam, veritatis quod ad, fugiat tenetur, ea quidem maiores perferendis repudiandae id eius sint nostrum cum! Vero hic accusamus dignissimos iure?</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis inventore sequi aut, cupiditate numquam vero eius ea, at autem neque eligendi, veritatis cumque illum distinctio? Architecto, quas quo est nesciunt officia eveniet sequi fugit autem porro dolorum in quam molestias praesentium dolores at quos repudiandae repellat aperiam magnam placeat distinctio.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda quisquam accusantium labore nesciunt suscipit similique sit itaque id non distinctio placeat sunt impedit nisi vitae eum consequatur odio, tenetur, quos eligendi cupiditate excepturi molestias dicta veniam! Culpa eaque cumque porro amet aspernatur praesentium velit, rem nam, fugiat, sunt obcaecati debitis ratione earum magni pariatur reiciendis ut illo ullam maiores expedita iure. Iusto quasi similique, dolorem sint, natus in illo, reiciendis enim cupiditate excepturi eos fugiat ad amet. Quod quos quisquam eligendi, consectetur sed sint saepe eos tenetur, qui blanditiis, id doloremque? Dolorum ad id officiis similique nobis, libero aut esse.</p>
-        <h1>Lorem ipsum dolor sit amet.</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci, porro culpa ducimus ipsum molestiae doloremque placeat debitis, commodi quia id, quo tempore ex dolorem. Magnam magni recusandae labore exercitationem ipsum incidunt tempore, porro officia architecto veniam mollitia temporibus asperiores molestias quis officiis voluptate aliquid pariatur beatae esse dolor. Laudantium tenetur repellendus veniam illo obcaecati neque debitis nulla dolorem non id error dolores, quo sint doloremque. Reprehenderit nemo, et quidem aut nesciunt, a esse molestiae, quibusdam laborum vel sed ex iure eveniet nam asperiores fugiat placeat ea ipsa ratione recusandae. Perspiciatis quos maiores, dolorum repellat quaerat reiciendis obcaecati numquam ullam.</p>
-        <h1>Lorem ipsum dolor sit.</h1>
+        <div>
+            <div class="pb-6 pb-8 pt-md-8 bg-gradient-success">
+                <b-row>
+                    <b-col xl="3" md="6" v-for="(arr,i) in arrayCard" :key="i">
+                        <div class="mb-4">
+                            <b-card>
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title text-uppercase text-muted mb-0">{{ arr.title }}</h5>
+                                        <span class="h3 font-weight-bold mb-0">{{ arr.data }}</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape text-white rounded-circle shadow bg-gradient-orange">
+                                            <i class="ni ni-chart-pie-35"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </b-card>
+                        </div>
+                    </b-col>
+                </b-row>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-8 col-12">
+                        <b-card>
+                            <ChartBar 
+                                :datasets="dataChartBar"
+                            />
+                        </b-card>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <b-card>
+                            <ChartDoughnut 
+                                :labels="['Processing','Confirmed','Shipped','Completed']"
+                                :data="[orderProcessing.length,orderConfirmed.length,orderShipped.length,orderCompleted.length]"
+                            />
+                        </b-card>
+                        <div class="mt-4">
+                            <b-card>
+                                <ChartLine 
+                                    :datasets="dataChartLine"
+                                />
+                            </b-card>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'Admin',
     layout: 'admin',
@@ -18,6 +62,163 @@ export default {
         title: "Admin - Project Z"
     },
     transition: 'fade',
+    data() {
+        return {
+            
+        }
+    },
+    computed: {
+        ...mapState({
+            getProducts: state => state.Product.products,
+            getOrders: state => state.Order.orders,
+            getPosts: state => state.Post.posts,
+            getComments: state => state.Comment.comments,
+        }),
+        newOrders(){
+            return this.getOrders.filter((x) => {
+                return x.status == 'Processing'
+            })
+        },
+        newComments(){
+            return this.getComments.filter((x) => {
+                return x.read == false  
+            })
+        },
+        orderProcessing(){
+            return this.getOrders.filter((x) => {
+                return x.status == 'Processing'
+            })
+        },
+        orderConfirmed(){
+            return this.getOrders.filter((x) => {
+                return x.status == 'Confirmed'
+            })
+        },
+        orderShipped(){
+            return this.getOrders.filter((x) => {
+                return x.status == 'Shipped'
+            })
+        },
+        orderCompleted(){
+            return this.getOrders.filter((x) => {
+                return x.status == 'Completed'
+            })
+        },
+        arrayCard(){
+            return [
+                { title: 'New Comments', data: this.newComments.length, icon: '' },
+                { title: 'New Orders', data: this.newOrders.length, icon: '' },
+                { title: 'Total Products', data: this.getProducts.length, icon: '' },
+                { title: 'Total Posts', data: this.getPosts.length, icon: '' },
+            ]
+        },
+        orderDateProcessing(){
+            let mapOrder =  this.orderProcessing.map(x => {
+                return new Date(x.createAt).getDay()
+            })
+            return [
+                mapOrder.filter(x => x == 0 ).length,
+                mapOrder.filter(x => x == 1 ).length,
+                mapOrder.filter(x => x == 2 ).length,
+                mapOrder.filter(x => x == 3 ).length,
+                mapOrder.filter(x => x == 4 ).length,
+                mapOrder.filter(x => x == 5 ).length,
+                mapOrder.filter(x => x == 6 ).length,
+            ]
+        },
+        orderDateConfirmed(){
+            let mapOrder =  this.orderConfirmed.map(x => {
+                return new Date(x.createAt).getDay()
+            })
+            return [
+                mapOrder.filter(x => x == 0 ).length,
+                mapOrder.filter(x => x == 1 ).length,
+                mapOrder.filter(x => x == 2 ).length,
+                mapOrder.filter(x => x == 3 ).length,
+                mapOrder.filter(x => x == 4 ).length,
+                mapOrder.filter(x => x == 5 ).length,
+                mapOrder.filter(x => x == 6 ).length,
+            ]
+        },
+        orderDateShipped(){
+            let mapOrder =  this.orderShipped.map(x => {
+                return new Date(x.createAt).getDay()
+            })
+            return [
+                mapOrder.filter(x => x == 0 ).length,
+                mapOrder.filter(x => x == 1 ).length,
+                mapOrder.filter(x => x == 2 ).length,
+                mapOrder.filter(x => x == 3 ).length,
+                mapOrder.filter(x => x == 4 ).length,
+                mapOrder.filter(x => x == 5 ).length,
+                mapOrder.filter(x => x == 6 ).length,
+            ]
+        },
+        orderDateCompleted(){
+            let mapOrder =  this.orderCompleted.map(x => {
+                return new Date(x.createAt).getDay()
+            })
+            return [
+                mapOrder.filter(x => x == 0 ).length,
+                mapOrder.filter(x => x == 1 ).length,
+                mapOrder.filter(x => x == 2 ).length,
+                mapOrder.filter(x => x == 3 ).length,
+                mapOrder.filter(x => x == 4 ).length,
+                mapOrder.filter(x => x == 5 ).length,
+                mapOrder.filter(x => x == 6 ).length,
+            ]
+        },
+        commentDate(){
+            let mapComment =  this.getComments.map(x => {
+                return new Date(x.createAt).getDay()
+            })
+            return [
+                mapComment.filter(x => x == 0 ).length,
+                mapComment.filter(x => x == 1 ).length,
+                mapComment.filter(x => x == 2 ).length,
+                mapComment.filter(x => x == 3 ).length,
+                mapComment.filter(x => x == 4 ).length,
+                mapComment.filter(x => x == 5 ).length,
+                mapComment.filter(x => x == 6 ).length,
+            ]
+        },
+        dataChartBar(){
+            return [
+                {
+                    backgroundColor: "#ccc",
+                    borderColor: "#ccc",
+                    data: this.orderDateProcessing,
+                    label: "Processing"
+                },
+                {
+                    backgroundColor: "#d3b161",
+                    borderColor: "#d3b161",
+                    data: this.orderDateConfirmed,
+                    label: "Comfirmed"
+                },
+                {
+                    backgroundColor: "#2a2a2a",
+                    borderColor: "#2a2a2a",
+                    data: this.orderDateShipped,
+                    label: "Shipped"
+                },
+                {
+                    backgroundColor: "#3c5e2c",
+                    borderColor: "#3c5e2c",
+                    data: this.orderDateConfirmed,
+                    label: "Completed"
+                },
+            ]
+        },
+        dataChartLine(){
+            return {
+                borderColor: "#3c5e2c",
+                backgroundColor: "#3c5e2c",
+                data: this.commentDate,
+                label: "Comments"
+            }
+        }
+    },
 }
 </script>
 

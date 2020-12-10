@@ -20,6 +20,7 @@ export default {
                     postType: doc.data().postType,
                     reply: doc.data().reply,
                     isEdit: false,
+                    read: false,
                 })
             })
             context.commit('getComments', comments)
@@ -52,6 +53,7 @@ export default {
                                     postImage: doc.data().postImage,
                                     postType: doc.data().postType,
                                     reply: doc.data().reply,
+                                    read: doc.data().read,
                                 })
                                 
                                 context.commit('addComment', comments)
@@ -86,6 +88,7 @@ export default {
             postImage: data.postImage,
             postType: data.postType,
             reply: data.reply,
+            read: false,
         })
     },
     async actRemoveComment(context, data){
