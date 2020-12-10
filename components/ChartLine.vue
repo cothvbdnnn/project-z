@@ -14,8 +14,8 @@ export default {
     },
     props: {
         datasets: {
-            type: Object,
-            default: {},
+            type: Array,
+            default: [],
         },
     },
     mounted() {

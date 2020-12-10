@@ -211,12 +211,14 @@ export default {
             ]
         },
         dataChartLine(){
-            return {
-                borderColor: "#3c5e2c",
-                backgroundColor: "#3c5e2c",
-                data: this.commentDate,
-                label: "Comments"
-            }
+            return [
+                {
+                    borderColor: "#3c5e2c",
+                    backgroundColor: "#3c5e2c",
+                    data: this.commentDate,
+                    label: "Comments"
+                }
+            ]
         }
     },
 }
