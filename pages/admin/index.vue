@@ -205,7 +205,7 @@ export default {
                 {
                     backgroundColor: "#3c5e2c",
                     borderColor: "#3c5e2c",
-                    data: this.orderDateConfirmed,
+                    data: this.orderDateCompleted,
                     label: "Completed"
                 },
             ]
