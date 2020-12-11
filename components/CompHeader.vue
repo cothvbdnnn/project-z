@@ -95,14 +95,22 @@
                     <div class="item hasChild search">
                         <nuxt-link to="">SEARCH</nuxt-link>
                         <div class="wrapDrop">
-                            <b-input-group>
-                                <b-form-input type="text"></b-form-input>
-                                <b-input-group-append>
-                                    <b-button class="btn-primary">
-                                        <b-icon icon="search" />
-                                    </b-button>
-                                </b-input-group-append>
-                            </b-input-group>
+                            <b-form
+                                id="search-form"
+                                ref="form"
+                                @submit.prevent="search"
+                            >
+                                <b-input-group>
+                                    <b-form-input type="text" v-model="inputSearch"></b-form-input>
+                                    <b-input-group-append>
+                                        <b-button class="btn-primary" type="submit" form="search-form"
+                                            @keyup.enter="search"
+                                        >
+                                            <b-icon icon="search" />
+                                        </b-button>
+                                    </b-input-group-append>
+                                </b-input-group>
+                            </b-form>
                         </div>
                     </div>
                     <div class="item hasChild">
@@ -159,6 +167,7 @@ export default {
                 {title: "CONTACT", link: "/contact", submenu: []},
             ],
             arrCart: [],
+            inputSearch: '',
         }
     },
     computed: {
@@ -181,6 +190,11 @@ export default {
         }),
         handleLogOut(){
             this.actLogOutUser();
+        },
+        search(){
+            if(this.inputSearch != ""){
+                this.$router.push("/search?key=" + this.inputSearch)
+            }
         }
     }
 }
