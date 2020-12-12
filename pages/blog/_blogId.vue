@@ -2,9 +2,10 @@
     <div class="product">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-12">  
+                <div class="col-md-12 col-12">
                     <h1 class="text-primary">{{ postCurrent.title }}</h1>
-                    <h5>Author: <span><nuxt-link :to="'/author/' + postCurrent.authorName | fomartLink">{{postCurrent.authorName}}</nuxt-link></span> - {{ postCurrent.createAt | filterDate}}</h5>    
+                    <CompShare />
+                    <h5 class="mt-3">Author: <span><nuxt-link :to="'/author/' + postCurrent.authorName | fomartLink">{{postCurrent.authorName}}</nuxt-link></span> - {{ postCurrent.createAt | filterDate}}</h5>    
                     <div class="content-blog" v-html="postCurrent.content"></div>
                     <h6>Tag<span v-if="postCurrent.tags.length > 1">s</span>: 
                         <span v-for="(tag, i) in postCurrent.tags" :key="i" class="tags">
@@ -34,9 +35,17 @@ import { mapState } from 'vuex'
 import moment from 'moment';
 
 export default {
-    name: 'Blog',
-    head: {
-        title: "Blog - Project Z"
+    name: 'Post',
+    head() {
+        return {
+            title: this.postCurrent.title + ' - Project Z',
+            meta: [
+                {
+                    hid: this.postCurrent.title + ' - Project Z',
+                    name: this.postCurrent.title + ' - Project Z',
+                }
+            ]
+        }
     },
     transition: 'fade',
     async validate(context) {

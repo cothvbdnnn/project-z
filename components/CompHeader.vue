@@ -13,14 +13,22 @@
                             <li class="item hasChild search">
                                 <nuxt-link to="">SEARCH</nuxt-link>
                                 <div class="wrapDrop">
-                                    <b-input-group>
-                                        <b-form-input type="text"></b-form-input>
-                                        <b-input-group-append>
-                                            <b-button size="sm" class="btn-primary">
-                                                <b-icon icon="search" />
-                                            </b-button>
-                                        </b-input-group-append>
-                                    </b-input-group>
+                                    <b-form
+                                        id="search-form"
+                                        ref="form"
+                                        @submit.prevent="search"
+                                    >
+                                        <b-input-group>
+                                            <b-form-input type="text" v-model="inputSearch"></b-form-input>
+                                            <b-input-group-append>
+                                                <b-button size="sm" class="btn-primary" type="submit" form="search-form"
+                                                    @keyup.enter="search"
+                                                >
+                                                    <b-icon icon="search" />
+                                                </b-button>
+                                            </b-input-group-append>
+                                        </b-input-group>
+                                    </b-form>
                                 </div>
                             </li>
                             <li v-for="(menu,i) in menus" :key="i" class="item"

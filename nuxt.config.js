@@ -26,6 +26,7 @@ module.exports = {
     plugins: [
         '~/plugins/firebase.js',
         '~/plugins/nuxt-client-init.client.js',
+        {src:'~/plugins/vue-star-rating.js', ssr: false },
         {src:'~/plugins/vue-editor.js', ssr: false },
         { src: '~/plugins/vue-fb-customer-chat.js', ssr: false },
     ],
@@ -47,7 +48,9 @@ module.exports = {
         ['bootstrap-vue/nuxt', {
             icons: true,
         }],
+        'vue-social-sharing/nuxt',
     ],
+
 
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     

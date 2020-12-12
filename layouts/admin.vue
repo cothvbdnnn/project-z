@@ -5,7 +5,7 @@
                 <CompSidebar/>
             </b-col>
             <b-col cols="lg-10" class="p-0">
-                <div class="px-3">
+                <div class="px-3 comp-header">
                     <CompHeaderAdmin/>
                 </div>
                 <div class="wrap-container py-5 px-5">
@@ -32,8 +32,16 @@ export default {
         left: 0;
         border-right: 1px solid #ccc;
         @media screen and ( max-width: 991px ){
-            position: unset;
-            order: 2;
+            display: none;
+        }
+    }
+    .comp-header{
+        @media screen and ( max-width: 991px ){
+            position: fixed;
+            top: 0;
+            z-index: 10;
+            background-color: #fff;
+            width: 100%;
         }
     }
     .wrap-container{
@@ -41,7 +49,7 @@ export default {
         min-height: calc( 100vh - 55px );
         @media screen and ( max-width: 991px ){
             min-height: auto;
-            padding: 20px !important;
+            padding: 80px 20px 20px !important;
         }
         .content-admin{
             border: 1px solid #ccc;

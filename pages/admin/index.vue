@@ -3,7 +3,7 @@
         <div>
             <div class="pb-6 pb-8 pt-md-8 bg-gradient-success">
                 <b-row>
-                    <b-col xl="3" md="6" v-for="(arr,i) in arrayCard" :key="i">
+                    <div class="col-md-3 col-sm-6" v-for="(arr,i) in arrayCard" :key="i">
                         <div class="mb-4">
                             <b-card>
                                 <div class="row">
@@ -19,7 +19,7 @@
                                 </div>
                             </b-card>
                         </div>
-                    </b-col>
+                    </div>
                 </b-row>
             </div>
             <div>

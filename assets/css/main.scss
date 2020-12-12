@@ -50,7 +50,24 @@ body{
             }
         }
     }
+    .share-social{
+        a{
+            font-size: 14px;
+            border: 1px solid #3c5e2c;
+            color: #3c5e2c;
+            margin: 0 7px;
+            font-weight: 600;
+            padding: 4px 4px 6px;
+            &:first-child{
+                margin-left: 0;
+            }
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+    }
     .container-comment{
+        
         .item-comment{
             margin-bottom: 20px;
             &:last-child{
@@ -58,6 +75,10 @@ body{
             }
             .col-image{
                 max-width: 100px;
+                @media screen and ( max-width: 600px ){
+                    max-width: 70px;
+                    padding-right: 0;
+                }
             }
             .col-content{
                 max-width: 100%;
@@ -111,6 +132,9 @@ body{
                 content: "";
             }
         }
+    }
+    .rating-number{
+        letter-spacing: -16px;
     }
     .btn-checkbox label{
         &.btn-secondary{

@@ -30,6 +30,7 @@ export default {
                 { link: '/admin', title: 'DASHBOARD', icon: 'columns-gap' },
                 { link: '/admin/slides', title: 'SLIDES', icon: 'image' },
                 { link: '/admin/comments', title: 'COMMENTS', icon: 'chat-square-text' },
+                { link: '/admin/reviews', title: 'REVIEWS', icon: 'star' },
                 { link: '/admin/profile', title: 'PROFILE', icon: 'file-earmark-person' },
                 { link: '/admin/products', title: 'PRODUCTS', icon: 'box-seam' },
                 { link: '/admin/categories', title: 'CATEGORIES', icon: 'folder2-open' },
@@ -37,7 +38,6 @@ export default {
                 { link: '/admin/posts', title: 'POSTS', icon: 'brush' },
                 { link: '/admin/tags', title: 'TAGS', icon: 'tags' },
                 { link: '/admin/customers', title: 'CUSTOMERS', icon: 'people' },
-                { link: '/admin', title: 'NEWSLETTER', icon: 'envelope-open' },
             ]
         }
     },

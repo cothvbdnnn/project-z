@@ -30,6 +30,7 @@ export const actions = {
             context.dispatch('Post/actRealTimePost')
             context.dispatch('Tag/actRealTimeTag')
             context.dispatch('Comment/actRealTimeComment')
+            context.dispatch('Review/actRealTimeReview')
             context.commit('Cart/getCart')
         } catch (error) {
             console.log(error);
@@ -56,6 +57,7 @@ export const actions = {
                 context.dispatch('Post/actGetPosts'),
                 context.dispatch('Tag/actGetTags'),
                 context.dispatch('Comment/actGetComments'),
+                context.dispatch('Review/actGetReviews'),
             ]);
         } catch (error) {
             console.log(error);

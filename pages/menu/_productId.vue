@@ -19,16 +19,27 @@
                     </h3>
                     
                     <div v-html="description"></div>
-                    <b-button size="lg" class="btn-primary"
+                    <b-button size="lg" class="btn-primary mb-3"
                         @click="addToCart"
                         :disabled="quantity == 0"
                     >Add to cart</b-button>
+                    <CompShare />
                     <b-alert show variant="danger" class="mt-3 py-1 px-3"
                         v-if="fail == true"
                     >Excess quantity!</b-alert>
                     <b-alert show variant="primary" class="mt-3 py-1 px-3"
                         v-if="success == true"
                     >Success</b-alert>
+                </div>
+                <div class="col-12">
+                    <CompReview
+                        :idPost="id"
+                        :namePost="nameProduct"
+                        :imagePost="imageProduct"
+                        :userId="userId"
+                        :userName="userName"
+                        :userImage="userImage"
+                    />
                 </div>
                 <div class="col-12">
                     <CompComments
@@ -52,8 +63,16 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
     name: 'Product',
-    head: {
-        title: "Product - Project Z"
+    head() {
+        return {
+            title: this.productCurrent.name + ' - Project Z',
+            meta: [
+                {
+                    hid: this.productCurrent.name + ' - Project Z',
+                    name: this.productCurrent.name + ' - Project Z',
+                }
+            ]
+        }
     },
     transition: 'fade',
     async validate(context) {
