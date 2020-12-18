@@ -4,7 +4,7 @@
             <h2 class="text-primary">Customer review<span v-if="filterReview.length > 1">s</span></h2>
             <div class="row mx-0 justify-content-between align-items-center">
                 <div class="row mx-0 justify-content-start align-items-center">
-                    <h2 class="mb-1 mr-4 display-3 rating-number">{{ ratingProduct }}</h2>
+                    <h2 class="mb-1 mr-4 display-3 rating-number text-primary">{{ ratingProduct }}</h2>
                     <client-only>
                         <StarsRatings inactive-color="#ccc" active-color="#3c5e2c"
                             :rounded-corners="true"
@@ -25,7 +25,7 @@
                 <h4 class="text-primary" v-if="filterReview.filter(x => x.userId == userId).length > 0">You have reviewed this product</h4>
             </div>
             <b-modal
-                hide-footer="true"
+                hide-footer
                 id="modal-prevent-closing"
                 ref="write-review"
                 title="Write reviews"

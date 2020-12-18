@@ -141,6 +141,9 @@
                                     <nuxt-link to="/profile">PROFILE</nuxt-link>
                                 </li>
                                 <li v-if="isUserLogin != null">
+                                    <nuxt-link to="/wishlist">WISHLIST</nuxt-link>
+                                </li>
+                                <li v-if="isUserLogin != null">
                                     <a @click="handleLogOut">
                                         LOGOUT
                                     </a>

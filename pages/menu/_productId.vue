@@ -19,10 +19,18 @@
                     </h3>
                     
                     <div v-html="description"></div>
-                    <b-button size="lg" class="btn-primary mb-3"
-                        @click="addToCart"
-                        :disabled="quantity == 0"
-                    >Add to cart</b-button>
+                    <div class="row mx-0 mb-3 align-items-center">
+                        <b-button size="lg" class="btn-primary"
+                            @click="addToCart"
+                            :disabled="quantity == 0"
+                        >Add to cart</b-button>
+                        <div class="ml-4 text-primary pointer"
+                            @click="toggleWishList"
+                        >
+                            <b-icon v-if="!checkWishList" scale="2" icon="heart"></b-icon>
+                            <b-icon v-if="checkWishList" scale="2" icon="heart-fill"></b-icon>
+                        </div>
+                    </div>
                     <CompShare />
                     <b-alert show variant="danger" class="mt-3 py-1 px-3"
                         v-if="fail == true"
@@ -30,6 +38,9 @@
                     <b-alert show variant="primary" class="mt-3 py-1 px-3"
                         v-if="success == true"
                     >Success</b-alert>
+                    <b-alert show variant="primary" class="mt-3 py-1 px-3"
+                        v-if="wishList == true"
+                    >Added to <nuxt-link class="text-white" to="/wishlist"><u>wishlists</u></nuxt-link><b-icon class="ml-2" icon="heart-fill"></b-icon></b-alert>
                 </div>
                 <div class="col-12">
                     <CompReview
@@ -100,6 +111,7 @@ export default {
             userImage: '',
             success: false,
             fail: false,
+            wishList: false,
         }
     },
     created() {
@@ -133,6 +145,11 @@ export default {
             setTimeout(() => {
                 this.fail = false
             }, 2000);
+        },
+        wishList(){
+            setTimeout(() => {
+                this.wishList = false
+            }, 3000);
         }
     },
     filters: {
@@ -146,6 +163,7 @@ export default {
     computed: {
         ...mapState({
             getProducts: state => state.Product.products,
+            getWishLists: state => state.WishList.wishlists,
             getCart: state => state.Cart.cart,
             getUserCurrent: state => state.userCurrent,
         }),
@@ -154,12 +172,37 @@ export default {
                 return x.id == this.$route.fullPath.split('?id=')[1]
             })
         },
+        checkWishList(){
+            let check = false
+            for(let i in this.getWishLists){
+                if(this.id == this.getWishLists[i].postId && this.userId == this.getWishLists[i].userId){
+                    check = true
+                    this.wishList = true
+                }
+            }
+            return check
+        }
     },
     methods: {
         ...mapMutations({
             'addCart' : 'Cart/addCart',
             'addQuantityCart' : 'Cart/addQuantityCart'
         }),
+        ...mapActions({
+            'actToggleWishList' : 'WishList/actToggleWishList',
+        }),
+        toggleWishList(){
+            this.actToggleWishList({
+                postId: this.id,
+                postName: this.nameProduct,
+                postImage: this.imageProduct,
+                regularPrice: this.regularPrice,
+                salePrice: this.salePrice,
+                userId: this.userId,
+                userName: this.userName,
+                userImage: this.userImage,
+            })
+        },
         addToCart(){
             let mapIdCart = this.arrCart.map(x => {
                 return x.id
