@@ -41,6 +41,9 @@
                     <b-alert show variant="primary" class="mt-3 py-1 px-3"
                         v-if="wishList == true"
                     >Added to <nuxt-link class="text-white" to="/wishlist"><u>wishlists</u></nuxt-link><b-icon class="ml-2" icon="heart-fill"></b-icon></b-alert>
+                    <b-alert show variant="danger" class="mt-3 py-1 px-3"
+                        v-if="alertWishList == true"
+                    >Login before adding to wishlist</b-alert>
                 </div>
                 <div class="col-12">
                     <CompReview
@@ -112,6 +115,7 @@ export default {
             success: false,
             fail: false,
             wishList: false,
+            alertWishList: false
         }
     },
     created() {
@@ -150,6 +154,11 @@ export default {
             setTimeout(() => {
                 this.wishList = false
             }, 3000);
+        },
+        alertWishList(){
+            setTimeout(() => {
+                this.alertWishList = false
+            }, 2000);
         }
     },
     filters: {
@@ -177,7 +186,6 @@ export default {
             for(let i in this.getWishLists){
                 if(this.id == this.getWishLists[i].postId && this.userId == this.getWishLists[i].userId){
                     check = true
-                    this.wishList = true
                 }
             }
             return check
@@ -192,16 +200,25 @@ export default {
             'actToggleWishList' : 'WishList/actToggleWishList',
         }),
         toggleWishList(){
-            this.actToggleWishList({
-                postId: this.id,
-                postName: this.nameProduct,
-                postImage: this.imageProduct,
-                regularPrice: this.regularPrice,
-                salePrice: this.salePrice,
-                userId: this.userId,
-                userName: this.userName,
-                userImage: this.userImage,
-            })
+            if(this.userId != ""){
+                this.actToggleWishList({
+                    postId: this.id,
+                    postName: this.nameProduct,
+                    postImage: this.imageProduct,
+                    regularPrice: this.regularPrice,
+                    salePrice: this.salePrice,
+                    userId: this.userId,
+                    userName: this.userName,
+                    userImage: this.userImage,
+                })
+
+                if(!this.checkWishList){
+                    this.wishList = true
+                }
+            }else{
+                this.alertWishList = true
+            }
+            
         },
         addToCart(){
             let mapIdCart = this.arrCart.map(x => {

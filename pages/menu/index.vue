@@ -24,6 +24,17 @@
                                     <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
                                         <h5 class="mt-2"><strong>{{ product.name }}</strong></h5>
                                     </nuxt-link>
+                                    <!-- <client-only>
+                                        <StarsRatings inactive-color="#ccc" active-color="#3c5e2c"
+                                            :rounded-corners="true"
+                                            :rating="product.rating"
+                                            :star-size="10"
+                                            :increment="0.1"
+                                            :read-only="true"
+                                            :show-rating="false"
+                                            :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"
+                                        ></StarsRatings>
+                                    </client-only> -->
                                     <h5>
                                         <span :class="product.salePrice != 0 ? 'line-through' : null"><strong>{{ product.regularPrice | filterPrice }}</strong></span>
                                         <span v-if="product.salePrice != 0"><strong>{{ product.salePrice | filterPrice}}</strong></span>
