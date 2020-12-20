@@ -108,6 +108,20 @@ export default {
                         vertical-align: middle;
                         padding: 10px 20px;
                         border: 1px solid #ccc;
+                        span{
+                            &.badge-Processing{
+                                background-color: #b7ac9a;
+                            }
+                            &.badge-Confirmed{
+                                background-color: #d3b161;
+                            }
+                            &.badge-Shipped{
+                                background-color: #6b5948;
+                            }
+                            &.badge-Completed{
+                                background-color: #3c5e2c;
+                            }
+                        }
                         .row-actions{
                             display: flex;
                         }

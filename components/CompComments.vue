@@ -5,6 +5,7 @@
             <div v-if="userId">
                 <b-form-textarea class="mt-4 mb-3" placeholder="Enter your comment"
                     v-model="comment"
+                    trim
                 ></b-form-textarea>
                 <b-button class="btn-primary mb-3"
                     @click="handleComment"
@@ -38,6 +39,7 @@
                             <div class="comment-edit">
                                 <b-form-textarea class="mb-2" placeholder="Enter your comment"
                                     v-model="editComment"
+                                    trim
                                 ></b-form-textarea>
                                 <b-button class="btn-primary"
                                     @click="handleEditCmt(comment.id)"
@@ -69,6 +71,7 @@
                                     <div class="comment-edit">
                                         <b-form-textarea class="mb-2" placeholder="Enter your comment"
                                             v-model="editComment"
+                                            trim
                                         ></b-form-textarea>
                                         <b-button class="btn-primary"
                                             @click="handleEditCmt(commentReply.id)"
@@ -81,6 +84,7 @@
                             <div class="comment-reply">
                                 <b-form-textarea class="mt-3 mb-2" placeholder="Enter your comment"
                                     v-model="commentReply"
+                                    trim
                                 ></b-form-textarea>
                                 <b-button class="btn-primary"
                                     v-b-toggle="'collapse-' + i"

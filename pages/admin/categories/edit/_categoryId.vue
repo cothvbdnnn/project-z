@@ -9,6 +9,7 @@
             <h6>Name</h6>
             <b-form-input class="mb-2" placeholder="Name"
                 v-model="nameCat"
+                trim
             ></b-form-input>
             <b-button class="btn-primary mr-1" type="submit" form="edit-category-form"
                 @keyup.enter="editCategory"

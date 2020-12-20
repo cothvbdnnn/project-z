@@ -42,6 +42,7 @@
                     </client-only>
                     <b-form-textarea class="mt-2 mb-3" placeholder="Enter your review"
                         v-model="review"
+                        trim
                     ></b-form-textarea>
                     <b-button class="btn-primary mb-3"
                         @click="handleReview"

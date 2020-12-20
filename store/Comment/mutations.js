@@ -49,6 +49,7 @@ export default {
             for(let i in state.comments){
                 if(state.comments[i].id == data.id){
                     state.comments[i].content = data.content
+                    state.comments[i].read = data.read
                     state.comments[i].isEdit = false
                 }
             }

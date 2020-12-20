@@ -24,9 +24,6 @@
                 class="mt-3 main-table"
                 id="table-customers"
                 ref="selectableTable"
-                selectable
-                select-mode="multi"
-                @row-selected="onRowSelected"
                 :items="items"
                 :fields="fields"
                 :filter="filter"
@@ -102,7 +99,6 @@ export default {
                 { key: 'createAt', label: 'Create At', thClass: 'create-at-col' },
                 { key: 'actions', label: 'Actions', thClass: 'actions-col' },
             ],
-            selected: [],
             filter: null,
             currentPage: 1,
             perPage: 10,
@@ -127,12 +123,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions({
-            'actRemoveOrder' : 'Order/actRemoveOrder'
-        }),
-        onRowSelected(items) {
-            this.selected = items
-        },
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length
             this.currentPage = 1

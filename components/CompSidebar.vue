@@ -10,7 +10,9 @@
         <ul class="mt-3 mx-0 p-0">
             <li v-for="(listSidebar, i) in listsSidebar" :key="i">
                 <nuxt-link :to="listSidebar.link">
-                    <h6><b-icon :icon="listSidebar.icon"></b-icon>{{ listSidebar.title }}</h6>
+                    <h6><b-icon :icon="listSidebar.icon"></b-icon>{{ listSidebar.title }}
+                        <b-badge v-if="listSidebar.badge" pill class="ml-2" variant="primary">{{ listSidebar.badge }}</b-badge>
+                    </h6>
                 </nuxt-link>
             </li>
         </ul>
@@ -26,19 +28,6 @@ export default {
         return {
             name: null,
             avatar: null,
-            listsSidebar: [
-                { link: '/admin', title: 'DASHBOARD', icon: 'columns-gap' },
-                { link: '/admin/slides', title: 'SLIDES', icon: 'image' },
-                { link: '/admin/comments', title: 'COMMENTS', icon: 'chat-square-text' },
-                { link: '/admin/reviews', title: 'REVIEWS', icon: 'star' },
-                { link: '/admin/profile', title: 'PROFILE', icon: 'file-earmark-person' },
-                { link: '/admin/products', title: 'PRODUCTS', icon: 'box-seam' },
-                { link: '/admin/categories', title: 'CATEGORIES', icon: 'folder2-open' },
-                { link: '/admin/orders', title: 'ORDERS', icon: 'cart-check' }, 
-                { link: '/admin/posts', title: 'POSTS', icon: 'brush' },
-                { link: '/admin/tags', title: 'TAGS', icon: 'tags' },
-                { link: '/admin/customers', title: 'CUSTOMERS', icon: 'people' },
-            ]
         }
     },
     created() {
@@ -55,8 +44,41 @@ export default {
     },
     computed: {
         ...mapState({
-            getUser: state => state.userCurrent
+            getUser: state => state.userCurrent,
+            getComments: state => state.Comment.comments,
+            getReviews: state => state.Review.reviews,
+            getOrders: state => state.Order.orders
         }),
+        filterNewComments(){
+            return this.getComments.filter((x) => {
+                return x.read == false
+            })
+        },
+        filterNewReviews(){
+            return this.getReviews.filter((x) => {
+                return x.read == false
+            })
+        },
+        filterNewOrders(){
+            return this.getOrders.filter((x) => {
+                return x.status == 'Processing'
+            })
+        },
+        listsSidebar(){
+            return [
+                { link: '/admin', title: 'DASHBOARD', icon: 'columns-gap' },
+                { link: '/admin/slides', title: 'SLIDES', icon: 'image' },
+                { link: '/admin/comments', title: 'COMMENTS', icon: 'chat-square-text', badge: this.filterNewComments.length },
+                { link: '/admin/reviews', title: 'REVIEWS', icon: 'star', badge: this.filterNewReviews.length },
+                { link: '/admin/profile', title: 'PROFILE', icon: 'file-earmark-person' },
+                { link: '/admin/products', title: 'PRODUCTS', icon: 'box-seam' },
+                { link: '/admin/categories', title: 'CATEGORIES', icon: 'folder2-open' },
+                { link: '/admin/orders', title: 'ORDERS', icon: 'cart-check', badge: this.filterNewOrders.length }, 
+                { link: '/admin/posts', title: 'POSTS', icon: 'brush' },
+                { link: '/admin/tags', title: 'TAGS', icon: 'tags' },
+                { link: '/admin/customers', title: 'CUSTOMERS', icon: 'people' },
+            ]
+        }
     },
 }
 </script>

@@ -28,9 +28,6 @@
             <b-table responsive
                 class="mt-3 main-table"
                 ref="selectableTable"
-                selectable
-                select-mode="multi"
-                @row-selected="onRowSelected"
                 :items="items"
                 :fields="fields"
                 :filter="filter"
@@ -99,7 +96,6 @@ export default {
                 { key: 'createAt', label: 'Create At', thClass: 'create-at-col' },
                 { key: 'actions', label: 'Actions', thClass: 'actions-col' },
             ],
-            selected: [],
             filter: null,
             currentPage: 1,
             perPage: 10,
@@ -154,9 +150,6 @@ export default {
             .catch(err => {
                 console.log(err);
             })
-        },
-        onRowSelected(items) {
-            this.selected = items
         },
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length

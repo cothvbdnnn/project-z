@@ -5,6 +5,11 @@
         <div class="mt-2">
             <b-row>
                 <b-col>
+                    <b-button size="sm" class="btn-primary my-2"
+                        @click="readAllComments"
+                    >
+                        Read all
+                    </b-button>
                 </b-col>
                 <b-col lg="6" class="my-2">
                     <b-input-group size="sm">
@@ -23,9 +28,6 @@
             <b-table responsive
                 class="mt-3 main-table"
                 ref="selectableTable"
-                selectable
-                select-mode="multi"
-                @row-selected="onRowSelected"
                 :items="items"
                 :fields="fields"
                 :filter="filter"
@@ -35,6 +37,9 @@
                 <template #cell(createAt)="data" >
                     {{ data.item.createAt | filterDate }}
                 </template>
+                <template #cell(content)="data" >
+                    {{ data.item.content }}<b-badge v-if="data.item.read == false" class="ml-2" variant="primary">New</b-badge>
+                </template>
                 <template #cell(actions)="data" >
                     <div class="row-actions">
                         <b-button size="sm" class="mr-1 btn-remove"
@@ -43,7 +48,9 @@
                             <b-icon icon="x-square-fill"></b-icon>
                         </b-button>
                         <nuxt-link v-if=" data.item.postType == 'product'" target="_blank" :to="/menu/+ data.item.postName + '?id=' + data.item.postId | fomartLink">
-                            <b-button size="sm" class="btn-primary">
+                            <b-button size="sm" class="btn-primary"
+                                @click="readComment(data.item.id)"
+                            >
                                 <b-icon icon="eye"></b-icon>
                             </b-button>
                         </nuxt-link>
@@ -101,7 +108,6 @@ export default {
                 { key: 'createAt', label: 'Create At', thClass: 'create-at-col' },
                 { key: 'actions', label: 'Actions', thClass: 'actions-col' },
             ],
-            selected: [],
             filter: null,
             currentPage: 1,
             perPage: 10,
@@ -131,8 +137,18 @@ export default {
     },
     methods: {
         ...mapActions({
-            'actRemoveComment' : 'Comment/actRemoveComment'
+            'actRemoveComment' : 'Comment/actRemoveComment',
+            'actReadComment' : 'Comment/actReadComment',
+            'actReadAllComments' : 'Comment/actReadAllComments'
         }),
+        readComment(data){
+            this.actReadComment({
+                id: data
+            })
+        },  
+        readAllComments(){
+            this.actReadAllComments(this.getComments.map(x => x.id))
+        },  
         showConfirm(data) {
             this.confirm = ''
             this.$bvModal.msgBoxConfirm('Please confirm that you want to delete.',{
@@ -155,9 +171,6 @@ export default {
             .catch(err => {
                 console.log(err);
             })
-        },
-        onRowSelected(items) {
-            this.selected = items
         },
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length

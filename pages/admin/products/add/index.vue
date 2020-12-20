@@ -36,8 +36,9 @@
                 <div class="col-md-6 col-12 mb-2">
                     <h6>Name</h6>
                     <b-form-input class="" placeholder="Name"
-                        v-model.trim="nameProduct"
+                        v-model="nameProduct"
                         :state="nameState"
+                        trim
                     ></b-form-input>
                     <b-form-invalid-feedback id="input-live-feedback">
                         Required
@@ -48,6 +49,7 @@
                     <b-form-input class="" placeholder="Quantity"
                         v-model="quantity"
                         type="number"
+                        trim
                         onkeydown="return event.keyCode !== 69"
                     ></b-form-input>
                     
@@ -60,6 +62,7 @@
                         v-model="regularPrice"
                         type="number"
                         :state="priceState"
+                        trim
                         onkeydown="return event.keyCode !== 69"
                     ></b-form-input>
                     <b-form-invalid-feedback id="input-live-feedback">
@@ -71,6 +74,7 @@
                     <b-form-input class="" placeholder="Sale price"
                         v-model="salePrice"
                         type="number"
+                        trim
                         onkeydown="return event.keyCode !== 69"
                     ></b-form-input>
                 </div>

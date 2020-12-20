@@ -24,9 +24,6 @@
             <b-table responsive
                 class="mt-3 main-table"
                 ref="selectableTable"
-                selectable
-                select-mode="multi"
-                @row-selected="onRowSelected"
                 :items="items"
                 :fields="fields"
                 :filter="filter"
@@ -44,6 +41,15 @@
                 </template>
                 <template #cell(createAt)="data" >
                     {{ data.item.createAt | filterDate }}
+                </template>
+                <template #cell(status)="data" >
+                    <h5 class="mb-0">
+                        <b-badge 
+                            :class="`badge-${data.item.status}`"
+                        >
+                            {{ data.item.status }}
+                        </b-badge>
+                    </h5>
                 </template>
                 <template #cell(actions)="data" >
                     <div class="row-actions">
@@ -110,9 +116,7 @@ export default {
                 { key: 'status', label: 'Status', thClass: 'status-col' },
                 { key: 'actions', label: 'Actions', thClass: 'actions-col' },
             ],
-            selected: [],
             filter: null,
-            filterOn: [],
             currentPage: 1,
             perPage: 10,
             pageOptions: [5, 10, 15],
@@ -162,9 +166,6 @@ export default {
             .catch(err => {
                 console.log(err);
             })
-        },
-        onRowSelected(items) {
-            this.selected = items
         },
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length

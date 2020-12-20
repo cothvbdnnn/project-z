@@ -34,6 +34,7 @@
                     <h6>Title</h6>
                     <b-form-input class="" placeholder="Title"
                         v-model="title"
+                        trim
                     ></b-form-input>
                 </div>
             </div>

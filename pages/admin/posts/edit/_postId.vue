@@ -35,6 +35,7 @@
                     <b-form-input class="" placeholder="Title"
                         v-model="title"
                         :state="titleState"
+                        trim
                     ></b-form-input>
                     <b-form-invalid-feedback id="input-live-feedback">
                         Required
@@ -42,7 +43,7 @@
                 </div>
             </div>
             <h6>Excerpt</h6>
-            <b-form-textarea class="mb-3" v-model="excerpt"></b-form-textarea>
+            <b-form-textarea class="mb-3" v-model="excerpt" trim></b-form-textarea>
             <div class="row">
                 <div class="col-md-12 col-12">
                     <h6>Content</h6>

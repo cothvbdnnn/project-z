@@ -35,6 +35,7 @@
                     <b-form-input class="" placeholder="Name"
                         v-model="nameProduct"
                         :state="nameState"
+                        trim
                     ></b-form-input>
                     <b-form-invalid-feedback id="input-live-feedback">
                         Required
@@ -45,6 +46,7 @@
                     <b-form-input class="" placeholder="Quantity"
                         v-model="quantity"
                         type="number"
+                        trim
                         onkeydown="return event.keyCode !== 69"
                     ></b-form-input>
                 </div>
@@ -55,6 +57,7 @@
                     <b-form-input class="" placeholder="Regular price"
                         v-model="regularPrice"
                         :state="priceState"
+                        trim
                         type="number"
                         onkeydown="return event.keyCode !== 69"
                     ></b-form-input>
@@ -67,6 +70,7 @@
                     <b-form-input class="" placeholder="Sale price"
                         v-model="salePrice"
                         type="number"
+                        trim
                         onkeydown="return event.keyCode !== 69"
                     ></b-form-input>
                 </div>

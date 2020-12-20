@@ -19,7 +19,7 @@
                                         @submit.prevent="search"
                                     >
                                         <b-input-group>
-                                            <b-form-input type="text" v-model="inputSearch"></b-form-input>
+                                            <b-form-input type="text" v-model="inputSearch" trim></b-form-input>
                                             <b-input-group-append>
                                                 <b-button size="sm" class="btn-primary" type="submit" form="search-form"
                                                     @keyup.enter="search"

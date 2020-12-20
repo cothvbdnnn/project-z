@@ -31,4 +31,13 @@ export default {
             }
         }
     },
+    editReview(state, data){
+        if(data){
+            for(let i in state.reviews){
+                if(state.reviews[i].id == data.id){
+                    state.reviews[i].read = data.read
+                }
+            }
+        }
+    },
 }

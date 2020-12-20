@@ -31,6 +31,14 @@ body{
     .text-primary{
         color: #3c5e2c !important;
     }
+    .badge{
+        &.badge-pill{
+            padding: 4px 7px 4px 6px;
+        }
+        &.badge-primary{
+            background-color: #3c5e2c;
+        }
+    }
     .pointer{
         cursor: pointer;
     }

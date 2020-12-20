@@ -185,8 +185,8 @@ export default {
         dataChartBar(){
             return [
                 {
-                    backgroundColor: "#ccc",
-                    borderColor: "#ccc",
+                    backgroundColor: "#b7ac9a",
+                    borderColor: "#b7ac9a",
                     data: this.orderDateProcessing,
                     label: "Processing"
                 },
@@ -197,8 +197,8 @@ export default {
                     label: "Comfirmed"
                 },
                 {
-                    backgroundColor: "#2a2a2a",
-                    borderColor: "#2a2a2a",
+                    backgroundColor: "#6b5948",
+                    borderColor: "#6b5948",
                     data: this.orderDateShipped,
                     label: "Shipped"
                 },

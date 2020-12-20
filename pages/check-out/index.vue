@@ -16,6 +16,7 @@
                                 <b-form-input class="" placeholder="Name"
                                     v-model="name"
                                     :state="nameState"
+                                    trim
                                 ></b-form-input>
                                 <b-form-invalid-feedback id="input-live-feedback">
                                     Required
@@ -27,6 +28,7 @@
                                     v-model="phone"
                                     :state="phoneState"
                                     type="number"
+                                    trim
                                     onkeydown="return event.keyCode !== 69"
                                 ></b-form-input>
                                 <b-form-invalid-feedback id="input-live-feedback">
@@ -40,6 +42,7 @@
                                 <b-form-input class="" placeholder="Email"
                                     v-model="email"
                                     type="email"
+                                    trim
                                 ></b-form-input>
                             </div>
                         </div>
@@ -47,6 +50,7 @@
                         <b-form-textarea class="mb-2" v-model="address"
                             placeholder="Address"
                             :state="addressState"
+                            trim
                         ></b-form-textarea>
                         <b-form-invalid-feedback id="input-live-feedback">
                             Required

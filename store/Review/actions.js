@@ -18,7 +18,7 @@ export default {
                     postName: doc.data().postName,
                     postImage: doc.data().postImage,
                     rating: doc.data().rating,
-                    read: false,
+                    read: doc.data().read,
                 })
             })
             context.commit('getReviews', reviews)
@@ -60,6 +60,7 @@ export default {
                                 context.commit('removeReview', doc.data())
                             }
                             if (change.type === "modified") {
+                                context.commit('editReview', doc.data())
                             }
                         })   
                     }
@@ -90,5 +91,20 @@ export default {
 
         firebase.firestore().collection('reviews').doc(data.id).delete()
 
+    },
+    actReadReview(context, data){
+
+        firebase.firestore().collection('reviews').doc(data.id).update({
+            read: true
+        })
+    },
+    actReadAllReviews(context, data){
+
+        for(let i in data){
+            firebase.firestore().collection('reviews').doc(data[i]).update({
+                read: true
+            })
+        }
+        
     },
 }

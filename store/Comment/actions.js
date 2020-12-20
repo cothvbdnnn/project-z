@@ -20,7 +20,7 @@ export default {
                     postType: doc.data().postType,
                     reply: doc.data().reply,
                     isEdit: false,
-                    read: false,
+                    read: doc.data().read,
                 })
             })
             context.commit('getComments', comments)
@@ -104,7 +104,22 @@ export default {
         })
 
     },
-    async actEditComment(context, data){
+    actReadComment(context, data){
+
+        firebase.firestore().collection('comments').doc(data.id).update({
+            read: true
+        })
+    },
+    actReadAllComments(context, data){
+
+        for(let i in data){
+            firebase.firestore().collection('comments').doc(data[i]).update({
+                read: true
+            })
+        }
+        
+    },
+    actEditComment(context, data){
 
         // Update category
 
