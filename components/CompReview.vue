@@ -51,7 +51,7 @@
             </b-modal>
             
             <div class="container-comment mt-4">
-                <div v-for="(review,i) in filterReview.filter(x => x.reply == null)" :key="i" class="mb-2 row item-comment">
+                <div v-for="(review,i) in sliceReview.filter(x => x.reply == null)" :key="i" class="mb-2 row item-comment">
                     <div class="col-md-2 col-12 col-image">
                         <b-img :src="review.userImage"></b-img>
                     </div>
@@ -76,6 +76,11 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    <b-button block class="btn-primary" v-if="filterReview.length > sliceReview.length"
+                        @click="handleLoadReview()"
+                    >Load More</b-button>
+                </div>
             </div>
         </div>
     </div>
@@ -90,6 +95,7 @@ export default {
         return {
             review: '',
             rating: 0,
+            loadReview: 3,
         }
     },
     props: {
@@ -132,6 +138,9 @@ export default {
                 return x.postId == this.idPost
             })
         },
+        sliceReview(){
+            return this.filterReview.slice(0, this.loadReview)
+        },
         ratingProduct(){
             let rating = 0
             if(this.filterReview.length > 0){
@@ -152,6 +161,9 @@ export default {
         ...mapActions({
             'actAddReview' : 'Review/actAddReview',
         }),
+        handleLoadReview(){
+            this.loadReview += this.loadReview
+        },
         handleReview(){
             if(this.review != '' && this.rating != 0){
                 this.actAddReview({

@@ -1,6 +1,6 @@
 <template>
     <div class="content-admin">
-        <h3>Edit post</h3>
+        <h3>Edit {{ title }}</h3>
          <b-form
             id="edit-post-form"
             ref="form"
@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-md-12 col-12 mb-2">
                     <h6>Title</h6>
-                    <b-form-input class="" placeholder="Title"
+                    <b-form-input class="" placeholder="Title" type="text"
                         v-model="title"
                         :state="titleState"
                         trim
@@ -178,7 +178,7 @@ export default {
             if(this.title ){
 
                 this.actEditPost({
-                    title: this.title.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
+                    title: this.title.replace(/  +/g, ' '), 
                     excerpt: this.excerpt,
                     content: this.content,
                     image: this.imagePost,

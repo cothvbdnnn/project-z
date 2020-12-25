@@ -5,7 +5,7 @@
                 <div class="col-md-8 col-12">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-12 item-blog"
-                            v-for="(post,i) in getPosts"
+                            v-for="(post,i) in slicePost"
                             :key="i"
                         >   
                             <div class="container-item">
@@ -21,7 +21,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="content">
                                             <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
-                                                <h5 class="mb-2 text-primary"><strong>{{ post.title }}</strong></h5>
+                                                <h5 class="mb-0 text-primary"><strong>{{ post.title }}</strong></h5>
                                             </nuxt-link>
                                             <p>{{ post.excerpt }}</p>
                                         </div>
@@ -30,6 +30,9 @@
                             </div>
                         </div>
                     </div>
+                    <b-button size="lg" block class="btn-primary" v-if="getPosts.length > slicePost.length"
+                        @click="handleLoadPost()"
+                    >Load More</b-button>
                 </div>
                 <div class="col-md-4 col-12">
                 </div>
@@ -50,7 +53,7 @@ export default {
     transition: 'fade',
     data() {
         return {
-            
+            loadPost: 5,
         }
     },
     filters: {
@@ -62,7 +65,15 @@ export default {
         ...mapState({
             getPosts: state => state.Post.posts,
         }),
+        slicePost(){
+            return this.getPosts.slice(0, this.loadPost)
+        }
     },
+    methods: {
+        handleLoadPost(){
+            this.loadPost += this.loadPost
+        }
+    }
 }
 </script>
 

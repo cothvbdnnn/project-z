@@ -14,7 +14,7 @@
             <h4 class="text-primary" v-if="!userId">Please login to comment</h4>
             
             <div class="container-comment mt-4">
-                <div v-for="(comment,i) in filterComment.filter(x => x.reply == null)" :key="i" class="row item-comment">
+                <div v-for="(comment,i) in sliceComment.filter(x => x.reply == null)" :key="i" class="row item-comment">
                     <div class="col-md-2 col-12 col-image">
                         <b-img :src="comment.userImage"></b-img>
                     </div>
@@ -94,6 +94,11 @@
                         </b-collapse>
                     </div>
                 </div>
+                <div>
+                    <b-button block class="btn-primary" v-if="filterComment.length > sliceComment.length"
+                        @click="handleLoadComment()"
+                    >Load More</b-button>
+                </div>
             </div>
         </div>
     </div>
@@ -109,6 +114,7 @@ export default {
             comment: '',
             commentReply: '',
             editComment: '',
+            loadComment: 3,
         }
     },
     props: {
@@ -155,6 +161,9 @@ export default {
                 return x.postId == this.idPost
             })
 
+        },
+        sliceComment(){
+            return this.filterComment.slice(0, this.loadComment)
         }
     },
     methods: {
@@ -166,6 +175,9 @@ export default {
         ...mapMutations({
             'toggleEditComment' : 'Comment/toggleEditComment',
         }),
+        handleLoadComment(){
+            this.loadComment += this.loadComment
+        },
         handleEditCmt(id){
             this.actEditComment({
                 id: id,

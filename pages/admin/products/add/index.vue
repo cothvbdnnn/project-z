@@ -187,7 +187,7 @@ export default {
             if(this.nameState && this.priceState && this.imageProduct != null){
                 if (!findProduct.includes(this.nameProduct.toLowerCase())) {
                     this.actAddProduct({
-                        name: this.nameProduct.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
+                        name: this.nameProduct.replace(/  +/g, ' '), 
                         regularPrice: this.regularPrice,
                         salePrice: this.salePrice,
                         quantity: this.quantity,

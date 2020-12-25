@@ -2,7 +2,7 @@
     <div class="product">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-12">
+                <div class="col-md-8 col-12">
                     <h1 class="text-primary">{{ postCurrent.title }}</h1>
                     <CompShare />
                     <h5 class="mt-3">Author: <span><nuxt-link :to="'/author/' + postCurrent.authorName | fomartLink">{{postCurrent.authorName}}</nuxt-link></span> - {{ postCurrent.createAt | filterDate}}</h5>    
@@ -12,8 +12,6 @@
                             <nuxt-link :to="'/tag/' + tag | fomartLink">{{tag}}</nuxt-link>
                         </span>
                     </h6>
-                </div>
-                <div class="col-12">
                     <CompComments
                         :idPost="postCurrent.id"
                         :namePost="postCurrent.title"
@@ -23,6 +21,35 @@
                         :userImage="userImage"
                         :postType="'blog'"
                     />
+                </div>
+                <div class="col-md-4 col-12">
+                    <h2>RELATED POSTS</h2>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-12 item-blog mb-3"
+                            v-for="(post,i) in getPosts"
+                            :key="i"
+                        >   
+                            <div class="container-item">
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
+                                            <b-img
+                                                :src="post.image"
+                                            >
+                                            </b-img>
+                                        </nuxt-link>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="content">
+                                            <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
+                                                <h5 class="mb-0 text-primary"><strong>{{ post.title }}</strong></h5>
+                                            </nuxt-link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,6 +115,19 @@ export default {
                 return x.id == this.$route.fullPath.split('?id=')[1]
             })
         },
+        // relatedPosts(){
+        //     let arr = []
+
+        //     for(let i in this.postCurrent.tags){
+        //         for(let j in this.getPosts){
+        //             if(this.getPosts[j].tags.toString().includes(this.postCurrent.tags[i])){
+        //                 arr.push(this.getPosts[j])
+        //             }
+        //         }
+        //     }
+
+        //     return arr
+        // }
     },
 }
 </script>
@@ -98,5 +138,23 @@ export default {
             width: 100%;
             height: 500px;
         }
+    }
+    .item-blog{
+        .container-item{
+            overflow: hidden;
+            height: 100%;
+            img{
+                height: 100px;
+                width: 100%;
+                object-fit: cover;
+            }
+            .content{
+                h5{
+                    text-transform: uppercase;
+                    margin-bottom: 0;
+                    font-size: 20px;
+                }
+            }
+        }   
     }
 </style>

@@ -10,7 +10,7 @@
                 <div class="col-md-9 col-12">
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-12 item-product"
-                            v-for="(product,i) in getProducts"
+                            v-for="(product,i) in productPagination"
                             :key="i"
                         >   
                             <div class="container-item">
@@ -43,6 +43,13 @@
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <b-pagination
+                            v-model="currentPage"
+                            :total-rows="rowsPagination"
+                            :per-page="perPage"
+                        ></b-pagination>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +68,9 @@ export default {
     transition: 'fade',
     data() {
         return {
-            
+            perPage: 1,
+            productsPerPage: 9,
+            currentPage: 1
         }
     },
     filters: {
@@ -77,6 +86,12 @@ export default {
             getProducts: state => state.Product.products,
             getCaregories: state => state.Category.categories,
         }),
+        productPagination(){
+            return this.getProducts.slice(this.productsPerPage * (this.currentPage - 1), this.productsPerPage *(this.currentPage))
+        },
+        rowsPagination(){
+            return Math.ceil(this.getProducts.length/this.productsPerPage)
+        }
     },
 }
 </script>

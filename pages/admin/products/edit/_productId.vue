@@ -229,7 +229,7 @@ export default {
                 if(this.nameProduct != this.productCurrent.name){
                     if (!findProduct.includes(this.nameProduct.toLowerCase())) {
                         this.actEditProduct({
-                            name: this.nameProduct.replace(/[^a-zA-Z ]/g,'').replace(/  +/g, ' '), 
+                            name: this.nameProduct.replace(/  +/g, ' '), 
                             regularPrice: this.regularPrice,
                             salePrice: this.salePrice,
                             quantity: this.quantity,
