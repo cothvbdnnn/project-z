@@ -118,7 +118,6 @@ export default {
 
 <style lang="scss">
 body .main{
-    margin-top: 0;
     @media screen and ( max-width: 1024px ){
         margin-top: 72px;
     }

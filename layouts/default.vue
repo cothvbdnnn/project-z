@@ -2,7 +2,10 @@
     <div>
         <CompHeader/>
         <div class="wrapper">
-            <Nuxt/>
+            <div class="main">
+                <CompBreadcrumb/>
+                <Nuxt/>
+            </div>
         </div>
         <CompFooter/>
     </div>
@@ -18,7 +21,6 @@ export default {
 
 .wrapper{
     & > div{
-        margin: 50px 0;
         @media screen and ( max-width: 1024px ){
             margin-top: 100px;
         }
