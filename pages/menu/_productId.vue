@@ -24,11 +24,17 @@
                             @click="addToCart"
                             :disabled="quantity == 0"
                         >Add to cart</b-button>
-                        <div class="ml-4 text-primary pointer"
+                        <div class="ml-4 mr-2 text-primary pointer"
                             @click="toggleWishList"
                         >
                             <b-icon v-if="!checkWishList" scale="2" icon="heart"></b-icon>
                             <b-icon v-if="checkWishList" scale="2" icon="heart-fill"></b-icon>
+                        </div>
+                        <div class="ml-4 text-primary pointer"
+                            @click="handleToggleCompare"
+                        >
+                            <b-icon v-if="!checkCompare" scale="2" icon="plus-square"></b-icon>
+                            <b-icon v-if="checkCompare" scale="2" icon="check-square-fill"></b-icon>
                         </div>
                     </div>
                     <CompShare />
@@ -115,7 +121,8 @@ export default {
             success: false,
             fail: false,
             wishList: false,
-            alertWishList: false
+            alertWishList: false,
+            compare: false,
         }
     },
     created() {
@@ -173,6 +180,7 @@ export default {
         ...mapState({
             getProducts: state => state.Product.products,
             getWishLists: state => state.WishList.wishlists,
+            getCompare: state => state.Compare.compare,
             getCart: state => state.Cart.cart,
             getUserCurrent: state => state.userCurrent,
         }),
@@ -189,16 +197,38 @@ export default {
                 }
             }
             return check
+        },
+        checkCompare(){
+            let check = false
+            for(let i in this.getCompare){
+                if(this.id == this.getCompare[i].id){
+                    check = true
+                }
+            }
+            return check
         }
     },
     methods: {
         ...mapMutations({
             'addCart' : 'Cart/addCart',
-            'addQuantityCart' : 'Cart/addQuantityCart'
+            'addQuantityCart' : 'Cart/addQuantityCart',
+            'toggleCompare' : 'Compare/toggleCompare'
         }),
         ...mapActions({
             'actToggleWishList' : 'WishList/actToggleWishList',
         }),
+        handleToggleCompare(){
+            this.toggleCompare({
+                nameProduct: this.nameProduct,
+                regularPrice: this.regularPrice,
+                salePrice: this.salePrice,
+                imageProduct: this.imageProduct,
+                categoryName: this.categoryName,
+                categoryId: this.categoryId,
+                id: this.id,
+                quantityProduct: this.quantity
+            })
+        },
         toggleWishList(){
             if(this.userId != ""){
                 this.actToggleWishList({

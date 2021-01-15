@@ -8,11 +8,18 @@
                         v-for="(cart,i) in arrCart"
                         :key="i"
                     >
-                        <div class="col-md-3 col-12">
-                            <b-img
-                                :src="cart.imageProduct"
+                        <div class="col-md-3 col-12 col-img">
+                            <nuxt-link :to="/menu/+ cart.nameProduct + '?id=' + cart.id | fomartLink">
+                                <b-img
+                                    :src="cart.imageProduct"
+                                >
+                                </b-img>
+                            </nuxt-link>
+                            <b-button class="remove-btn" size="sm" squared
+                                @click="handleRemoveCart(i)"
                             >
-                            </b-img>
+                                <b-icon icon="x"></b-icon>
+                            </b-button>
                         </div>
                         <div class="col-md-9 col-12">  
                             <h5>{{ cart.nameProduct }}</h5>       
@@ -40,11 +47,6 @@
                             </h6>
                             <h6 v-if="cart.salePrice == 0">Total price: {{ cart.regularPrice * cart.quantity | filterPrice}}</h6>
                             <h6 v-if="cart.salePrice != 0">Total price: {{ cart.salePrice * cart.quantity | filterPrice}}</h6>
-                            <b-button class="mr-1 btn-remove" size="sm"
-                                @click="handleRemoveCart(i)"
-                            >
-                                <b-icon icon="x-square-fill"></b-icon>
-                            </b-button>
                         </div>
                     </div>
                 </div>
@@ -92,7 +94,10 @@ export default {
     filters: {
         filterPrice(price) {
             return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
-        }
+        },
+        fomartLink(text) {
+            return text.split(' ').join('-').toLowerCase()
+        },
     },
     computed: {
         ...mapState({
@@ -152,10 +157,22 @@ export default {
         }
     }
     .image-cart{
-        img{
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
+        .col-img{
+            position: relative;
+            .remove-btn{
+                background-color: #3c5e2c;
+                font-size: 18px;
+                position: absolute;
+                top: 0;
+                right: 15px;
+                padding: 0 3px;
+                margin-right: 0;
+            }
+            img{
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+            }
         }
     }
 }

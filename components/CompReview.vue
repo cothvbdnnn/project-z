@@ -22,7 +22,7 @@
                     v-if="userId && filterReview.filter(x => x.userId == userId).length == 0"
                 >Write reviews</b-button>
                 <h4 class="text-primary" v-if="!userId">Please login to review</h4>
-                <h4 class="text-primary" v-if="filterReview.filter(x => x.userId == userId).length > 0">You have reviewed this product</h4>
+                <h4 class="text-primary" v-if="filterReview.filter(x => x.userId == userId).length > 0">You have rated this product</h4>
             </div>
             <b-modal
                 hide-footer

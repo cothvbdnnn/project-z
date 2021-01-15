@@ -33,6 +33,7 @@ export const actions = {
             context.dispatch('Review/actRealTimeReview')
             context.dispatch('WishList/actRealTimeWishList')
             context.commit('Cart/getCart')
+            context.commit('Compare/getCompare')
         } catch (error) {
             console.log(error);
         }   
