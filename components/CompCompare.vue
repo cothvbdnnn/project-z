@@ -1,10 +1,16 @@
 <template>
-    <div class="compare" v-if="getCompare.length > 0 && $route.name != 'compare'">
+    <div class="compare" :class="show ? 'show' : 'hide'" v-if="getCompare.length > 0 && $route.name != 'compare'">
         <div class="container">
             <div class="container-compare">
+                <div class="toggle-compare"
+                    @click="show = !show"
+                >
+                    <b-icon v-if="show" icon="caret-down-fill"></b-icon>
+                    <b-icon v-if="!show" icon="caret-up-fill"></b-icon>
+                </div>
                 <div class="row">
                     <div class="items-compare col-md-10">
-                        <div class="row justify-content-start px-2">
+                        <div class="row px-2">
                             <div class="item-product mx-2"
                                 v-for="(product,i) in getCompare"
                                 :key="i"
@@ -61,7 +67,7 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
     data() {
         return {
-            
+            show: true,
         }
     },
     filters: {
@@ -95,35 +101,69 @@ export default {
 <style lang="scss">
 
 .compare{
+    transition: all 0.25s linear;
     position: fixed;
     width: 100%;
+    transform: translateY(0px);
     bottom: 0;
+    top: auto;
     z-index: 10;
+    &.hide{
+        transform: translateY(100%);
+        .toggle-compare{
+            svg{
+                margin-bottom: 3px;
+            }
+        }
+    }
     .container-compare{
         border: 1px solid #3c5e2c;
         border-bottom: none;
         padding: 20px;
         background-color: #fff;
+        position: relative;
+        .toggle-compare{
+            cursor: pointer;
+            position: absolute;
+            bottom: 100%;
+            height: 20px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 30px;
+            text-align: center;
+            border: 1px solid #3c5e2c;
+            border-bottom: none;
+            background-color: #fff;
+            svg{
+                color: #3c5e2c;
+            }
+        }
         .items-compare{
-            .item-product{
-                max-width: 100px;
-                .col-img{
-                    position: relative;
-                    .remove-btn{
-                        background-color: #3c5e2c;
-                        font-size: 18px;
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        padding: 0 3px;
-                        margin-right: 0;
-                    }
-                    img{
-                        max-width: 100px;
+            .row{
+                justify-content: flex-start;
+                @media screen and ( max-width: 485px ) {
+                    justify-content: center;
+                }
+                .item-product{
+                    max-width: 100px;
+                    .col-img{
+                        position: relative;
+                        .remove-btn{
+                            background-color: #3c5e2c;
+                            font-size: 18px;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            padding: 0 3px;
+                            margin-right: 0;
+                        }
+                        img{
+                            max-width: 100px;
+                        }
                     }
                 }
             }
-            
         }
     }
 }

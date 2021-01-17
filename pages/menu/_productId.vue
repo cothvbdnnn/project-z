@@ -39,17 +39,20 @@
                     </div>
                     <CompShare />
                     <b-alert show variant="danger" class="mt-3 py-1 px-3"
-                        v-if="fail == true"
+                        v-if="fail"
                     >Excess quantity!</b-alert>
                     <b-alert show variant="primary" class="mt-3 py-1 px-3"
-                        v-if="success == true"
+                        v-if="success"
                     >Success</b-alert>
                     <b-alert show variant="primary" class="mt-3 py-1 px-3"
-                        v-if="wishList == true"
+                        v-if="wishList"
                     >Added to <nuxt-link class="text-white" to="/wishlist"><u>wishlists</u></nuxt-link><b-icon class="ml-2" icon="heart-fill"></b-icon></b-alert>
                     <b-alert show variant="danger" class="mt-3 py-1 px-3"
-                        v-if="alertWishList == true"
+                        v-if="alertWishList"
                     >Login before adding to wishlist</b-alert>
+                    <b-alert show variant="danger" class="mt-3 py-1 px-3"
+                        v-if="alertCompare"
+                    >You can only add 4 products to compare</b-alert>
                 </div>
                 <div class="col-12">
                     <CompReview
@@ -123,6 +126,7 @@ export default {
             wishList: false,
             alertWishList: false,
             compare: false,
+            alertCompare: false,
         }
     },
     created() {
@@ -165,6 +169,11 @@ export default {
         alertWishList(){
             setTimeout(() => {
                 this.alertWishList = false
+            }, 2000);
+        },
+        alertCompare(){
+            setTimeout(() => {
+                this.alertCompare = false
             }, 2000);
         }
     },
@@ -218,16 +227,21 @@ export default {
             'actToggleWishList' : 'WishList/actToggleWishList',
         }),
         handleToggleCompare(){
-            this.toggleCompare({
-                nameProduct: this.nameProduct,
-                regularPrice: this.regularPrice,
-                salePrice: this.salePrice,
-                imageProduct: this.imageProduct,
-                categoryName: this.categoryName,
-                categoryId: this.categoryId,
-                id: this.id,
-                quantityProduct: this.quantity
-            })
+            if(this.getCompare.length < 4){
+                this.toggleCompare({
+                    nameProduct: this.nameProduct,
+                    regularPrice: this.regularPrice,
+                    salePrice: this.salePrice,
+                    imageProduct: this.imageProduct,
+                    categoryName: this.categoryName,
+                    categoryId: this.categoryId,
+                    id: this.id,
+                    quantityProduct: this.quantity,
+                    description: this.description
+                })
+            }else{
+                this.alertCompare = true
+            }
         },
         toggleWishList(){
             if(this.userId != ""){
