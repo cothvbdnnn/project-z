@@ -23,18 +23,18 @@
                     <div class="row">
                         <div class="col-sm-6 col-banner-1">
                             <div class="banner">
-                                <a href="#">
+                                <nuxt-link to="/blog">
                                     <img src="~/assets/images/banner1.jpg"> 
                                     <span class="txt style1 lineHeight">VINTAGE</span> 
-                                </a>
+                                </nuxt-link>
                             </div>
                         </div>
                         <div class="col-sm-6 col-banner-2">
                             <div class="banner">
-                                <a href="/menu">
+                                <nuxt-link to="/menu">
                                     <img src="~/assets/images/banner2.jpg"> 
-                                    <span class="txt style1 lineHeight">MENU</span> 
-                                </a>
+                                    <span class="txt style1 lineHeight">MENU</span>
+                                </nuxt-link>
                             </div>
                         </div>
                     </div>
@@ -43,12 +43,12 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="banner txt-center style2">
-                                <a href="/blog">
+                                <nuxt-link to="/blog">
                                     <img src="~/assets/images/Pha-Che.jpg">
-                                </a>
+                                </nuxt-link>
                                 <div class="txtLeft ">
                                     <div class="lineHeight">
-                                        <h6><a href="#">NEWS</a></h6>
+                                        <h6><nuxt-link to="/blog">NEWS</nuxt-link></h6>
                                         <p>"Work hard, then comes love".</p>
                                         <p>Have a nice day!</p>
                                     </div>
@@ -61,12 +61,12 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="banner txt-center">
-                                <a href="#">
+                                <a>
                                     <img src="~/assets/images/tuyen-Dung-2.jpg">
                                 </a>
                                 <div class="txtCenter ">
                                     <div class="lineHeight">
-                                        <h6><a href="#">CAREER</a></h6>
+                                        <h6><a>CAREER</a></h6>
                                         <p>Become a part of Cong Family. Join us.</p>
                                     </div>
                                 </div>

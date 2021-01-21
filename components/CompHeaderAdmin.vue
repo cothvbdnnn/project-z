@@ -57,7 +57,7 @@ export default {
             getUser: state => state.userCurrent,
             getComments: state => state.Comment.comments,
             getReviews: state => state.Review.reviews,
-            getOrders: state => state.Order.orders
+            getOrders: state => state.Order.orders,
         }),
         filterNewComments(){
             return this.getComments.filter((x) => {
@@ -87,6 +87,7 @@ export default {
                 { link: '/admin/posts', title: 'POSTS', icon: 'brush' },
                 { link: '/admin/tags', title: 'TAGS', icon: 'tags' },
                 { link: '/admin/customers', title: 'CUSTOMERS', icon: 'people' },
+                { link: '/admin/newsletters', title: 'NEWSLETTERS', icon: 'envelope'},
             ]
         }
     },

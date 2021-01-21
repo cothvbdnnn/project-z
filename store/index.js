@@ -32,6 +32,8 @@ export const actions = {
             context.dispatch('Comment/actRealTimeComment')
             context.dispatch('Review/actRealTimeReview')
             context.dispatch('WishList/actRealTimeWishList')
+            context.dispatch('Newsletter/actRealTimeNewsletter')
+            context.dispatch('Subscriber/actRealTimeSubscriber')
             context.commit('Cart/getCart')
             context.commit('Compare/getCompare')
         } catch (error) {
@@ -61,7 +63,9 @@ export const actions = {
                 context.dispatch('Comment/actGetComments'),
                 context.dispatch('Review/actGetReviews'),
                 context.dispatch('WishList/actGetWishLists'),
-            ]);
+                context.dispatch('Newsletter/actGetNewsletters'),
+                context.dispatch('Subscriber/actGetSubscribers'),
+            ])
         } catch (error) {
             console.log(error);
         }   

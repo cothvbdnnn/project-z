@@ -91,4 +91,7 @@ export default {
         }
         
     },
+    actRemoveWishList(context, data){  
+        firebase.firestore().collection('wishlists').doc(data).delete()
+    }
 }

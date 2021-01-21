@@ -1,9 +1,9 @@
 <template>
     <div class="row comments mt-5">
         <div class="col-12">
-            <h2 class="text-primary">Customer review<span v-if="filterReview.length > 1">s</span></h2>
+            <h2 class="text-primary">Customer review<span v-if="filterReview.length > 1">s</span>({{filterReview.length}})</h2>
             <div class="row mx-0 justify-content-between align-items-center">
-                <div class="row mx-0 justify-content-start align-items-center">
+                <div class="row mx-0 justify-content-start align-items-center" v-if="filterReview.length > 0">
                     <h2 class="mb-1 mr-4 display-3 rating-number text-primary">{{ ratingProduct }}</h2>
                     <client-only>
                         <StarsRatings inactive-color="#ccc" active-color="#3c5e2c"
@@ -18,7 +18,7 @@
                     </client-only>
                     <h5 class="ml-3">{{filterReview.length}}<span> review</span><span v-if="filterReview.length > 1">s</span></h5>
                 </div>
-                <b-button v-b-modal.modal-prevent-closing class="btn-primary"
+                <b-button v-b-modal.modal-prevent-closing class="btn-primary mt-2"
                     v-if="userId && filterReview.filter(x => x.userId == userId).length == 0"
                 >Write reviews</b-button>
                 <h4 class="text-primary" v-if="!userId">Please login to review</h4>

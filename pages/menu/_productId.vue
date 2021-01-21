@@ -52,7 +52,7 @@
                     >Login before adding to wishlist</b-alert>
                     <b-alert show variant="danger" class="mt-3 py-1 px-3"
                         v-if="alertCompare"
-                    >You can only add 4 products to compare</b-alert>
+                    >You can only add up to 4 products to compare</b-alert>
                 </div>
                 <div class="col-12">
                     <CompReview
@@ -73,6 +73,12 @@
                         :userName="userName"
                         :userImage="userImage"
                         :postType="'product'"
+                    />
+                </div>
+                <div class="col-12">
+                    <CompRelatedProduct
+                        :categoryId="categoryId"
+                        :idPost="id"
                     />
                 </div>
             </div>

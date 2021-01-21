@@ -7,28 +7,14 @@
                         <h6>Social</h6>
                         <div class="social text-left">
                             <div class="listSocial">
-                                <a href="#"><img src="~/assets/images/facebook.png" /></a>
-                                <a href="#"><img src="~/assets/images/instagram.png" /></a>
-                                <a href="#"><img src="~/assets/images/youtube.png" /></a>
+                                <a><img src="~/assets/images/facebook.png" /></a>
+                                <a><img src="~/assets/images/instagram.png" /></a>
+                                <a><img src="~/assets/images/youtube.png" /></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="contact-us">
-                            <h6>Always updated</h6>
-                            <p>About information and new products</p>
-                            <form id="myFormSub">
-                                <div class="input-group">
-                                    <input type="email" class="form-control newsletter-email" name="email" id="email" size="13" placeholder="Email" required="">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit" name="subscribe" id="mc-embedded-subscribe">Sign up</button>
-                                    </span>
-                                </div>
-                            </form>
-                            <div id="showMessageMe">
-                            </div>
-                            <span>We respect your privacy</span>
-                        </div>
+                        <CompNewsletter/>
                     </div>
                 </div>
             </div>
@@ -79,52 +65,6 @@ export default {
                     }
                     img{
                         height: 24px;
-                    }
-                }
-            }
-        }
-        .contact-us{
-            @media screen and ( max-width: 575px ){
-                margin-top: 10px;
-            }
-            p{
-                margin-top: -9px;
-                color: #232323;
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
-            .input-group {
-                position: relative;
-                display: -ms-flexbox;
-                display: flex;
-                -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
-                -ms-flex-align: stretch;
-                align-items: stretch;
-                width: 100%;
-                input {
-                    height: 35px;
-                    border-radius: 0;
-                    max-width: 250px;
-                    border-color: #3c5e2c;
-                    font-size: 13px;
-                    -webkit-box-shadow: none;
-                    box-shadow: none;
-                }
-                span {
-                    color: #b4b9bc;
-                    font-size: 13px;
-                    button {
-                        padding: 0 0px;
-                        background-color: #3c5e2c;
-                        border: none;
-                        color: #fff;
-                        text-transform: uppercase;
-                        width: 100px;
-                        margin-bottom: 0;
-                        line-height: 35px;
-                        font-size: 16px;
-                        border-radius: 0;
                     }
                 }
             }

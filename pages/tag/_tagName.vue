@@ -24,7 +24,17 @@
                                             <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
                                                 <h5 class="mb-2 text-primary"><strong>{{ post.title }}</strong></h5>
                                             </nuxt-link>
-                                            <p>{{ post.excerpt }}</p>
+                                            <h6 class="mb-1 text-primary"><strong>Author: 
+                                                <span>
+                                                    <nuxt-link :to="'/author/' + post.authorName | fomartLink">{{post.authorName}}</nuxt-link>
+                                                </span> - {{ post.createAt | filterDate}}</strong>
+                                            </h6>
+                                            <p class="mb-1">{{ post.excerpt | truncate(150, '...') }}</p>
+                                            <h6 class="text-primary"><strong>Tag<span v-if="post.tags.length > 1">s</span>: 
+                                                <span v-for="(tag, i) in post.tags" :key="i" class="tags">
+                                                    <nuxt-link :to="'/tag/' + tag | fomartLink">{{tag}}</nuxt-link>
+                                                </span></strong>
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>
@@ -42,6 +52,7 @@
 <script>
 
 import { mapState } from 'vuex'
+import moment from 'moment';
 import firebase from "firebase";
 
 export default {
@@ -51,11 +62,15 @@ export default {
     },
     transition: 'fade',
     async validate(context) {
-        const tags = await context.store.state.Tag.tags
-        for(let i in tags){
-           if(tags[i].name.toLowerCase() == context.params.tagName.split('-').join(' ')){
-               return true
-           }
+        if(context.params.tagName){
+            const tags = await context.store.state.Tag.tags
+            for(let i in tags){
+                if(tags[i].name.toLowerCase() == context.params.tagName.split('-').join(' ')){
+                    return true
+                }
+            }
+        }else{
+            context.redirect('/blog')
         }
     },
     data() {
@@ -66,6 +81,16 @@ export default {
     filters: {
         fomartLink(text) {
             return text.split(' ').join('-').toLowerCase()
+        },
+        filterDate: function (date) {
+            return moment(date).format('l');
+        },
+        truncate(text, length, suffix) {
+            if (text.length > length) {
+                return text.substring(0, length) + suffix;
+            } else {
+                return text;
+            }
         },
     },
     computed: {
@@ -85,25 +110,4 @@ export default {
 </script>
 
 <style lang="scss">
-    .blog{
-        .item-blog{
-            margin-bottom: 30px;
-            .container-item{
-                overflow: hidden;
-                height: 100%;
-                img{
-                    height: 200px;
-                    width: 100%;
-                    object-fit: cover;
-                }
-                .content{
-                    h5{
-                        text-transform: uppercase;
-                        margin-bottom: 0;
-                        font-size: 20px;
-                    }
-                }
-            }   
-        }
-    }
 </style>

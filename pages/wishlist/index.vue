@@ -12,12 +12,19 @@
                             :key="i"
                         >   
                             <div class="container-item">
-                                <nuxt-link :to="/menu/+ product.postName + '?id=' + product.postId | fomartLink">
-                                    <b-img
-                                        :src="product.postImage"
+                                <div class="col-img">
+                                    <nuxt-link :to="/menu/+ product.postName + '?id=' + product.postId | fomartLink">
+                                        <b-img
+                                            :src="product.postImage"
+                                        >
+                                        </b-img>
+                                    </nuxt-link>
+                                    <b-button class="remove-btn" size="sm" squared
+                                        @click="handleRemoveWishList(product.id)"
                                     >
-                                    </b-img>
-                                </nuxt-link>
+                                        <b-icon icon="x"></b-icon>
+                                    </b-button>
+                                </div>
                                 <div class="content">
                                     <nuxt-link :to="/menu/+ product.postName + '?id=' + product.postId | fomartLink">
                                         <h5 class="mt-2"><strong>{{ product.postName }}</strong></h5>
@@ -32,6 +39,11 @@
                     </div>
                     <div v-if="filterWishList.length == 0">
                         <h5>You don't have any wish lists yet</h5>
+                        <nuxt-link to="/menu">
+                            <b-btn class="btn-primary mt-2">
+                                Return to menu
+                            </b-btn>
+                        </nuxt-link>
                     </div>
                 </div>
             </div>
@@ -41,7 +53,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     name: 'WishList',
@@ -73,6 +85,14 @@ export default {
             })
         }
     },
+    methods: {
+        ...mapActions({
+            'actRemoveWishList' : 'WishList/actRemoveWishList'
+        }),
+        handleRemoveWishList(id){
+            this.actRemoveWishList(id)
+        }
+    }
 }
 </script>
 
@@ -102,11 +122,23 @@ export default {
                 overflow: hidden;
                 border: 1px solid #dadada;
                 height: 100%;
-                img{
-                    height: 200px;
-                    width: 100%;
-                    object-fit: cover;
-                }
+                .col-img{
+                        position: relative;
+                        .remove-btn{
+                            background-color: #3c5e2c;
+                            font-size: 18px;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            padding: 0 3px;
+                            margin-right: 0;
+                        }
+                        img{
+                            height: 200px;
+                            width: 100%;
+                            object-fit: cover;
+                        }
+                    }
                 .content{
                     padding: 5px 15px 15px;
                     h5{

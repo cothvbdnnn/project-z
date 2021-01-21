@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-12 mt-4">
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 col-12 item-product"
+                        <div class="col-md-3 col-sm-6 col-12 item-product"
                             v-for="(product,i) in productsFilter"
                             :key="i"
                         >   
@@ -47,12 +47,16 @@ export default {
     },
     transition: 'fade',
     async validate(context) {
-        const categories = await context.store.state.Category.categories
-        
-        for(let i in categories){
-           if(categories[i].name.toLowerCase() == context.params.categoryName.split('-').join(' ')){
-               return true
-           }
+        if(context.params.categoryName){
+            const categories = await context.store.state.Category.categories
+            
+            for(let i in categories){
+                if(categories[i].name.toLowerCase() == context.params.categoryName.split('-').join(' ')){
+                    return true
+                }
+            }
+        }else{
+            context.redirect('/menu')
         }
     },
     data() {

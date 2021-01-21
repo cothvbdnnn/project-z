@@ -44,49 +44,59 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-2 col-left">
-                        <h5>Category</h5>
-                    </div>
-                    <div class="col-10">
-                        <div class="row">
-                            <div class="col-3 item-product"
-                                v-for="(product,i) in getCompare"
-                                :key="i"
-                            >   
-                                {{ product.categoryName }}
-                            </div>
-                        </div> 
-                    </div>
+                <div v-if="getCompare.length == 0">
+                    <h5>You don't have any products to compare</h5>
+                    <nuxt-link to="/menu">
+                        <b-btn class="btn-primary mt-2">
+                            Return to menu
+                        </b-btn>
+                    </nuxt-link>
                 </div>
-                <div class="row">
-                    <div class="col-2 col-left">
-                        <h5>Quantity</h5>
+                <div v-if="getCompare.length > 0">
+                    <div class="row">
+                        <div class="col-2 col-left">
+                            <h5>Category</h5>
+                        </div>
+                        <div class="col-10">
+                            <div class="row">
+                                <div class="col-3 item-product"
+                                    v-for="(product,i) in getCompare"
+                                    :key="i"
+                                >   
+                                    {{ product.categoryName }}
+                                </div>
+                            </div> 
+                        </div>
                     </div>
-                    <div class="col-10"> 
-                        <div class="row">
-                            <div class="col-3 item-product"
-                                v-for="(product,i) in getCompare"
-                                :key="i"
-                            >   
-                                {{ product.quantityProduct }}
-                            </div>
-                        </div> 
+                    <div class="row">
+                        <div class="col-2 col-left">
+                            <h5>Quantity</h5>
+                        </div>
+                        <div class="col-10"> 
+                            <div class="row">
+                                <div class="col-3 item-product"
+                                    v-for="(product,i) in getCompare"
+                                    :key="i"
+                                >   
+                                    {{ product.quantityProduct }}
+                                </div>
+                            </div> 
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-2 col-left">
-                        <h5>Description</h5>
-                    </div>
-                    <div class="col-10"> 
-                        <div class="row">
-                            <div class="col-3 item-product"
-                                v-for="(product,i) in getCompare"
-                                :key="i"
-                            >   
-                                <span v-html="product.description"></span>
-                            </div>
-                        </div> 
+                    <div class="row">
+                        <div class="col-2 col-left">
+                            <h5>Description</h5>
+                        </div>
+                        <div class="col-10"> 
+                            <div class="row">
+                                <div class="col-3 item-product"
+                                    v-for="(product,i) in getCompare"
+                                    :key="i"
+                                >   
+                                    <span v-html="product.description"></span>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
                 </div>
             </div>

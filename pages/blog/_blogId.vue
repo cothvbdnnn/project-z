@@ -23,33 +23,10 @@
                     />
                 </div>
                 <div class="col-md-4 col-12">
-                    <h2>RELATED POSTS</h2>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-12 item-blog mb-3"
-                            v-for="(post,i) in getPosts"
-                            :key="i"
-                        >   
-                            <div class="container-item">
-                                <div class="row">
-                                    <div class="col-md-6 col-12">
-                                        <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
-                                            <b-img
-                                                :src="post.image"
-                                            >
-                                            </b-img>
-                                        </nuxt-link>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="content">
-                                            <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
-                                                <h5 class="mb-0 text-primary"><strong>{{ post.title }}</strong></h5>
-                                            </nuxt-link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <CompRelatedPost
+                        :idPost="postCurrent.id"
+                        :tags="postCurrent.tags"
+                    />
                 </div>
             </div>
         </div>
@@ -115,19 +92,6 @@ export default {
                 return x.id == this.$route.fullPath.split('?id=')[1]
             })
         },
-        // relatedPosts(){
-        //     let arr = []
-
-        //     for(let i in this.postCurrent.tags){
-        //         for(let j in this.getPosts){
-        //             if(this.getPosts[j].tags.toString().includes(this.postCurrent.tags[i])){
-        //                 arr.push(this.getPosts[j])
-        //             }
-        //         }
-        //     }
-
-        //     return arr
-        // }
     },
 }
 </script>
@@ -136,7 +100,7 @@ export default {
     .content-blog{
         iframe.ql-video{
             width: 100%;
-            height: 500px;
+            height: 350px;
         }
     }
     .item-blog{
@@ -149,8 +113,8 @@ export default {
                 object-fit: cover;
             }
             .content{
+                height: 100px;
                 h5{
-                    text-transform: uppercase;
                     margin-bottom: 0;
                     font-size: 20px;
                 }

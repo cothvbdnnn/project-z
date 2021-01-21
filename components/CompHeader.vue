@@ -44,7 +44,7 @@
                                 </div>
                             </li>
                             <li class="item hasChild">
-                                <nuxt-link to="">ACCOUNT</nuxt-link>
+                               <a>ACCOUNT</a> 
                                 <div class="wrapDrop">
                                     <ul>
                                         <li v-if="isUserLogin == null">
@@ -53,7 +53,7 @@
                                         <li v-if="isUserLogin == null">
                                             <nuxt-link to="/sign-up">SIGN UP</nuxt-link>
                                         </li>
-                                        <li v-if="isUserLogin != null">
+                                        <li>
                                             <nuxt-link to="/cart">CART</nuxt-link>
                                         </li>
                                         <li v-if="isUserLogin != null">
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                     <div class="item hasChild">
-                        <nuxt-link to="">ACCOUNT</nuxt-link>
+                        <a>ACCOUNT</a>
                         <div class="wrapDrop">
                             <ul>
                                 <li v-if="isUserLogin == null">
@@ -131,7 +131,7 @@
                                 <li v-if="isUserLogin == null">
                                     <nuxt-link to="/sign-up">SIGN UP</nuxt-link>
                                 </li>
-                                <li v-if="isUserLogin != null">
+                                <li>
                                     <nuxt-link to="/cart">CART({{totalQuantity}})</nuxt-link>
                                 </li>
                                 <li v-if="isUserLogin != null && isUserLogin.role == 'admin'">
