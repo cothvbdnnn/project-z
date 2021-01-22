@@ -14,7 +14,8 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <!-- <CompNewsletter/> -->
+                        <h6 class="mb-0">Always updated</h6>
+                        <p class="mb-2">About information and new products</p>
                         <CompMailchimpSignup/>
                     </div>
                 </div>

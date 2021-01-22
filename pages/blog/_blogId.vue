@@ -27,6 +27,12 @@
                         :idPost="postCurrent.id"
                         :tags="postCurrent.tags"
                     />
+                    <div class="newsletter-sidebar">
+                        <h4 class="text-primary">SUBSCRIBE</h4>
+                        <img src="~/assets/images/logo.png">
+                        <h6 class="my-3 text-primary">To receive the lastest news from Cong Caphe</h6>
+                        <CompMailchimpSignup/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,5 +126,13 @@ export default {
                 }
             }
         }   
+    }
+    .newsletter-sidebar{
+        background-color: #d3b161;
+        padding: 20px;
+        text-align: center;
+        img{
+            max-width: 150px;
+        }
     }
 </style>
