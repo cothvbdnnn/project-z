@@ -14,7 +14,8 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <CompNewsletter/>
+                        <!-- <CompNewsletter/> -->
+                        <CompMailchimpSignup/>
                     </div>
                 </div>
             </div>

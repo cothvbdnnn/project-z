@@ -85,14 +85,11 @@ export default {
             content: data.content,
         })
     },
-    actReadAllNewsletters(context, data){
+    actSendMail(context, data){
 
-        for(let i in data){
-            firebase.firestore().collection('newsletters').doc(data[i]).update({
-                title: data.title,
-                content: data.content,
-            })
-        }
-        
-    },
+        let emailSubscribers = context.rootState.Subscriber.subscribers.map((x) => {
+            return x.email
+        })
+        console.log(emailSubscribers);
+    }
 }

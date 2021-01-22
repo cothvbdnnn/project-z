@@ -55,7 +55,7 @@
                             </b-button>
                         </nuxt-link>
                         <b-button size="sm" class="ml-1 btn-remove"
-                            @click="send(data)"
+                            @click="sendMail(data)"
                         >
                             <b-icon icon="reply-fill"></b-icon>
                         </b-button>
@@ -134,8 +134,12 @@ export default {
     },
     methods: {
         ...mapActions({
-            'actRemoveNewsletter' : 'Newsletter/actRemoveNewsletter'
+            'actRemoveNewsletter' : 'Newsletter/actRemoveNewsletter',
+            'actSendMail' : 'Newsletter/actSendMail'
         }),
+        sendMail(data){
+            this.actSendMail(data.item)
+        }, 
         showConfirm(data) {
             this.confirm = ''
             this.$bvModal.msgBoxConfirm('Please confirm that you want to delete.',{
@@ -170,3 +174,4 @@ export default {
 <style>
 
 </style>
+

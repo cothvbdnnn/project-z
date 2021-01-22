@@ -26,9 +26,10 @@ module.exports = {
     plugins: [
         '~/plugins/firebase.js',
         '~/plugins/nuxt-client-init.client.js',
-        {src:'~/plugins/vue-star-rating.js', ssr: false },
-        {src:'~/plugins/vue-editor.js', ssr: false },
+        { src:'~/plugins/vue-star-rating.js', ssr: false },
+        { src:'~/plugins/vue-editor.js', ssr: false },
         { src: '~/plugins/vue-fb-customer-chat.js', ssr: false },
+        { src: '~/plugins/vee-validate', ssr: false },
     ],
 
     // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -49,6 +50,7 @@ module.exports = {
             icons: true,
         }],
         'vue-social-sharing/nuxt',
+        ['@nuxtjs/axios'],
     ],
 
 
