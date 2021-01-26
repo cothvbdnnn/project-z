@@ -3,11 +3,91 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-12 col-cat">
-                    <div v-for="(cat,i) in getCaregories" :key="i">
-                        <h6><a class="catItem">{{ cat.name }}</a></h6>
+                    <div>
+                        <h4><strong>Filter by</strong></h4>
+                        <div class="mb-3">
+                            <h5>Search</h5>
+                            <b-form>
+                                <b-input-group>
+                                    <b-form-input type="text" v-model="searchProduct" trim></b-form-input>
+                                </b-input-group>
+                            </b-form>
+                        </div>
+                        <div>
+                            <h5>Category</h5>
+                            <b-form-group>
+                                <b-form-checkbox
+                                    v-for="option in getCaregories"
+                                    v-model="selectedCategory"
+                                    :key="option.id"
+                                    :value="option.id"
+                                >
+                                    {{ option.name }}
+                                </b-form-checkbox>
+                            </b-form-group>
+                        </div>
+                        <div>
+                            <h5>Product</h5>
+                            <b-form-group>
+                                <b-form-checkbox
+                                    v-for="option in productOptions"
+                                    v-model="selectedProduct"
+                                    :key="option.value"
+                                    :value="option.value"
+                                >
+                                    {{ option.text }}
+                                </b-form-checkbox>
+                            </b-form-group>
+                        </div>
+                        <div>
+                            <h5>Price</h5>
+                            <b-form-group>
+                                <b-form-checkbox
+                                    v-for="option in priceOptions"
+                                    v-model="selectedPrice"
+                                    :key="option.value"
+                                    :value="option.value"
+                                >
+                                    {{ option.text }}
+                                </b-form-checkbox>
+                            </b-form-group>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-9 col-12">
+                    <div class="row justify-content-end align-items-center">
+                        <div class="col-md-4 col-12 mb-3 pr-0">
+                            <h6 class="mb-0"><strong>
+                                <span v-if="currentPage == 1 && filterProduct.length == 0">0</span>
+                                <span v-if="currentPage == 1 && filterProduct.length > 0">1</span>
+                                <span> - {{ productPagination.length }}</span>
+                                <span v-if="currentPage > 1">{{ ((currentPage - 1) * productsPerPage) + 1 }} - {{ ((currentPage - 1) * productsPerPage) + productPagination.length }}</span>
+                                of {{ filterProduct.length}} product<span v-if="filterProduct.length > 1">s</span></strong>
+                            </h6>
+                        </div>
+                        <div class="col-md-8 col-12 mb-3">
+                            <div class="row justify-content-end">
+                                <div class="col row-list-grid pr-0">
+                                    <b-icon class="mr-3" icon="list-ul"></b-icon>
+                                    <b-icon icon="grid"></b-icon>
+                                </div>
+                                <div class="col row-select">
+                                    <p class="mb-0">Sort by</p>
+                                    <b-form-select class="ml-2" 
+                                        v-model="selectSort" 
+                                    >
+                                        <b-form-select-option :value="null">Please select</b-form-select-option>
+                                        <b-form-select-option v-for="option in sortPriceOptions"
+                                            :key="option.value" 
+                                            :value="option.value"
+                                        >
+                                            {{ option.text }}
+                                        </b-form-select-option>
+                                    </b-form-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-12 item-product"
                             v-for="(product,i) in productPagination"
@@ -24,26 +104,15 @@
                                     <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
                                         <h5 class="mt-2"><strong>{{ product.name }}</strong></h5>
                                     </nuxt-link>
-                                    <!-- <client-only>
-                                        <StarsRatings inactive-color="#ccc" active-color="#3c5e2c"
-                                            :rounded-corners="true"
-                                            :rating="product.rating"
-                                            :star-size="10"
-                                            :increment="0.1"
-                                            :read-only="true"
-                                            :show-rating="false"
-                                            :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"
-                                        ></StarsRatings>
-                                    </client-only> -->
                                     <h5>
-                                        <span :class="product.salePrice != 0 ? 'line-through' : null"><strong>{{ product.regularPrice | filterPrice }}</strong></span>
                                         <span v-if="product.salePrice != 0"><strong>{{ product.salePrice | filterPrice}}</strong></span>
+                                        <span :class="product.salePrice != 0 ? 'line-through' : null"><strong>{{ product.regularPrice | filterPrice }}</strong></span>
                                     </h5>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div v-if="filterProduct.length > 0">
                         <b-pagination
                             v-model="currentPage"
                             :total-rows="rowsPagination"
@@ -70,7 +139,28 @@ export default {
         return {
             perPage: 1,
             productsPerPage: 9,
-            currentPage: 1
+            currentPage: 1,
+            searchProduct: "",
+            selectSort: null,
+            selectedCategory: [],
+            selectedProduct: [],
+            selectedPrice: [],
+            sortPriceOptions: [
+                { text: 'Price - Low to high', value: 'lowToHigh' },
+                { text: 'Price - High to low', value: 'highToLow' },
+            ],
+            productOptions: [
+                { text: 'New', value: 'new' },
+                { text: 'Sale', value: 'sale' },
+            ],
+            priceOptions: [
+                { text: '> 50,000VND', value: '>50000' },
+                { text: '40,000VND - 50,000VND', value: '40000-50000' },
+                { text: '30,000VND - 40,000VND', value: '30000-40000' },
+                { text: '20,000VND - 30,000VND', value: '20000-30000' },
+                { text: '10,000VND - 20,000VND', value: '10000-20000' },
+                { text: '< 10,000VND', value: '<10000' },
+            ]
         }
     },
     filters: {
@@ -86,11 +176,44 @@ export default {
             getProducts: state => state.Product.products,
             getCaregories: state => state.Category.categories,
         }),
+        filterProduct(){
+
+            let product = this.getProducts.slice(0)
+            let category = this.selectedCategory
+            let priceSort = this.selectSort
+            let price = this.selectedPrice
+
+            if(category.length > 0){
+                product = product.filter((x) => {
+                    return category.includes(x.categoryId)
+                })
+            }
+
+            for(let i in product){
+                if(product[i].salePrice == 0){
+                    product[i].price = product[i].regularPrice    
+                }else{
+                    product[i].price = product[i].salePrice
+                }
+            }
+
+            if(priceSort == 'lowToHigh'){
+                product = product.sort((a,b) => {
+                    return a.price - b.price
+                })
+            }else if(priceSort == 'highToLow'){
+                product = product.sort((a,b) => {
+                    return b.price - a.price
+                })
+            }
+
+            return product
+        },
         productPagination(){
-            return this.getProducts.slice(this.productsPerPage * (this.currentPage - 1), this.productsPerPage *(this.currentPage))
+            return this.filterProduct.slice(this.productsPerPage * (this.currentPage - 1), this.productsPerPage *(this.currentPage))
         },
         rowsPagination(){
-            return Math.ceil(this.getProducts.length/this.productsPerPage)
+            return Math.ceil(this.filterProduct.length/this.productsPerPage)
         }
     },
 }
@@ -98,6 +221,26 @@ export default {
 
 <style lang="scss">
     .shop{
+        .row-list-grid{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 23px;
+            max-width: 80px;
+        }
+        .row-select{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-end;
+            max-width: 280px;
+            align-items: center;
+            .custom-select{
+                padding: 0 10px;
+                height: 30px;
+                max-width: 170px;
+            }
+        }
         .col-cat{
             .catItem{
                 font-size: 20px;

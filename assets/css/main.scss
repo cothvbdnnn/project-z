@@ -461,6 +461,22 @@ input:-webkit-autofill:active  {
 img{
     max-width: 100%;
 }
+.custom-control-input:checked ~ .custom-control-label::before{
+    border-color: #3c5e2c;
+    background-color: #3c5e2c; 
+}
+.custom-checkbox .custom-control-label::before {
+    border-radius: 0;
+    border-color: #3c5e2c;
+    outline: none;
+    box-shadow: none;
+}
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before{
+    border-color: #3c5e2c;
+}
+.custom-control-input:focus ~ .custom-control-label::before{
+    box-shadow: none;
+}
 .text-overflow{
     white-space: nowrap;
     max-width: 100px;
