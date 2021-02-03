@@ -190,12 +190,17 @@
                                     <div class="container-item">
                                         <div class="row">
                                             <div class="col-md-6 col-12">
-                                                <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
-                                                    <b-img
-                                                        :src="post.image"
-                                                    >
-                                                    </b-img>
-                                                </nuxt-link>
+                                                <div class="col-img">
+                                                    <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
+                                                        <b-img
+                                                            :src="post.image"
+                                                        >
+                                                        </b-img>
+                                                    </nuxt-link>
+                                                    <div class="img-baged" v-if="post.new == true">
+                                                        <img src="~/assets/images/label-new.png">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="content">
@@ -566,14 +571,29 @@ export default {
             .container-item{
                 overflow: hidden;
                 height: 100%;
-                img{
-                    height: 200px;
-                    width: 100%;
-                    object-fit: cover;
+                .col-img{
+                    position: relative;
+                    .img-baged{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        img{
+                            width: 100px;
+                            height: 100px;
+                        }
+                    }
+                    img{
+                        height: 300px;
+                        width: 100%;
+                        object-fit: cover;
+                    }
                 }
                 .content{
                     height: 200px;
                     overflow: hidden;
+                    @media screen and ( max-width: 767px ) {
+                        margin-top: 15px;
+                    }
                     h5{
                         margin-bottom: 0;
                         font-size: 20px;

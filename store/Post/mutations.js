@@ -3,6 +3,12 @@ export default {
     getPosts(state, data){
         if(data){
             state.posts = data
+            for(let i in state.posts){
+                state.posts[i].new = false
+                if(((Date.now() - state.posts[i].createAt) / 86400000) < 30 ){
+                    state.posts[i].new = true
+                }
+            }
         }
     },
     addPost(state, data){
