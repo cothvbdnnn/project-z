@@ -13,12 +13,17 @@
                         <div class="container-item">
                             <div class="row">
                                 <div class="col-md-6 col-4 pr-1">
-                                    <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
-                                        <b-img
-                                            :src="post.image"
-                                        >
-                                        </b-img>
-                                    </nuxt-link>
+                                    <div class="col-img">
+                                        <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
+                                            <b-img
+                                                :src="post.image"
+                                            >
+                                            </b-img>
+                                        </nuxt-link>
+                                        <!-- <div class="img-baged">
+                                            <img src="~/assets/images/label-new.png">
+                                        </div> -->
+                                    </div>
                                 </div>
                                 <div class="col-md-6 col-8">
                                     <div class="content">
@@ -99,6 +104,18 @@ export default {
         margin: 0 -10px;
         .item-product{
             padding: 0 10px;
+            .col-img{
+                position: relative;
+                .img-baged{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    img{
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+            }
         }
     }
     

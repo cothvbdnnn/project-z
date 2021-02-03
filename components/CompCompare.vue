@@ -5,8 +5,7 @@
                 <div class="toggle-compare"
                     @click="show = !show"
                 >
-                    <b-icon v-if="show" icon="caret-down-fill"></b-icon>
-                    <b-icon v-if="!show" icon="caret-up-fill"></b-icon>
+                    <b-icon :icon="show ? 'caret-down-fill' : 'caret-up-fill'"></b-icon>
                 </div>
                 <div class="row">
                     <div class="items-compare col-md-10">

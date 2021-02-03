@@ -1,5 +1,5 @@
 <template>
-    <div class="related-product mt-5">
+    <div class="related-product mt-5" v-if="relatedPosts.length > 0">
         <div class="row">
             <div class="col-12 mb-3">
                 <h2 class="text-primary">Related Products</h2>
@@ -11,12 +11,17 @@
                         :key="i"
                     >   
                         <div class="container-item">
-                            <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
-                                <b-img
-                                    :src="product.image"
-                                >
-                                </b-img>
-                            </nuxt-link>
+                            <div class="col-img">
+                                <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
+                                    <b-img
+                                        :src="product.image"
+                                    >
+                                    </b-img>
+                                </nuxt-link>
+                                <div class="img-baged" v-if="product.new == true">
+                                    <img src="~/assets/images/label-new.png">
+                                </div>
+                            </div>
                             <div class="content">
                                 <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
                                     <h5 class="mt-2"><strong>{{ product.name }}</strong></h5>
@@ -111,6 +116,18 @@ export default {
         margin: 0 -10px;
         .item-product{
             padding: 0 10px;
+            .col-img{
+                position: relative;
+                .img-baged{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    img{
+                        width: 70px;
+                        height: 70px;
+                    }
+                }
+            }
         }
     }
     

@@ -194,6 +194,7 @@ export default {
             if(this.nameState && this.phoneState && this.addressState){
                 this.actAddOrder({
                     name: this.name,
+                    userId: this.getUser.userId,
                     email: this.email,
                     phone: this.phone,
                     address: this.address,

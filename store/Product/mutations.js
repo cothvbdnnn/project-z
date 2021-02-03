@@ -3,6 +3,17 @@ export default {
     getProducts(state, data){
         if(data){
             state.products = data
+            for(let i in state.products){
+                if(state.products[i].salePrice == 0){
+                    state.products[i].price = state.products[i].regularPrice    
+                }else{
+                    state.products[i].price = state.products[i].salePrice
+                }
+                state.products[i].new = false
+                if(((Date.now() - state.products[i].createAt) / 86400000) < 30 ){
+                    state.products[i].new = true
+                }
+            }
         }
     },
     addProduct(state, data){

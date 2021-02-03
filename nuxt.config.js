@@ -60,6 +60,7 @@ module.exports = {
         middleware: [
             'auth',
             'auth-refresh',
+            'mobile',
         ]
     },
     generate: {

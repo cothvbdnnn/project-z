@@ -1,22 +1,14 @@
 <template>
-    <div class="content-admin">
-        <h3>Edit Order {{ id }}</h3>
+    <div class="container">
+        <h3>Order {{ id }}</h3>
         <b-form
             id="edit-order-form"
             ref="form"  
             @submit.prevent="editOrder"
         >   
             <div class="row my-3" align-v="center">
-                <div class="col-md-2 col-sm-12">
-                    <b-form-select size="sm"
-                        v-model="selectStatus" 
-                    >
-                        <b-form-select-option v-for="(item, i) in statusOptions" :key="i" 
-                            :value="item.value"
-                        >
-                            {{ item.text }}
-                        </b-form-select-option>
-                    </b-form-select>
+                <div class="col-md-3 col-sm-12">
+                    <h6 class="mb-0">Status: <span>{{selectStatus}}</span></h6>
                 </div>
                 <div v-if="total" class="col-md-8 col-12">
                     <h6 class="mb-0">Total: <span>{{total | filterPrice}}</span></h6>
@@ -79,19 +71,10 @@
                     <span v-if="data.item.salePrice != 0">{{ (data.item.quantity * data.item.salePrice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND' }}</span>
                 </template>
             </b-table>
-            <b-button class="btn-primary mr-1" type="submit" form="edit-order-form"
-                @keyup.enter="editOrder"
-            >Edit<b-icon class="ml-2" icon="pencil"></b-icon></b-button>
-            <nuxt-link to="/admin/orders">
+            <nuxt-link to="/order">
                 <b-button class="btn-primary"
                 >Back</b-button>
             </nuxt-link>
-            <b-alert show variant="danger" class="mt-3 py-1 px-3"
-                v-if="fail == true"
-            >Error!</b-alert>
-            <b-alert show variant="primary" class="mt-3 py-1 px-3"
-                v-if="success == true"
-            >Success</b-alert>
         </b-form>
     </div>
 </template>
@@ -101,16 +84,13 @@ import moment from 'moment';
 import { mapActions, mapState } from 'vuex'
 
 export default {
-    name: 'EditOrder',
-    layout: 'admin',
+    name: 'ViewOrder',
     head: {
-        title: "Edit Order - Project Z"
+        title: "View Order - Project Z"
     },
     transition: 'fade',
     data() {
         return {
-            success: false,
-            fail: false,
             name: '',
             email: '',
             phone: '',
@@ -132,17 +112,11 @@ export default {
                 { key: 'total', label: 'Total', thClass: 'total-col' },
             ],
             items: [],
-            statusOptions: [
-                { value: 'Processing', text: 'Processing' },
-                { value: 'Confirmed', text: 'Confirmed' },
-                { value: 'Shipped', text: 'Shipped' },
-                { value: 'Completed', text: 'Completed' },
-            ]
         }
     },
     validate(context){
         if(!/^\d+$/.test(context.params.orderId)){
-            context.redirect('/admin/orders')
+            context.redirect('/order')
         }
         return true
     },
@@ -189,16 +163,6 @@ export default {
         },
     },
     methods: {
-        ...mapActions({
-            'actEditOrder' : 'Order/actEditOrder'
-        }),
-        editOrder(){
-            this.actEditOrder({
-                status: this.selectStatus,
-                id: this.id,
-            })  
-            this.success = true
-        }
     }
 }
 </script>

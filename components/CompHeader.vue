@@ -60,6 +60,12 @@
                                             <nuxt-link to="/admin">ADMIN</nuxt-link>
                                         </li>
                                         <li v-if="isUserLogin != null">
+                                            <nuxt-link to="/wishlist">WISHLIST</nuxt-link>
+                                        </li>
+                                        <li v-if="isUserLogin != null">
+                                            <nuxt-link to="/order">ORDER</nuxt-link>
+                                        </li>
+                                        <li v-if="isUserLogin != null">
                                             <a @click="handleLogOut">
                                                 LOGOUT
                                             </a>
@@ -142,6 +148,9 @@
                                 </li>
                                 <li v-if="isUserLogin != null">
                                     <nuxt-link to="/wishlist">WISHLIST</nuxt-link>
+                                </li>
+                                <li v-if="isUserLogin != null">
+                                    <nuxt-link to="/order">ORDER</nuxt-link>
                                 </li>
                                 <li v-if="isUserLogin != null">
                                     <a @click="handleLogOut">

@@ -3,10 +3,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <b-img
-                        :src="imageProduct"
-                    >
-                    </b-img>
+                    <div class="col-img">
+                        <b-img
+                            :src="imageProduct"
+                        >
+                        </b-img>
+                        <div class="img-baged" v-if="newProduct == true">
+                            <img src="~/assets/images/label-new.png">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6 col-12">  
                     <h1 class="text-primary">{{ nameProduct }}</h1>        
@@ -123,6 +128,7 @@ export default {
             imageProduct: null,
             categoryName: '',
             categoryId: '',
+            newProduct: false,
             arrCart: [],
             userId: '',
             userName: '',
@@ -148,6 +154,7 @@ export default {
             this.categoryId = this.productCurrent.categoryId
             this.categoryName = this.productCurrent.categoryName
             this.imageProduct = this.productCurrent.image
+            this.newProduct = this.productCurrent.new
             this.id = this.productCurrent.id
         }
         if(this.getUserCurrent){
@@ -304,3 +311,18 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+    .col-img{
+        position: relative;
+        .img-baged{
+            position: absolute;
+            top: 0;
+            right: 0;
+            img{
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+</style>
