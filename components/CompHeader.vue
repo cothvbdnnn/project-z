@@ -38,7 +38,7 @@
                                 <div class="wrapDrop" v-if="menu.submenu.length > 0">
                                     <ul>
                                         <li v-for="(sub,i) in menu.submenu" :key="i">
-                                            <a :href="sub.sublink">{{ sub.subtitle }}</a>
+                                            <nuxt-link :to="sub.sublink">{{ sub.subtitle }}</nuxt-link>
                                         </li>
                                     </ul>
                                 </div>
@@ -84,7 +84,7 @@
                         <div class="wrapDrop" v-if="menu.submenu.length > 0">
                             <ul>
                                 <li v-for="(sub,i) in menu.submenu" :key="i">
-                                    <a :href="sub.sublink">{{ sub.subtitle }}</a>
+                                    <nuxt-link :to="sub.sublink">{{ sub.subtitle }}</nuxt-link>
                                 </li>
                             </ul>
                         </div>
@@ -177,9 +177,9 @@ export default {
             menus: [
                 {title: "OUR STORY", link: "/our-story", submenu: []},
                 {title: "NEWSLETTER", link: "/blog", submenu: [
-                    {subtitle: "COFFEE", sublink: "/blog"},
-                    {subtitle: "TRAVEL", sublink: "/blog"},
-                    {subtitle: "LIFE", sublink: "/blog"}
+                    {subtitle: "COFFEE", sublink: "/tag/coffee"},
+                    {subtitle: "TRAVEL", sublink: "/tag/travel"},
+                    {subtitle: "LIFE", sublink: "/tag/life"}
                 ]},
                 {title: "MENU", link: "/menu", submenu: [
                     {subtitle: "DRINKS MENU", sublink: "/menu"},

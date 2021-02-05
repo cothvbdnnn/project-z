@@ -31,12 +31,32 @@
             </div>
         </div>
         <CompCompare/>
+        <go-top
+            :bg-color="'#3c5e2c'"
+            :radius="'0%'"
+            :size="50"
+            :right="25"
+            :weight="'bold'"
+            :has-outline="false"
+        ></go-top>
     </div>
 </template>
 
 <script>
-export default {
 
+const GoTop = process.client ? require('@inotom/vue-go-top').default : null;
+
+export default {
+    data() {
+        return {
+            
+        }
+    },
+    methods: {
+    },
+    components: {
+        GoTop
+    }
 }
 </script>
 

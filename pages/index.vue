@@ -2,7 +2,7 @@
     <div class="main">
         <div class="slider">
             <div>
-                <VueSlickCarousel v-bind="settings">
+                <VueSlickCarousel v-bind="slideBanner">
                     <div v-for="(slide,i) in getSlides" :key="i" class="container-slide">
                         <b-img :src="slide.image"></b-img>
                         <div class="txtSlide">
@@ -39,6 +39,40 @@
                         </div>
                     </div>
                 </div>
+                <div class="section slide-product">
+                    <VueSlickCarousel v-bind="slideProduct">
+                        <div class="item-product"
+                            v-for="(product,i) in getProducts"
+                            :key="i"
+                        >   
+                            <div class="container-item">
+                                <div class="col-img">
+                                    <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
+                                        <b-img
+                                            :src="product.image"
+                                        >
+                                        </b-img>
+                                    </nuxt-link>
+                                    <div class="img-baged" v-if="product.new == true">
+                                        <img src="~/assets/images/label-new.png">
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <nuxt-link :to="'/category/' + product.categoryName | fomartLink">
+                                        <h6 class="mt-1">{{ product.categoryName }}</h6>
+                                    </nuxt-link>
+                                    <nuxt-link :to="/menu/+ product.name + '?id=' + product.id | fomartLink">
+                                        <h5 class="mt-1"><strong>{{ product.name }}</strong></h5>
+                                    </nuxt-link>
+                                    <h5>
+                                        <span v-if="product.salePrice != 0"><strong>{{ product.salePrice | filterPrice}}</strong></span>
+                                        <span :class="product.salePrice != 0 ? 'line-through' : null"><strong>{{ product.regularPrice | filterPrice }}</strong></span>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </VueSlickCarousel>
+                </div>
                 <div class="section">
                     <div class="row">
                         <div class="col-sm-12">
@@ -56,6 +90,50 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="section slide-post">
+                    <VueSlickCarousel v-bind="slidePost">
+                        <div class="item-blog"
+                            v-for="(post,i) in getPosts"
+                            :key="i"
+                        >   
+                            <div class="container-item">
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <div class="col-img">
+                                            <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
+                                                <b-img
+                                                    :src="post.image"
+                                                >
+                                                </b-img>
+                                            </nuxt-link>
+                                            <div class="img-baged" v-if="post.new == true">
+                                                <img src="~/assets/images/label-new.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="content">
+                                            <nuxt-link :to="/blog/+ post.title + '?id=' + post.id | fomartLink">
+                                                <h5 class="mb-1 text-primary"><strong>{{ post.title }}</strong></h5>
+                                            </nuxt-link>
+                                            <h6 class="mb-1 text-primary"><strong>Author: 
+                                                <span>
+                                                    <nuxt-link :to="'/author/' + post.authorName | fomartLink">{{post.authorName}}</nuxt-link>
+                                                </span> - {{ post.createAt | filterDate}}</strong>
+                                            </h6>
+                                            <p class="mb-1">{{ post.excerpt | truncate(100, '...') }}</p>
+                                            <h6 class="text-primary"><strong>Tag<span v-if="post.tags.length > 1">s</span>: 
+                                                <span v-for="(tag, i) in post.tags" :key="i" class="tags">
+                                                    <nuxt-link :to="'/tag/' + tag | fomartLink">{{tag}}</nuxt-link>
+                                                </span></strong>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </VueSlickCarousel>
                 </div>
                 <div class="section">
                     <div class="row">
@@ -85,6 +163,7 @@ import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import { mapState } from 'vuex'
+import moment from 'moment'
 
 export default {
     name: 'Home',
@@ -94,7 +173,7 @@ export default {
     transition: 'fade',
     data() {
         return {
-            settings: {
+            slideBanner: {
                 arrows: true,
                 dots: false,
                 autoplay: true,
@@ -103,11 +182,71 @@ export default {
                 slidesToShow: 1,
                 slidesToScroll: 1,
             },
+            slideProduct: {
+                arrows: false,
+                dots: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                infinite: true,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                responsive: [
+                    {
+                        breakpoint: 1124,
+                        settings: {	
+                            slidesToShow: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 800,
+                        settings: {
+                            slidesToShow: 2,
+                        }
+                    },
+                ]
+            },
+            slidePost: {
+                arrows: false,
+                dots: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                infinite: true,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                responsive: [
+                    {
+                        breakpoint: 1124,
+                        settings: {	
+                            slidesToShow: 1,
+                        }
+                    },
+                ]
+            },
         }
+    },
+    filters: {
+        fomartLink(text) {
+            return text.split(' ').join('-').toLowerCase()
+        },
+        filterPrice(price) {
+            return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + 'VND';
+        },
+        filterDate: function (date) {
+            return moment(date).format('l');
+        },
+        truncate(text, length, suffix) {
+            if (text.length > length) {
+                return text.substring(0, length) + suffix;
+            } else {
+                return text;
+            }
+        },
     },
     computed: {
         ...mapState({
             getSlides: state => state.Slide.slides,
+            getProducts: state => state.Product.products.slice(0,5),
+            getPosts: state => state.Post.posts.slice(0,5),
         }),
     },
     components: { 
@@ -352,6 +491,29 @@ body .main{
             }
         }
         
+    }
+    .slide-product{
+        .slick-list{
+            margin: 0 -15px;
+            .item-product{
+                margin-bottom: 0;
+                .container-item{
+                    margin: 0 15px;
+                    border: none;
+                }   
+            }
+        }
+    }   
+    .slide-post{
+        .slick-list{
+            margin: 0 -15px;
+            .item-blog{
+                margin-bottom: 0;
+                .container-item{
+                    margin: 0 15px;
+                }  
+            }
+        }
     }
 }
 

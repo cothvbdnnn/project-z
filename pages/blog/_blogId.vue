@@ -22,7 +22,7 @@
                         :postType="'blog'"
                     />
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-4 col-12 related-post">
                     <CompRelatedPost
                         :idPost="postCurrent.id"
                         :tags="postCurrent.tags"
@@ -109,23 +109,24 @@ export default {
             height: 350px;
         }
     }
-    .item-blog{
-        .container-item{
-            overflow: hidden;
-            height: 100%;
-            img{
-                height: 100px;
-                width: 100%;
-                object-fit: cover;
-            }
-            .content{
-                height: 100px;
-                h5{
-                    margin-bottom: 0;
-                    font-size: 20px;
+    .related-post{
+        .item-blog{
+            .container-item{
+                overflow: hidden;
+                height: 100%;
+                img{
+                    height: 100px !important;
+                    width: 100%;
+                    object-fit: cover;
                 }
-            }
-        }   
+                .content{
+                    h5{
+                        margin-bottom: 0;
+                        font-size: 20px;
+                    }
+                }
+            }   
+        }
     }
     .newsletter-sidebar{
         background-color: #d3b161;

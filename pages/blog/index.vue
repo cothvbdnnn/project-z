@@ -65,7 +65,7 @@
 <script>
 
 import { mapState } from 'vuex'
-import moment from 'moment';
+import moment from 'moment'
 
 export default {
     name: 'Blog',
@@ -134,8 +134,6 @@ export default {
                     }
                 }
                 .content{
-                    height: 200px;
-                    overflow: hidden;
                     @media screen and ( max-width: 767px ) {
                         margin-top: 15px;
                     }
