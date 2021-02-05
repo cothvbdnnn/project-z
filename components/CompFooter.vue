@@ -34,8 +34,8 @@
         <go-top
             :bg-color="'#3c5e2c'"
             :radius="'0%'"
-            :size="60"
-            :right="25"
+            :size="50"
+            :right="30"
             :has-outline="false"
         ></go-top>
     </div>
