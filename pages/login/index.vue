@@ -22,6 +22,14 @@
                         <NuxtLink to="/sign-up">
                             <b-button class="btn-primary">Sign up</b-button>
                         </NuxtLink>
+                        <div class="row mx-0 mt-3 social-login">
+                            <b-button class="btn-primary mr-2"
+                                @click="logInGoogle"
+                            >Login with Google</b-button>
+                            <b-button class="btn-primary"
+                                @click="logInFacebook"
+                            >Login with Facebook</b-button>
+                        </div>
                         <b-alert show variant="danger" class="mt-3 py-1 px-3"
                             v-if="getErrorLogIn != ''"
                         >{{ getErrorLogIn }}</b-alert>
@@ -54,7 +62,9 @@ export default {
     },
     methods: {
         ...mapActions({
-            'actLoginUser' : 'LogIn/actLogInUser'
+            'actLoginUser' : 'LogIn/actLogInUser',
+            'actLoginGoogle' : 'LogIn/actLogInGoogle',
+            'actLoginFacebook' : 'LogIn/actLogInFacebook'
         }),
         logInUser(){
             this.actLoginUser({
@@ -62,10 +72,22 @@ export default {
                 password: this.password, 
             });
         },
+        logInGoogle(){
+            this.actLoginGoogle()
+        },
+        logInFacebook(){
+            this.actLoginFacebook()
+        }
     }
 }
 </script>
 
-<style>
+<style lang="scss">
+
+.social-login{
+    button{
+        font-size: 12px;
+    }
+}
 
 </style>

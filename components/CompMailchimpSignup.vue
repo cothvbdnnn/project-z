@@ -66,7 +66,7 @@ export default {
             max-width: 250px;
             width: 100%;
             padding: 0 10px;
-            border-color: #3c5e2c;
+            border: 2px solid #3c5e2c;
             font-size: 14px;
             -webkit-box-shadow: none;
             box-shadow: none;

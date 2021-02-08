@@ -21,7 +21,7 @@ export default function (context) {
         if (context.role == 'user' && context.route.fullPath.includes('admin')) {
             context.redirect('/')
         }
-        if (!context.isLogin && context.route.fullPath.includes('admin')) {
+        if (!context.isLogin && context.route.fullPath.includes('admin') || context.route.name === 'profile') {
             context.redirect('/login')
         }
     }  

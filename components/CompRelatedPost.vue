@@ -57,8 +57,8 @@ export default {
             default: '',
         },
         tags: {
-            type: String,
-            default: '',
+            type: Array,
+            default: [],
         },
     },
     filters: {
