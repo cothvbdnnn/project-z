@@ -22,11 +22,11 @@
                         <NuxtLink to="/sign-up">
                             <b-button class="btn-primary">Sign up</b-button>
                         </NuxtLink>
-                        <div class="row mx-0 mt-3 social-login">
-                            <b-button class="btn-primary mr-2"
+                        <div class="row mx-0 social-login">
+                            <b-button class="btn-primary mr-2 mt-2"
                                 @click="logInGoogle"
                             >Login with Google</b-button>
-                            <b-button class="btn-primary"
+                            <b-button class="btn-primary mt-2"
                                 @click="logInFacebook"
                             >Login with Facebook</b-button>
                         </div>

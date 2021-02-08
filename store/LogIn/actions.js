@@ -13,7 +13,7 @@ export default {
         }
         
     },
-    async actLogInGoogle(){
+    async actLogInGoogle({commit}){
         try {
             const loginGoogle = new firebase.auth.GoogleAuthProvider()
             const logIn = await firebase.auth().signInWithPopup(loginGoogle)
@@ -36,7 +36,7 @@ export default {
         }
         
     },
-    async actLogInFacebook(){
+    async actLogInFacebook({commit}){
         try {
             const loginFacebook = new firebase.auth.FacebookAuthProvider()
             const logIn = await firebase.auth().signInWithPopup(loginFacebook)
