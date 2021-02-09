@@ -185,26 +185,28 @@ export default {
     },
     methods: {
         ...mapActions({
-            'actAddOrder': 'Order/actAddOrder'
+            'actAddOrder': 'Order/actAddOrder',
+            'actMomoPayment': 'Order/actMomoPayment'
         }),
         ...mapMutations({
             'clearCart' : 'Cart/clearCart',
         }),
         order(){
-            if(this.nameState && this.phoneState && this.addressState){
-                this.actAddOrder({
-                    name: this.name,
-                    userId: this.getUser.userId,
-                    email: this.email,
-                    phone: this.phone,
-                    address: this.address,
-                    notes: this.notes,
-                    order: this.arrCart,
-                    total: this.totalPrice,
-                })
-                this.clearCart()
-                this.success = true
-            }
+            this.actMomoPayment()
+            // if(this.nameState && this.phoneState && this.addressState){
+            //     this.actAddOrder({
+            //         name: this.name,
+            //         userId: this.getUser.userId,
+            //         email: this.email,
+            //         phone: this.phone,
+            //         address: this.address,
+            //         notes: this.notes,
+            //         order: this.arrCart,
+            //         total: this.totalPrice,
+            //     })
+            //     this.clearCart()
+            //     this.success = true
+            // }
         }
     },
 }
