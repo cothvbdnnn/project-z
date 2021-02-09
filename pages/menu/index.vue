@@ -91,10 +91,11 @@
                     <div class="row justify-content-end align-items-center">
                         <div class="col-md-4 col-12 mb-3 pr-md-0 pr-3">
                             <h6 class="mb-0 text-md-left text-right"><strong>
-                                <span v-if="currentPage == 1 && filterProduct.length == 0">0</span>
+                                <span v-if="filterProduct.length == 0">0</span>
                                 <span v-if="currentPage == 1 && filterProduct.length > 0">1</span>
-                                <span> - {{ productPagination.length }}</span>
-                                <span v-if="currentPage > 1">{{ ((currentPage - 1) * productsPerPage) + 1 }} - {{ ((currentPage - 1) * productsPerPage) + productPagination.length }}</span>
+                                <span v-if="currentPage == 1"> - {{ productPagination.length }}</span>
+                                <span v-if="currentPage > 1 && filterProduct.length == 0"> - {{ productPagination.length }}</span>
+                                <span v-if="currentPage > 1 && filterProduct.length > 0">{{ ((currentPage - 1) * productsPerPage) + 1 }} - {{ ((currentPage - 1) * productsPerPage) + productPagination.length }}</span>
                                 of {{ filterProduct.length}} product<span v-if="filterProduct.length > 1">s</span></strong>
                             </h6>
                         </div>

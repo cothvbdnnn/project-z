@@ -26,6 +26,7 @@ export default {
                     categoryName: value.categoryName,
                     image: value.image,
                     name: value.name,
+                    new: true,
                     regularPrice: value.regularPrice,
                     salePrice: value.salePrice,
                     quantity: value.quantity,

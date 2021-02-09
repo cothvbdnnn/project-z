@@ -91,7 +91,6 @@ body{
     .share-social{
         a{
             font-size: 14px;
-            border: 1px solid #3c5e2c;
             color: #3c5e2c;
             margin: 0 7px;
             font-weight: 600;
@@ -101,6 +100,9 @@ body{
             }
             &:last-child{
                 margin-right: 0;
+            }
+            img{
+                height: 15px;
             }
         }
     }

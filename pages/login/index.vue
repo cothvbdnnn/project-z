@@ -25,10 +25,10 @@
                         <div class="row mx-0 social-login">
                             <b-button class="btn-primary mr-2 mt-2"
                                 @click="logInGoogle"
-                            >Login with Google</b-button>
+                            >Google Login <img src="~/assets/images/g-white.png" /></b-button>
                             <b-button class="btn-primary mt-2"
                                 @click="logInFacebook"
-                            >Login with Facebook</b-button>
+                            >Facebook Login <img src="~/assets/images/facebook-white.png" /></b-button>
                         </div>
                         <b-alert show variant="danger" class="mt-3 py-1 px-3"
                             v-if="getErrorLogIn != ''"
@@ -87,6 +87,13 @@ export default {
 .social-login{
     button{
         font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img{
+            height: 15px;
+            margin-left: 5px;
+        }
     }
 }
 

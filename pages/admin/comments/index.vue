@@ -133,6 +133,17 @@ export default {
         }),
         items(){
             return this.getComments        
+        },
+        calPagination(){
+            let number 
+            
+            if(this.currentPage == 1){
+                number = 0
+            }else{
+                number = (this.currentPage - 1) * this.perPage
+            }
+
+            return number
         }
     },
     methods: {
@@ -165,7 +176,7 @@ export default {
             .then(value => {
                 this.confirm = value
                 if(this.confirm){
-                    this.actRemoveComment({index: data.index,id: data.item.id})
+                    this.actRemoveComment({index: data.index + this.calPagination,id: data.item.id})
                 }
             })
             .catch(err => {

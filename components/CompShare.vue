@@ -11,7 +11,7 @@
             :quote="sharing.quote"
             :hashtags="sharing.hashtags"
         >
-            <span>{{ network.name }}</span>
+            <img :src="require(`~/assets/images/${network.icon}`)" />
         </ShareNetwork>
     </div>
 </template>
@@ -28,10 +28,10 @@ export default {
         hashtags: 'thanhcoffee',
       },
       networks: [
-        { network: 'email', name: 'Email', icon: 'fa-envelope', color: '#fff' },
-        { network: 'facebook', name: 'Facebook', icon: 'fa-facebook-f', color: '#fff' },
-        { network: 'pinterest', name: 'Pinterest', icon: 'fa-pinterest', color: '#fff' },
-        { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#fff' },
+        { network: 'email', name: 'Email', icon: 'g.png', color: '#fff' },
+        { network: 'facebook', name: 'Facebook', icon: 'facebook.png', color: '#fff' },
+        { network: 'pinterest', name: 'Pinterest', icon: 'p.png', color: '#fff' },
+        { network: 'twitter', name: 'Twitter', icon: 't.png', color: '#fff' },
       ]
     }
   }

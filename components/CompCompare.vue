@@ -146,6 +146,9 @@ export default {
                 }
                 .item-product{
                     max-width: 100px;
+                    height: 100px;
+                    object-fit: cover;
+                    margin-bottom: 15px;
                     .col-img{
                         position: relative;
                         .remove-btn{
@@ -159,6 +162,7 @@ export default {
                         }
                         img{
                             max-width: 100px;
+                            height: 100px;
                         }
                     }
                 }

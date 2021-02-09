@@ -44,7 +44,7 @@
                         >
                             <b-icon icon="x-square-fill"></b-icon>
                         </b-button>
-                        <nuxt-link :to="'/admin/tags/edit/' + data.index">
+                        <nuxt-link :to="'/admin/tags/edit/' + (data.index + calPagination)">
                             <b-button size="sm" class="btn-primary">
                                 <b-icon icon="pencil"></b-icon>
                             </b-button>
@@ -118,6 +118,17 @@ export default {
         }),
         items(){
             return this.getTags        
+        },
+        calPagination(){
+            let number 
+            
+            if(this.currentPage == 1){
+                number = 0
+            }else{
+                number = (this.currentPage - 1) * this.perPage
+            }
+
+            return number
         }
     },
     methods: {
@@ -141,7 +152,7 @@ export default {
                 this.confirm = value
                 if(this.confirm){
                     this.actRemoveTag({
-                        index: data.index,
+                        index: data.index + this.calPagination,
                         id: data.item.id,
                         tagOld: data.item.name
                     })

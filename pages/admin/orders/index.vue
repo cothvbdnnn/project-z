@@ -58,7 +58,7 @@
                         >
                             <b-icon icon="x-square-fill"></b-icon>
                         </b-button>
-                        <nuxt-link :to="'/admin/orders/edit/' + data.index">
+                        <nuxt-link :to="'/admin/orders/edit/' + (data.index + calPagination)">
                             <b-button size="sm" class="btn-primary">
                                 <b-icon icon="pencil"></b-icon>
                             </b-button>
@@ -138,6 +138,17 @@ export default {
         }),
         items(){
             return this.getOrders        
+        },
+        calPagination(){
+            let number 
+            
+            if(this.currentPage == 1){
+                number = 0
+            }else{
+                number = (this.currentPage - 1) * this.perPage
+            }
+
+            return number
         }
     },
     methods: {
@@ -160,7 +171,7 @@ export default {
             .then(value => {
                 this.confirm = value
                 if(this.confirm){
-                    this.actRemoveOrder({index: data.index,id: data.item.id, order: data.item.order})
+                    this.actRemoveOrder({index: data.index + this.calPagination,id: data.item.id, order: data.item.order})
                 }
             })
             .catch(err => {

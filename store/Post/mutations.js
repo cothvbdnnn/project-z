@@ -20,6 +20,7 @@ export default {
                     createAt: value.createAt,
                     image: value.image,
                     title: value.title,
+                    new: true,
                     excerpt: value.excerpt,
                     content: value.content,
                     authorId: value.authorId,
