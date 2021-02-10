@@ -157,9 +157,15 @@ export default {
     computed: {
         ...mapState({
             getOrders: state => state.Order.orders,
+            getUserCurrent: state => state.userCurrent,
         }),
+        filterOrder(){
+            return this.getOrders.filter( x => {
+                return x.userId == this.getUserCurrent.userId
+            })
+        },
         orderCurrent(){
-            return this.getOrders[this.$route.params.orderId]
+            return this.filterOrder[this.$route.params.orderId]
         },
     },
     methods: {

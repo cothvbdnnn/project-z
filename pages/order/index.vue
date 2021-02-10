@@ -54,7 +54,7 @@
                         </template>
                         <template #cell(actions)="data" >
                             <div class="row-actions">
-                                <nuxt-link :to="'/order/view/' + data.index">
+                                <nuxt-link :to="'/order/view/' + (data.index + calPagination)">
                                     <b-button size="sm" class="btn-primary">
                                         <b-icon icon="eye"></b-icon>
                                     </b-button>
@@ -149,6 +149,17 @@ export default {
         },
         items(){
             return this.filterOrder        
+        },
+        calPagination(){
+            let number 
+            
+            if(this.currentPage == 1){
+                number = 0
+            }else{
+                number = (this.currentPage - 1) * this.perPage
+            }
+
+            return number
         }
     },
     methods: {

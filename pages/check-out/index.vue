@@ -2,6 +2,7 @@
     <div class="checkout">
         <div class="container">
             <h1>Check Out</h1>
+            <h5 v-if="$route.query.message">{{ $route.query.message }}</h5>
             <div class="container-checkout row mt-3">
                 <div class="col-md-8 col-12">
                     <b-form
@@ -56,11 +57,20 @@
                             Required
                         </b-form-invalid-feedback>
                         <h6>Order notes</h6>
-                        <b-form-textarea class="mb-3"
+                        <b-form-textarea class="mb-2"
                             placeholder="Order notes"
                             v-model="notes"
                         >
                         </b-form-textarea>
+                        <b-form-group label="Payment methods" v-slot="{ ariaDescribedby }">
+                            <b-form-radio-group
+                                v-model="selectedMethods"
+                                :options="options"
+                                :aria-describedby="ariaDescribedby"
+                                name="radios-stacked"
+                                stacked
+                            ></b-form-radio-group>
+                        </b-form-group>
                     </div>
                     <b-button class="btn-primary mr-1" type="submit" form="order-form"
                         @keyup.enter="order"
@@ -68,6 +78,9 @@
                     <b-alert show variant="danger" class="mt-3 py-1 px-3"
                         v-if="fail == true"
                     >Error!</b-alert>
+                    <b-alert show variant="danger" class="mt-3 py-1 px-3"
+                        v-if="alertLogin == true"
+                    >Please login!</b-alert>
                     <b-alert show variant="primary" class="mt-3 py-1 px-3"
                         v-if="success == true"
                     >Success</b-alert>
@@ -121,6 +134,12 @@ export default {
             notes: '',
             success: false,
             fail: false,
+            alertLogin: false,
+            selectedMethods: 'momo',
+            options: [
+                { text: 'MOMO Payment', value: 'momo' },
+                { text: 'COD', value: 'cod' },
+            ]
         }
     },
     created() {
@@ -145,6 +164,11 @@ export default {
             setTimeout(() => {
                 this.fail = false
             }, 2000);
+        },
+        alertLogin(){
+            setTimeout(() => {
+                this.alertLogin = false
+            }, 5000);
         },
     },
     filters: {
@@ -192,21 +216,39 @@ export default {
             'clearCart' : 'Cart/clearCart',
         }),
         order(){
-            this.actMomoPayment()
-            // if(this.nameState && this.phoneState && this.addressState){
-            //     this.actAddOrder({
-            //         name: this.name,
-            //         userId: this.getUser.userId,
-            //         email: this.email,
-            //         phone: this.phone,
-            //         address: this.address,
-            //         notes: this.notes,
-            //         order: this.arrCart,
-            //         total: this.totalPrice,
-            //     })
-            //     this.clearCart()
-            //     this.success = true
-            // }
+            if(this.getUser == null){
+                this.alertLogin = true
+            }else{
+                if(this.nameState && this.phoneState && this.addressState && this.arrCart.length > 0){
+                    if(this.selectedMethods == 'cod'){
+                        this.actAddOrder({
+                            name: this.name,
+                            userId: this.getUser.userId,
+                            email: this.email,
+                            phone: this.phone,
+                            address: this.address,
+                            notes: this.notes,
+                            order: this.arrCart,
+                            total: this.totalPrice,
+                        })
+                        this.clearCart()
+                        this.success = true
+                        setTimeout(() => this.$router.replace('/order'), 1000)
+                        
+                    }else if(this.selectedMethods == 'momo'){
+                        this.actMomoPayment({
+                            name: this.name,
+                            userId: this.getUser.userId,
+                            email: this.email,
+                            phone: this.phone,
+                            address: this.address,
+                            notes: this.notes,
+                            order: this.arrCart,
+                            total: this.totalPrice,
+                        })
+                    }
+                }
+            }
         }
     },
 }
