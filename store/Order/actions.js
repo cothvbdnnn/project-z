@@ -124,8 +124,8 @@ export default {
         let accessKey = "xbCzgnNIrhxAEyUL"
         let serectkey = "4LjJutUecZRGULBMVyKEJS4Hm9rq6jmV"
         let orderInfo = "Sử dụng app MoMo TEST và sử dụng account test do MoMo cung cấp sẵn 0917003003 Mật khẩu: 000000 Mã xác thực: 000000"
-        let returnUrl = "http://localhost:3000/check-out"
-        let notifyurl = "https://callback.url/notify"
+        let returnUrl = window.location.origin + '/check-out'
+        let notifyurl = window.location.origin + '/check-out'
         let amount = data.total.toString()
         let orderId = uuidv1()
         let requestId = uuidv1()
