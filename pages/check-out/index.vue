@@ -138,6 +138,7 @@ export default {
             selectedMethods: 'momo',
             options: [
                 { text: 'MOMO Payment', value: 'momo' },
+                { text: 'Zalopay Payment', value: 'zalopay' },
                 { text: 'COD', value: 'cod' },
             ]
         }
@@ -210,7 +211,8 @@ export default {
     methods: {
         ...mapActions({
             'actAddOrder': 'Order/actAddOrder',
-            'actMomoPayment': 'Order/actMomoPayment'
+            'actMomoPayment': 'Order/actMomoPayment',
+            'actZalopayPayment': 'Order/actZalopayPayment'
         }),
         ...mapMutations({
             'clearCart' : 'Cart/clearCart',
@@ -237,6 +239,17 @@ export default {
                         
                     }else if(this.selectedMethods == 'momo'){
                         this.actMomoPayment({
+                            name: this.name,
+                            userId: this.getUser.userId,
+                            email: this.email,
+                            phone: this.phone,
+                            address: this.address,
+                            notes: this.notes,
+                            order: this.arrCart,
+                            total: this.totalPrice,
+                        })
+                    }else if(this.selectedMethods == 'zalopay'){
+                        this.actZalopayPayment({
                             name: this.name,
                             userId: this.getUser.userId,
                             email: this.email,

@@ -123,7 +123,7 @@ export default {
         let partnerCode = "MOMOWEJ020210209"
         let accessKey = "xbCzgnNIrhxAEyUL"
         let serectkey = "4LjJutUecZRGULBMVyKEJS4Hm9rq6jmV"
-        let orderInfo = "Sử dụng app MoMo TEST và sử dụng account test do MoMo cung cấp sẵn 0917003003 Mật khẩu: 000000 Mã xác thực: 000000"
+        let orderInfo = "Pay with Momo"
         let returnUrl = window.location.origin + '/check-out'
         let notifyurl = window.location.origin + '/check-out'
         let amount = data.total.toString()
@@ -169,7 +169,7 @@ export default {
             path: '/gw_payment/transactionProcessor',
             method: 'POST',
             headers: headers
-        };
+        }
 
         //Send the request and get the response
 
@@ -185,7 +185,7 @@ export default {
                 console.log('No more data in response.');
             })
 
-        });
+        })
 
         req.on('error', (e) => {
             console.log(`problem with request: ${e.message}`);
@@ -195,5 +195,40 @@ export default {
 
         req.write(body);
         req.end();
+    },
+    actZalopayPayment(context, data){
+            
+            const crypto = require('crypto')
+            const moment = require('moment')
+
+            const config = {
+                appid: "553",
+                key1: "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL",
+                key2: "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz"
+            }
+            
+            const transID = `${moment().format('YYMMDD')}_${Math.floor(Math.random() * 1000000)}`
+
+            const order = {
+                appid: config.appid, 
+                apptransid: '200904_000234',
+                appuser: "Thành Coffee", 
+                apptime: Date.now(),
+                item: "[]", 
+                embeddata: "{}", 
+                amount: data.total, 
+                description: "Thành Coffee - Thanh toán đơn hàng #" + transID, 
+                bank_code: "zalopayapp", 
+                mac: "7e95836a9feace32458f23416feea423172ef0a098f27a668a1e10788b5a6838"
+            }
+            
+            // appid|app_trans_id|appuser|amount|apptime|embeddata|item
+            const dataPay = config.app_id + "|" + order.app_trans_id + "|" + order.app_user + "|" + order.amount + "|" + order.app_time + "|" + order.embed_data + "|" + order.item
+
+            // order.mac = crypto.createHmac("sha256", dataPay).update(config.key1).digest('hex')
+
+            const b64Order = Buffer.from(JSON.stringify(order)).toString('base64')
+
+            setTimeout( () => window.open("https://sbgateway.zalopay.vn/openinapp?order=" + encodeURIComponent(b64Order)), 1000)
     }
 }
